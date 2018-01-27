@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+ 
+ 
+  <context:property-placeholder location="classpath:db.properties"/>
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+       <property name="driverClass" value="${jdbc.driver}"></property>
+       <property name="jdbcUrl" value="${jdbc.url}"></property>
+       <property name="user" value="${jdbc.username}"></property>
+       <property name="password" value="${jdbc.password}"></property>
+  </bean>
+  
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+     <!--加载Mybatis的配置文件  -->
+     <property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
+     <!--数据源  -->
+     <property name="dataSource" ref="dataSource"></property>
+  </bean>
+  
+
+  
+
+ 
+  <!--mapper批量扫描，扫描出Mapper接口，自动创建mapper代理对像，并在spring中注册Bean  -->
+  <!--扫描创建的Bean id为首字母小写的类名  -->
+  <!--MapperScannerConfigurer扫描器类 -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+     <!--扫描包名  -->
+     <property name="basePackage" value="com.ncu.mapper"></property>
+     <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+  </bean>
+ 
+ 
+ 
+ 
+   <!--service管理  -->
+
+  
+  
+  <!--事务管理  -->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"></property>
+  </bean>
+  <!--通知  -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+        <tx:method name="save*" propagation="REQUIRED"/>
+        <tx:method name="delete*" propagation="REQUIRED"/>
+        <tx:method name="update*" propagation="REQUIRED"/>
+        <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+     </tx:attributes>
+  </tx:advice>
+  <!--AOP-->
+  <aop:config>
+    <aop:pointcut expression="execution(public * com.ncu.service.impl.*.*(..))" 
+      id="pc"/>
+     <aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
+  </aop:config>
+  
+</beans>

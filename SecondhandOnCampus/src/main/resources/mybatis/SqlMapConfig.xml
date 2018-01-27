@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 别名定义 -->
+	<typeAliases>
+		<!-- 批量别名定义 
+		指定包名，mybatis自动扫描包中的po类，自动定义别名，别名就是类名（首字母大写或小写都可以）
+		-->
+		<package name="com.ncu.pojo"/>
+		
+	</typeAliases>
+
+	<!-- 加载 映射文件 -->
+	<!-- <mappers> -->
+		<!--通过resource方法一次加载一个映射文件 -->
+		<!-- <mapper resource="mapper/UserMapper.xml"/> -->
+		
+		<!-- 通过mapper接口加载单个 映射文件
+		遵循一些规范：需要将mapper接口类名和mapper.xml映射文件名称保持一致，且在一个目录 中
+		上边规范的前提是：使用的是mapper代理方法
+		 -->
+		<!-- <mapper class="cn.itcast.mybatis.mapper.UserMapper"/> -->
+		
+		<!-- 批量加载mapper
+		指定mapper接口的包名，mybatis自动扫描包下边所有mapper接口进行加载
+		遵循一些规范：需要将mapper接口类名和mapper.xml映射文件名称保持一致，且在一个目录 中
+		上边规范的前提是：使用的是mapper代理方法
+		 -->
+		 <!--和Spring整合后   使用扫描器加载了  -->
+		<!-- <package name="com.ncu.mapper"/> -->
+
+	<!-- </mappers> -->
+	
+</configuration>
