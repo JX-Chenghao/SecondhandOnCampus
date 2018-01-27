@@ -99,7 +99,7 @@
 		<property name="converters">
 			<list>
 				<!-- 日期类型转换 -->
-				<bean class="com.ncu.converter.CustomDateConverter"/>
+				<!-- <bean class="com.ncu.converter.CustomDateConverter"/> -->
 			</list>
 		</property>
 	</bean>
