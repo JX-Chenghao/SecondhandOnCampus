@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!--名为 mvc-dispatcher的 DispatcherServlet 使用 ，提供与之相关的SpringMVC配置 -->
+
+	<!-- 启用 Spring 基于注解的DI 功能，使SpringMVC 能使用Spring的功能， 激活@Required @Autowired 
+		@Resource等标注 -->
+	<context:annotation-config></context:annotation-config>
+
+	<!-- DispatcherServlet 上下文，只扫描管理@Controller注解标注的类， 忽略其他bean ,其他bean 交由 Spring上下文 
+		扫描管理 -->
+	<context:component-scan base-package="com.ncu.controller">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+<!-- 	
+	   静态资源处理 为了获取js css img/restFul风格 使用
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+ -->
+	
+	
+	
+	<!--MVC 默认启用handlerMaping -->
+
+	<!--开启处理器映射器  处理器适配器的 注解配置，及一些json转换解析器 等的一些参数绑定 -->
+	<mvc:annotation-driven  conversion-service="conversionService" validator="validator"/>
+
+    <!-- 校验器 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<!-- hibernate校验器-->
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<!-- 指定校验使用的资源文件，在文件中配置校验错误信息，如果不指定则默认使用classpath下的ValidationMessages.properties -->
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+    <!-- 校验错误信息配置文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<!-- 资源文件名-->
+		<property name="basenames">   
+       	 <list>    
+            <value>classpath:ValidationMessages</value> 
+       	 </list>   
+    	</property>
+		<!-- 资源文件编码格式 -->
+		<property name="fileEncodings" value="utf-8" />
+		<!-- 对资源文件内容缓存时间，单位秒 -->
+		<property name="cacheSeconds" value="120" />
+	</bean>	
+
+<!--  <mvc:interceptors>
+       <bean class="com.imooc.controller.interceptor.LoginValidateInterceptor"></bean>
+     </mvc:interceptors>  -->
+
+
+	<!-- 全局异常处理器  
+	<bean class="com.ncu.exception.CustomExceptionResolver"></bean> -->
+
+      <!--配置ViewResolver 一个DispatcherServlet可以配置多个ViewResolver 使用order属性排序 ，但其中InternalResourceViewResolver 
+		放在最后 -->
+	
+			
+     <bean id="contentNegotiationManager"     
+        class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+       <property name="favorParameter" value="true"/>
+       <property name="parameterName" value="format"/>
+       <property name="ignoreAcceptHeader" value="false"/>
+       <property name="mediaTypes">
+           <value>
+                json=application/json
+                xml=application/xml
+           </value>
+       </property>
+       <property name="defaultContentType" value="text/html"/>
+      </bean>
+	
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+    <!-- 自定义参数绑定 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<!-- 转换器 -->
+		<property name="converters">
+			<list>
+				<!-- 日期类型转换 -->
+				<bean class="com.ncu.converter.CustomDateConverter"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 文件上传 -->
+<!--     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="204915200"></property>
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="resolveLazily" value="true"></property>
+    </bean> -->
+
+	<!--拦截器 -->
+   <!-- <mvc:interceptors> -->
+	<!--多个拦截器,顺序执行 -->
+	<!-- 登陆认证拦截器 -->
+	<!-- <mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<bean class="com.ncu.interceptor.LoginInterceptor"></bean>
+	</mvc:interceptor> -->
+
+  <!-- </mvc:interceptors> -->
+	
+</beans>  
