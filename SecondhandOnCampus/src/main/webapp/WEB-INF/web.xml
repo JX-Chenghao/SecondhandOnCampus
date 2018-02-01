@@ -14,6 +14,15 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	
+   <!-- spring 应用上下文-->
+    <listener>
+      	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>     
+    </listener>
+    <context-param>
+     	<param-name>contextConfigLocation</param-name>
+     	<param-value>classpath:spring/applicationContext.xml</param-value>
+    </context-param>
+	
     <!-- 配置DispatcherServlet spring mvc 的核心-->  
     <servlet>
        <servlet-name>DispatcherServlet</servlet-name>

@@ -44,8 +44,8 @@
  
  
  
-   <!--service管理  -->
-
+  <!--service管理  -->
+  <bean id="userService" class="com.ncu.service.impl.UserServiceImpl"></bean>
   
   
   <!--事务管理  -->
