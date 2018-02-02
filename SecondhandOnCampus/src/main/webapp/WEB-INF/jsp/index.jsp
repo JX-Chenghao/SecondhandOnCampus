@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 
 <%
 String path = request.getContextPath();
@@ -22,7 +22,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- //Meta-Tags -->
 
 	<!-- Style --> <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css" media="all">
-
+                   <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+                   <script type="text/javascript">
+                        $(function(){
+                           /* 异步注册 */
+                           $('#registerButton').click(function(){
+                               //再次输入密码验证
+                               var pwdFirst=$('input[name=pwdForRegister]').val();
+                               var pwdConfirm=$('input[name=pwd_confirm]').val();
+                               var sno=$('input[name=sno]').val();
+                               var aliasname=$('input[name=aliasname]').val();
+                               var phone_number=$('input[name=phone_number]').val();
+                               if(sno=="" || aliasname==""||phone_number==""||pwdFirst==""){
+                                     alert("请填写完信息项！");
+                                     return false;
+                               }
+                               if(pwdFirst!=pwdConfirm){
+                                     alert("两次密码不一致！");
+                                     return false;
+                               }
+                       
+                               $.ajax({
+                                url:'${pageContext.request.contextPath}/user/register.action',
+		                     	type:"get",
+			                    dataType :"json",
+			                    data:"sno="+sno+"&aliasname="+aliasname+"&pwd="+pwdFirst+"&phone_number="+phone_number,
+			                    success:function(data){
+			                       if(data.res=="success"){
+			                           alert("注册成功！");
+			                       }else if(data.res=="fail"){
+			                           alert(data.failInfo);
+			                       }
+                                }
+                               });
+                           });
+                           
+                           
+                        });
+                   
+                   
+                   </script>
 
 
 </head>
@@ -71,18 +110,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="register w3layouts agileits">
 			<h2>注 册</h2>
-			<form action="#" method="post">
-			          <input type="text" Name="sno" placeholder="学号" required="">
-				<input type="text" Name="name" placeholder="用户名" required="">
-				<input type="password" Name="pwd" placeholder="密码" required="">
+			<%-- <form action="${pageContext.request.contextPath}/user/register.action" method="post"> --%>
+			    <input type="text" Name="sno" placeholder="学号" required="">
+				<input type="text" Name="aliasname" placeholder="用户名" required="">
+				<input type="password" Name="pwdForRegister" placeholder="密码" required="">
 				<input type="password" Name="pwd_confirm" placeholder="再次输入密码" required="">
 				<input type="text" Name="phone_number" placeholder="手机号码" required="">
-			</form>
-			<div class="send-button w3layouts agileits">
-				<form>
-					<input type="submit" value="免费注册">
-				</form>
-			</div>
+				<div class="send-button w3layouts agileits">
+					<input id="registerButton" type="submit" value="免费注册">
+				</div>
+			<!-- </form> -->
 			<div class="clear"></div>
 		</div>
 
