@@ -80,11 +80,45 @@ public class UserServiceImpl implements UserService {
 		//根据用户手机号查找用户
 		else if(attributeType.equals("phone_number"))
 			ex.createCriteria().andPhoneNumberEqualTo(value);
-		
+
 		List<User> users = userMapper.selectByExample(ex);
 		if(users.size()!=0)
 			return users.get(0);
 		return null;
+	}
+
+	@Override
+	public boolean updateUserInfo(String sex, String email,Integer id) {
+		User user=new User();
+		user.setSex(sex);
+		user.setEmail(email);
+		user.setId(id);
+		userMapper.updateByPrimaryKeySelective(user);
+		return true;
+	}
+
+	@Override
+	public boolean updateTradeInfo(String alipayNumber, String shippingAddress,Integer id) {
+		User user=new User();
+		user.setAlipayNumber(alipayNumber);
+		user.setShippingAddress(shippingAddress);
+		user.setId(id);
+		userMapper.updateByPrimaryKeySelective(user);
+		return true;
+	}
+
+	@Override
+	public boolean updatePWD(String real_oldPwd,String pwd_old, String pwd_new,Integer id) {
+		    if(real_oldPwd==pwd_old){
+		    	User user=new User();
+		    	user.setPwd(pwd_new);
+		    	user.setId(id);
+		    	userMapper.updateByPrimaryKeySelective(user);
+		    	return true;
+		    }else{
+		    	return false;
+		    }
+			
 	}
 	
 }

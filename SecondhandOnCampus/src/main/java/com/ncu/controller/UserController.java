@@ -40,7 +40,7 @@ public class UserController {
     	User user = userService.loginValidate(user_account, pwd);
     	if(user!=null){
     		request.getSession().setAttribute("user", user);
-            modelAndview.setViewName("main");
+            modelAndview.setViewName("user");
            
     	}else{
     		modelAndview.setViewName("index");
@@ -83,6 +83,102 @@ public class UserController {
     	}
     	return resMap;
     }
+    
+    
+    //完善个人资料-界面
+    @RequestMapping("/user")  
+    public ModelAndView userInfoView(HttpServletRequest request)throws Exception{ 
+    	ModelAndView modelAndview=new ModelAndView();
+        modelAndview.setViewName("user");
+        return modelAndview; 
+    }
+    //完善个人资料-修改个人信息功能
+    @RequestMapping("/updateUserInfo")  
+    @ResponseBody
+    public  Map<String, String> updateUserInfo(HttpServletRequest request)throws Exception{ 
+    	Map<String, String> resMap=new HashMap<String, String>();
+    	if (IsIegalToUpdateUserInfo(request, resMap)) {
+    		boolean res =userService.updateUserInfo(StringUtil.messyCodetoChineseStr(request.getParameter("sex")), StringUtil.messyCodetoChineseStr(request.getParameter("email")), ((User)request.getSession().getAttribute("user")).getId());
+    		if(res){
+    			resMap.put("updateRes", "success");	
+    		}else{
+    			resMap.put("updateRes", "fail");	
+    		}
+    	}else{
+    		resMap.put("updateRes", "ilegal");	
+    	}
+    	return resMap;
+    }
+    //完善个人资料-修改交易信息功能
+    @RequestMapping("/updateTradeInfo")  
+    @ResponseBody
+    public  Map<String, String> updateTradeInfo(HttpServletRequest request)throws Exception{ 
+    	Map<String, String> resMap=new HashMap<String, String>();
+		if (IsIegalToUpdateTradeInfo(request, resMap)) {
+			boolean res = userService.updateTradeInfo(StringUtil.messyCodetoChineseStr(request.getParameter("alipayNumber")), StringUtil.messyCodetoChineseStr(request.getParameter("shippingAddress")),((User) request.getSession().getAttribute("user")).getId());
+			if (res) {
+				resMap.put("updateRes", "success");
+			} else {
+				resMap.put("updateRes", "fail");
+			}
+		}else{
+    		resMap.put("updateRes", "ilegal");	
+    	}
+    	return resMap;
+    }
+    //完善个人资料-修改密码功能
+    @RequestMapping("/updatePWD")  
+    @ResponseBody
+    public  Map<String, String> updatePWD(HttpServletRequest request)throws Exception{ 
+    	Map<String, String> resMap=new HashMap<String, String>();
+    	if (IsIegalToUpdatePWDInfo(request, resMap)) {
+    		boolean res = userService.updatePWD(((User)request.getSession().getAttribute("user")).getPwd(),request.getParameter("pwd_old"), request.getParameter("pwd_new"),((User)request.getSession().getAttribute("user")).getId());
+    		if(res){
+    			resMap.put("updateRes", "success");	
+    		}else{
+    			resMap.put("updateRes", "fail");	
+    		}  
+    	}else{
+    		resMap.put("updateRes", "ilegal");	
+    	}
+    	return resMap;
+    }
+    
+    private boolean IsIegalToUpdateUserInfo(HttpServletRequest request,Map<String, String> resMap) {
+		if(!RegularExpressionUtil.isUserSex(StringUtil.messyCodetoChineseStr(request.getParameter("sex")))){
+			resMap.put("failInfo", "性别为空或不规范");
+			return false;
+		}
+		if(!RegularExpressionUtil.isUserEmail(StringUtil.messyCodetoChineseStr(request.getParameter("aliasname")))){
+			resMap.put("failInfo", "电子邮件不规范");
+			return false;
+		}
+
+		return true;
+	}
+    private boolean IsIegalToUpdateTradeInfo(HttpServletRequest request,Map<String, String> resMap) {
+		if(!RegularExpressionUtil.isUserAlipayNumber(StringUtil.messyCodetoChineseStr(request.getParameter("alipayNumber")))){
+			resMap.put("failInfo", "支付宝账户为空或不规范");
+			return false;
+		}
+		if(!RegularExpressionUtil.isUserShippingAddress(StringUtil.messyCodetoChineseStr(request.getParameter("shippingAddress")))){
+			resMap.put("failInfo", "收件地址为空或不规范");
+			return false;
+		}
+
+		return true;
+	}
+    private boolean IsIegalToUpdatePWDInfo(HttpServletRequest request,Map<String, String> resMap) {
+		if(!RegularExpressionUtil.isUserPwd(request.getParameter("pwd_old"))){
+			resMap.put("failInfo", "密码应大于6位小于16位字符");
+			return false;
+		}
+		if(!RegularExpressionUtil.isUserPwd(request.getParameter("pwd_new"))){
+			resMap.put("failInfo", "密码应大于6位小于16位字符");
+			return false;
+		}
+		return true;
+	}
 	private boolean IsIegalToRegisterInfo(HttpServletRequest request,Map<String, String> resMap) {
 		if(!RegularExpressionUtil.isUserSno(request.getParameter("sno"))){
 			resMap.put("failInfo", "学号不规范");
@@ -102,6 +198,9 @@ public class UserController {
 		}
 		return true;
 	}
+	
+	
+  
 }
 
 

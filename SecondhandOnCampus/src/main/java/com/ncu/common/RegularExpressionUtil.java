@@ -34,5 +34,22 @@ public class RegularExpressionUtil {
 		 else 
 			 return true;
 		
+	}
+	public static boolean isUserEmail(String messyCodetoChineseStr) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public static boolean isUserSex(String parameter) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public static boolean isUserAlipayNumber(String messyCodetoChineseStr) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	public static boolean isUserShippingAddress(String messyCodetoChineseStr) {
+		// TODO Auto-generated method stub
+		return true;
 	}  
 }
