@@ -98,7 +98,7 @@ public class UserController {
     public  Map<String, String> updateUserInfo(HttpServletRequest request)throws Exception{ 
     	Map<String, String> resMap=new HashMap<String, String>();
     	if (IsIegalToUpdateUserInfo(request, resMap)) {
-    		boolean res =userService.updateUserInfo(StringUtil.messyCodetoChineseStr(request.getParameter("sex")), StringUtil.messyCodetoChineseStr(request.getParameter("email")), ((User)request.getSession().getAttribute("user")).getId());
+    		boolean res =userService.updateUserInfo(request.getParameter("realName"),request.getParameter("sex"),request.getParameter("email"), ((User)request.getSession().getAttribute("user")).getId());
     		if(res){
     			resMap.put("updateRes", "success");	
     		}else{
@@ -115,7 +115,7 @@ public class UserController {
     public  Map<String, String> updateTradeInfo(HttpServletRequest request)throws Exception{ 
     	Map<String, String> resMap=new HashMap<String, String>();
 		if (IsIegalToUpdateTradeInfo(request, resMap)) {
-			boolean res = userService.updateTradeInfo(StringUtil.messyCodetoChineseStr(request.getParameter("alipayNumber")), StringUtil.messyCodetoChineseStr(request.getParameter("shippingAddress")),((User) request.getSession().getAttribute("user")).getId());
+			boolean res = userService.updateTradeInfo(request.getParameter("alipayNumber"), request.getParameter("shippingAddress"),((User) request.getSession().getAttribute("user")).getId());
 			if (res) {
 				resMap.put("updateRes", "success");
 			} else {
@@ -145,11 +145,15 @@ public class UserController {
     }
     
     private boolean IsIegalToUpdateUserInfo(HttpServletRequest request,Map<String, String> resMap) {
-		if(!RegularExpressionUtil.isUserSex(StringUtil.messyCodetoChineseStr(request.getParameter("sex")))){
+		if(!RegularExpressionUtil.isUserRealName(StringUtil.messyCodetoChineseStr(request.getParameter("sex")))){
+			resMap.put("failInfo", "请填写真实姓名");
+			return false;
+		}
+    	if(!RegularExpressionUtil.isUserSex(StringUtil.messyCodetoChineseStr(request.getParameter("sex")))){
 			resMap.put("failInfo", "性别为空或不规范");
 			return false;
 		}
-		if(!RegularExpressionUtil.isUserEmail(StringUtil.messyCodetoChineseStr(request.getParameter("aliasname")))){
+		if(!RegularExpressionUtil.isUserEmail(StringUtil.messyCodetoChineseStr(request.getParameter("email")))){
 			resMap.put("failInfo", "电子邮件不规范");
 			return false;
 		}

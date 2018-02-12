@@ -51,5 +51,9 @@ public class RegularExpressionUtil {
 	public static boolean isUserShippingAddress(String messyCodetoChineseStr) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	public static boolean isUserRealName(String messyCodetoChineseStr) {
+		// TODO Auto-generated method stub
+		return true;
 	}  
 }

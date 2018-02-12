@@ -23,7 +23,7 @@ public interface UserService {
      * @param info  用户Id  /real_oldPwd 真正的旧密码，传来的 旧密码 与新密码
      * @return true 成功  false 失败
      */
-	boolean updateUserInfo(String sex,String email,Integer id);
+	boolean updateUserInfo(String realName,String sex,String email,Integer id);
 	boolean updateTradeInfo(String alipayNumber,String shippingAddress,Integer id);
 	boolean updatePWD(String real_oldPwd,String pwd_old,String pwd_new,Integer id);
 }

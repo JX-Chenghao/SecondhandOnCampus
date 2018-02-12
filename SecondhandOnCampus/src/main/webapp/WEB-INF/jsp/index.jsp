@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    success:function(data){
 			                       if(data.res=="success"){
 			                           alert("注册成功！");
+			                           $('.clearInfo').val("");
 			                       }else if(data.res=="fail"){
 			                           alert(data.failInfo);
 			                       }
@@ -111,11 +112,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="register w3layouts agileits">
 			<h2>注 册</h2>
 			<%-- <form action="${pageContext.request.contextPath}/user/register.action" method="post"> --%>
-			    <input type="text" Name="sno" placeholder="学号" required="">
-				<input type="text" Name="aliasname" placeholder="用户名" required="">
-				<input type="password" Name="pwdForRegister" placeholder="密码" required="">
-				<input type="password" Name="pwd_confirm" placeholder="再次输入密码" required="">
-				<input type="text" Name="phone_number" placeholder="手机号码" required="">
+			    <input class="clearInfo" type="text" Name="sno" placeholder="学号" required="">
+				<input class="clearInfo" type="text" Name="aliasname" placeholder="用户名" required="">
+				<input class="clearInfo" type="password" Name="pwdForRegister" placeholder="密码" required="">
+				<input class="clearInfo" type="password" Name="pwd_confirm" placeholder="再次输入密码" required="">
+				<input class="clearInfo" type="text" Name="phone_number" placeholder="手机号码" required="">
 				<div class="send-button w3layouts agileits">
 					<input id="registerButton" type="submit" value="免费注册">
 				</div>

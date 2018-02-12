@@ -88,10 +88,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUserInfo(String sex, String email,Integer id) {
+	public boolean updateUserInfo(String realName,String sex, String email,Integer id) {
+		//ajax get
 		User user=new User();
-		user.setSex(sex);
-		user.setEmail(email);
+		user.setRealName(StringUtil.messyCodetoChineseStr(realName));
+		user.setSex(StringUtil.messyCodetoChineseStr(sex));
+		user.setEmail(StringUtil.messyCodetoChineseStr(email));
 		user.setId(id);
 		userMapper.updateByPrimaryKeySelective(user);
 		return true;
@@ -99,6 +101,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean updateTradeInfo(String alipayNumber, String shippingAddress,Integer id) {
+        //ajax post
 		User user=new User();
 		user.setAlipayNumber(alipayNumber);
 		user.setShippingAddress(shippingAddress);
@@ -109,7 +112,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean updatePWD(String real_oldPwd,String pwd_old, String pwd_new,Integer id) {
-		    if(real_oldPwd==pwd_old){
+		//ajax post
+		if(real_oldPwd.equals(pwd_old)){
 		    	User user=new User();
 		    	user.setPwd(pwd_new);
 		    	user.setId(id);
