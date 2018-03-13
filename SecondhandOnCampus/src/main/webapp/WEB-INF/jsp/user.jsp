@@ -20,11 +20,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            $('#oneSave').hide();
 		            $('#twoSave').hide();
 		            $('#threeSave').hide();
+		            //隐藏保存按钮
+		            $('#btnSaveImg').hide();
+		            //隐藏保存按钮 ----真正表单submit按钮
+		            $('#submitSaveImg').hide();
 		            //更改头像
 					$('#headImgFile').hide();
                     $('#btnUpdateImg').hide();
                     $('#btnUpdateImg').click(function(){
                          $('#headImgFile').click();
+                           
                     });
                     $('#headImg,#btnUpdateImg').mouseover(function(){
                       $('#btnUpdateImg').show();
@@ -33,6 +38,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     $('#headImg,#btnUpdateImg').mouseout(function(){
                       $('#btnUpdateImg').hide();
                     });
+                    //头像注册改变事件
+                     $("form :file").change(function(){
+	      					$('#btnSaveImg').show();
+	      					  
+					 });
+					//保存头像按钮
+					$('#btnSaveImg').click(function(){
+                         $('#submitSaveImg').click();
+                           
+                    });
+					 
                     //修改按钮
                     $('#oneSet').click(function(){
                          $('.one').removeAttr("disabled");
@@ -136,8 +152,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                      
 			                      	 	if(data.updateRes=="success"){
 			                         	 	 alert("修改密码成功！");
+			                         	 	 $('input[name=pwd_confirm]').val("");
+                             				 $('input[name=pwd_old]').val("");
+                               				$('input[name=pwd_new]').val("");
 			                         	 	 $('.three input').attr("disabled","disabled");
 			                         	 	 $('#threeSave').hide();
+			                         	 	  window.location.href = "${pageContext.request.contextPath}/user/index.action";
 			                      		 }else if(data.updateRes=="ilegal"){
 			                       		     alert("<"+data.failInfo+">");
 			                      		 }else if(data.updateRes=="fail"){
@@ -223,10 +243,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <div>再次确认密码:</div><input type="password" Name="pwd_confirm" placeholder="再次确认密码" required="" disabled="disabled">
                          <a href="#" id="threeSet">修改</a><a id="threeSave" href="javascript:void(0);" onclick="updatePWDInfo()" >保存</a>
                  </div>
-           		 <div class="updateImg"> <img src="${pageContext.request.contextPath}/resource/images/null.jpg" id="headImg"><a href="#" id="btnUpdateImg">更换头像</a></div>
-  
+           		 
+           		 		<div class="updateImg">
+           		 		   <c:if test="${sessionScope.user.headImg ==null}">
+           		 		      <img src="${pageContext.request.contextPath}/resources/images/null.jpg" id="headImg">
+           		 		   </c:if>
+           		 		   <c:if test="${sessionScope.user.headImg !=null}">
+           		 		      <img class="headImg" src="/picForBS/user/headImg/${sessionScope.user.headImg}" id="headImg" >
+           		 		   </c:if>           		 		  
+           		 		   <a href="#" id="btnUpdateImg">更换头像</a>
+           		 		 </div>
+						<a href="#" id="btnSaveImg" class="saveImgBtn">保存头像</a>
 	</div>
-
-  <input type="file" id="headImgFile"/>
+<form action="${pageContext.request.contextPath}/user/updateHeadImg.action" method="post" enctype="multipart/form-data">
+  <input type="file" id="headImgFile" name="headImgFile"/>
+  <input type="hidden" value="${sessionScope.user.id}" name="id"/>
+  <input type="submit" id="submitSaveImg" >
+</form>
 </body>
 </html>

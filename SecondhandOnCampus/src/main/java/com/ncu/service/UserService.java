@@ -2,6 +2,8 @@ package com.ncu.service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ncu.pojo.User;
 
 public interface UserService {
@@ -26,4 +28,11 @@ public interface UserService {
 	boolean updateUserInfo(String realName,String sex,String email,Integer id);
 	boolean updateTradeInfo(String alipayNumber,String shippingAddress,Integer id);
 	boolean updatePWD(String real_oldPwd,String pwd_old,String pwd_new,Integer id);
+	/**
+	 * 保存头像
+	 * @param pic_file  文件
+	 * @param store_path 存储路径
+	 * @param id       userId
+	 */
+	String saveHeadImg(MultipartFile pic_file, String store_path,String id);
 }

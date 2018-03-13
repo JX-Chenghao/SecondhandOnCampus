@@ -12,6 +12,7 @@
     <result column="shipping_address" property="shippingAddress" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="sno" property="sno" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, pwd, alias_name, real_name, phone_number, alipay_number, sex, shipping_address, 
-    email, sno
+    email, sno, head_img
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.UserExample" >
     select
@@ -109,11 +110,11 @@
     insert into user (id, pwd, alias_name, 
       real_name, phone_number, alipay_number, 
       sex, shipping_address, email, 
-      sno)
+      sno, head_img)
     values (#{id,jdbcType=INTEGER}, #{pwd,jdbcType=VARCHAR}, #{aliasName,jdbcType=VARCHAR}, 
       #{realName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{alipayNumber,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{shippingAddress,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{sno,jdbcType=VARCHAR})
+      #{sno,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.User" >
     insert into user
@@ -148,6 +149,9 @@
       <if test="sno != null" >
         sno,
       </if>
+      <if test="headImg != null" >
+        head_img,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -179,6 +183,9 @@
       </if>
       <if test="sno != null" >
         #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null" >
+        #{headImg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,6 +228,9 @@
       <if test="record.sno != null" >
         sno = #{record.sno,jdbcType=VARCHAR},
       </if>
+      <if test="record.headImg != null" >
+        head_img = #{record.headImg,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -237,7 +247,8 @@
       sex = #{record.sex,jdbcType=VARCHAR},
       shipping_address = #{record.shippingAddress,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
-      sno = #{record.sno,jdbcType=VARCHAR}
+      sno = #{record.sno,jdbcType=VARCHAR},
+      head_img = #{record.headImg,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,6 +283,9 @@
       <if test="sno != null" >
         sno = #{sno,jdbcType=VARCHAR},
       </if>
+      <if test="headImg != null" >
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -285,7 +299,8 @@
       sex = #{sex,jdbcType=VARCHAR},
       shipping_address = #{shippingAddress,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      sno = #{sno,jdbcType=VARCHAR}
+      sno = #{sno,jdbcType=VARCHAR},
+      head_img = #{headImg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

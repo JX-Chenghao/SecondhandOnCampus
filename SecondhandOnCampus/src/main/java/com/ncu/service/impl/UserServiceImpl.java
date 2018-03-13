@@ -5,7 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.ncu.common.FileSaveUtils;
 import com.ncu.common.StringUtil;
 import com.ncu.mapper.UserMapper;
 import com.ncu.pojo.User;
@@ -123,6 +125,17 @@ public class UserServiceImpl implements UserService {
 		    	return false;
 		    }
 			
+	}
+
+	@Override
+	public String saveHeadImg(MultipartFile pic_file,String store_path, String id) {
+		String saveFileName = FileSaveUtils.saveFile(pic_file, store_path, id);
+		User user = new User();
+		user.setId(Integer.parseInt(id));
+		user.setHeadImg(saveFileName);
+		userMapper.updateByPrimaryKeySelective(user);
+		return saveFileName;
+		
 	}
 	
 }

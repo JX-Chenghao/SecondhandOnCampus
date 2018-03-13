@@ -573,7 +573,10 @@ body {
 	width: 650px;
 	margin:0 auto;
 }
-
+.userInfo >a{
+   	text-decoration:none;
+	 color:lightblue
+}
 .userInfo >div{
      width: 250px;
      text-align: right;
@@ -609,9 +612,19 @@ body {
 }
 .updateImg img{
 	 width: 125px;
+	 height:140px;
 }
 .updateImg a{
 	 position: relative;
 	 right: 100px;
 	 bottom: 5px;
+	 text-decoration:none;
+	 color:lightblue
+}
+.saveImgBtn{
+	position: absolute;
+	top: 325px;
+	left: 385px;
+	text-decoration:none;
+	 color:lightblue
 }

@@ -793,6 +793,76 @@ public class UserExample {
             addCriterion("sno not between", value1, value2, "sno");
             return (Criteria) this;
         }
+
+        public Criteria andHeadImgIsNull() {
+            addCriterion("head_img is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgIsNotNull() {
+            addCriterion("head_img is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgEqualTo(String value) {
+            addCriterion("head_img =", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgNotEqualTo(String value) {
+            addCriterion("head_img <>", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgGreaterThan(String value) {
+            addCriterion("head_img >", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgGreaterThanOrEqualTo(String value) {
+            addCriterion("head_img >=", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgLessThan(String value) {
+            addCriterion("head_img <", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgLessThanOrEqualTo(String value) {
+            addCriterion("head_img <=", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgLike(String value) {
+            addCriterion("head_img like", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgNotLike(String value) {
+            addCriterion("head_img not like", value, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgIn(List<String> values) {
+            addCriterion("head_img in", values, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgNotIn(List<String> values) {
+            addCriterion("head_img not in", values, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgBetween(String value1, String value2) {
+            addCriterion("head_img between", value1, value2, "headImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadImgNotBetween(String value1, String value2) {
+            addCriterion("head_img not between", value1, value2, "headImg");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

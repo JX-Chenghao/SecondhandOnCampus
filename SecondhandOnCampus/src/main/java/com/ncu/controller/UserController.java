@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ncu.common.RegularExpressionUtil;
@@ -53,6 +54,7 @@ public class UserController {
     public String loginout(HttpServletRequest request)throws Exception{ 
     	//注销session
     	request.getSession().invalidate();
+    	System.out.println("退出登录");
     	return "redirect:/user/index.action";
     }
     //注册
@@ -83,7 +85,7 @@ public class UserController {
     	}
     	return resMap;
     }
-    
+   
     
     //完善个人资料-界面
     @RequestMapping("/user")  
@@ -141,7 +143,23 @@ public class UserController {
     	}else{
     		resMap.put("updateRes", "ilegal");	
     	}
+    	request.getSession().invalidate();
+    	System.out.println("退出登录");
     	return resMap;
+    }
+    @RequestMapping("/updateHeadImg")      
+    public ModelAndView updateHeadImg(MultipartFile headImgFile,HttpServletRequest request)throws Exception{
+    	ModelAndView modelAndview=new ModelAndView();
+        modelAndview.setViewName("user");
+        
+        HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+       // 图片路径
+     		String store_path = "D:\\upfilesForBS\\user\\headImg\\";
+        String img_name = userService.saveHeadImg(headImgFile,store_path,request.getParameter("id"));
+        user.setHeadImg(img_name);
+        
+        return modelAndview; 
     }
     
     private boolean IsIegalToUpdateUserInfo(HttpServletRequest request,Map<String, String> resMap) {

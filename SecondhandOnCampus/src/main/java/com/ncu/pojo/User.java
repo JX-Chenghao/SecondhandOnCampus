@@ -21,6 +21,8 @@ public class User {
 
     private String sno;
 
+    private String headImg;
+
     public Integer getId() {
         return id;
     }
@@ -99,5 +101,13 @@ public class User {
 
     public void setSno(String sno) {
         this.sno = sno == null ? null : sno.trim();
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg == null ? null : headImg.trim();
     }
 }
