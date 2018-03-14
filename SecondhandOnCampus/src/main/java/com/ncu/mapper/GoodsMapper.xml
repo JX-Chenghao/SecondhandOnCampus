@@ -95,8 +95,11 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null" >
-      order by ${orderByClause}
+      order by ${orderByClause},id
     </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+     limit #{startRow},#{pageSize}
+	</if>
   </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.GoodsExample" >
     select
@@ -109,8 +112,11 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null" >
-      order by ${orderByClause}
+      order by ${orderByClause},id
     </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+     limit #{startRow},#{pageSize}
+	</if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 

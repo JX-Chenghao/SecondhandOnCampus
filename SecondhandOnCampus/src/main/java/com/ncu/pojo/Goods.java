@@ -122,4 +122,15 @@ public class Goods {
     public void setIntroducedText(String introducedText) {
         this.introducedText = introducedText == null ? null : introducedText.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Goods [id=" + id + ", name=" + name + ", picture=" + picture
+				+ ", quantity=" + quantity + ", price=" + price
+				+ ", usedMonth=" + usedMonth + ", publishDate=" + publishDate
+				+ ", goodsState=" + goodsState + ", auditState=" + auditState
+				+ ", userId=" + userId + ", categoryId=" + categoryId
+				+ ", introducedText=" + introducedText + "]";
+	}
+    
 }

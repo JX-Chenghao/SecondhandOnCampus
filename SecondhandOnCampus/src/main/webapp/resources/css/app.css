@@ -97,6 +97,7 @@ body {
 	padding-top:15px;
 }
 .menu ul li a {
+
 	color:#eee;
 	text-decoration:none;
 	padding:32px 23px;
@@ -372,6 +373,13 @@ body {
            float: right;
 
  }
+ 
+ .showhim img{
+    width:190px;
+    height:190px;
+ }
+ 
+ 
  /* cart.html */
  /* cart */
 

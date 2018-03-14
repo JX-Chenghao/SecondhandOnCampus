@@ -11,7 +11,8 @@ public class GoodsExample {
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
-
+    int startRow;
+    int pageSize;
     public GoodsExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -24,7 +25,23 @@ public class GoodsExample {
         return orderByClause;
     }
 
-    public void setDistinct(boolean distinct) {
+    public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 

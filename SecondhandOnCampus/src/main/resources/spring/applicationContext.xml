@@ -46,7 +46,7 @@
  
   <!--service管理  -->
   <bean id="userService" class="com.ncu.service.impl.UserServiceImpl"></bean>
-  
+  <bean id="goodsService" class="com.ncu.service.impl.GoodsServiceImpl"></bean>
   
   <!--事务管理  -->
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
