@@ -373,6 +373,9 @@ body {
            float: right;
 
  }
+ .selectPage {
+   text-decoration: none;
+ }
  
  .showhim img{
     width:190px;

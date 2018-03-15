@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 	<div class="menu">
-	          <div class="logo"></div>
+	    <div class="logo"></div>
 		<ul>
 		<li><a href="main.html" class="home">首页</a></li>
 		<li class="active"><a href="#" class="goods" >商品</a></li>
@@ -144,10 +144,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			</div>
 
-                                      <div class="pages">
-                                                        <div> 共显示 15 条数据  （第1/20页）</div>
-                                                        <div><a href="#">上一页</a> <a href="#">  下一页</a></div>
-                                       </div>
+            <div class="pages">
+                    <div> 共显示 ${pageBeanForGoods.list.size()} 条数据  （第${pageBeanForGoods.currPage}/${pageBeanForGoods.totalPage}页）</div>
+                    <div >
+                    		<c:if test="${pageBeanForGoods.currPage==1}">
+                      				 <a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
+                    		</c:if>
+                    		<c:if test="${pageBeanForGoods.currPage!=1 && pageBeanForGoods.currPage!=pageBeanForGoods.totalPage}">
+                                 	<a  class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
+                      				 <a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
+                   		 	</c:if>
+                   			 <c:if test="${pageBeanForGoods.currPage==pageBeanForGoods.totalPage }">
+                   			 		<a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
+                   			 </c:if>
+                    
+                      
+                     </div>
+            </div>
 	</div>
 
 
