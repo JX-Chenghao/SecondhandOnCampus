@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div class="logo"></div>
 		<ul>
 		<li><a href="main.html" class="home">首页</a></li>
-		<li class="active"><a href="#" class="goods" >商品</a></li>
+		<li class="active"><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
 		<li><a href="cart.html" class="cart">购物车</a></li>
 		<li><a href="order.html" class="orderInfo">订单信息</a></li>
 		<li><a href="${pageContext.request.contextPath}/user/user.action" class="userInfo">完善信息</a></li>
@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	           <c:forEach items="${pageBeanForGoods.list }" var="goods">
 				<div class="showhim">
 					<div class="image">
-					   <a href="product.html">
+					   <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${goods.id}">
 					        <c:if test="${goods.picture==''}">
 					        <img src="${pageContext.request.contextPath}/resources/images/product_holder.jpg" alt="${goods.name }" />
 							</c:if>

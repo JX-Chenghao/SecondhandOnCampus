@@ -17,7 +17,7 @@ public class Goods {
 
     private Date publishDate;
 
-    private Date goodsState;
+    private Integer goodsState;
 
     private Integer auditState;
 
@@ -26,7 +26,7 @@ public class Goods {
     private Integer categoryId;
 
     private String introducedText;
-
+    
     public Integer getId() {
         return id;
     }
@@ -83,11 +83,11 @@ public class Goods {
         this.publishDate = publishDate;
     }
 
-    public Date getGoodsState() {
+    public Integer getGoodsState() {
         return goodsState;
     }
 
-    public void setGoodsState(Date goodsState) {
+    public void setGoodsState(Integer goodsState) {
         this.goodsState = goodsState;
     }
 
@@ -122,15 +122,4 @@ public class Goods {
     public void setIntroducedText(String introducedText) {
         this.introducedText = introducedText == null ? null : introducedText.trim();
     }
-
-	@Override
-	public String toString() {
-		return "Goods [id=" + id + ", name=" + name + ", picture=" + picture
-				+ ", quantity=" + quantity + ", price=" + price
-				+ ", usedMonth=" + usedMonth + ", publishDate=" + publishDate
-				+ ", goodsState=" + goodsState + ", auditState=" + auditState
-				+ ", userId=" + userId + ", categoryId=" + categoryId
-				+ ", introducedText=" + introducedText + "]";
-	}
-    
 }

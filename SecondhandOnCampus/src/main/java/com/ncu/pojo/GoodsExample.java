@@ -11,13 +11,37 @@ public class GoodsExample {
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
-    int startRow;
-    int pageSize;
+    
+    private Integer startRow;
+    
+    private Integer pageSize;
+
     public GoodsExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    public void setOrderByClause(String orderByClause) {
+    
+    public Integer getStartRow() {
+		return startRow;
+	}
+
+
+	public void setStartRow(Integer startRow) {
+		this.startRow = startRow;
+	}
+
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+
+	public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
@@ -25,23 +49,7 @@ public class GoodsExample {
         return orderByClause;
     }
 
-    public int getStartRow() {
-		return startRow;
-	}
-
-	public void setStartRow(int startRow) {
-		this.startRow = startRow;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public void setDistinct(boolean distinct) {
+    public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
@@ -102,6 +110,7 @@ public class GoodsExample {
             return criteria;
         }
 
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -599,53 +608,53 @@ public class GoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateEqualTo(Date value) {
-            addCriterionForJDBCDate("goods_state =", value, "goodsState");
+        public Criteria andGoodsStateEqualTo(Integer value) {
+            addCriterion("goods_state =", value, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("goods_state <>", value, "goodsState");
+        public Criteria andGoodsStateNotEqualTo(Integer value) {
+            addCriterion("goods_state <>", value, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateGreaterThan(Date value) {
-            addCriterionForJDBCDate("goods_state >", value, "goodsState");
+        public Criteria andGoodsStateGreaterThan(Integer value) {
+            addCriterion("goods_state >", value, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("goods_state >=", value, "goodsState");
+        public Criteria andGoodsStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("goods_state >=", value, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateLessThan(Date value) {
-            addCriterionForJDBCDate("goods_state <", value, "goodsState");
+        public Criteria andGoodsStateLessThan(Integer value) {
+            addCriterion("goods_state <", value, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("goods_state <=", value, "goodsState");
+        public Criteria andGoodsStateLessThanOrEqualTo(Integer value) {
+            addCriterion("goods_state <=", value, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateIn(List<Date> values) {
-            addCriterionForJDBCDate("goods_state in", values, "goodsState");
+        public Criteria andGoodsStateIn(List<Integer> values) {
+            addCriterion("goods_state in", values, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("goods_state not in", values, "goodsState");
+        public Criteria andGoodsStateNotIn(List<Integer> values) {
+            addCriterion("goods_state not in", values, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("goods_state between", value1, value2, "goodsState");
+        public Criteria andGoodsStateBetween(Integer value1, Integer value2) {
+            addCriterion("goods_state between", value1, value2, "goodsState");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsStateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("goods_state not between", value1, value2, "goodsState");
+        public Criteria andGoodsStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("goods_state not between", value1, value2, "goodsState");
             return (Criteria) this;
         }
 

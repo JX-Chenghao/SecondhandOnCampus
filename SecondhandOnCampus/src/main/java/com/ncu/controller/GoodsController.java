@@ -50,8 +50,78 @@ public class GoodsController {
 		return modelAndView;
 		
     }
-	
-  
+
+	//查詢自身收藏商品
+	@RequestMapping("/showCollection")
+	public ModelAndView showGoodsForUser(Integer userId){
+
+		ModelAndView modelAndView=new ModelAndView();
+
+        //展示用戶收藏商品
+        List<Goods> goodsList= goodsService.listGoodsForCollection(userId);
+        modelAndView.addObject("goodsList",goodsList);
+		modelAndView.setViewName("user");
+		return modelAndView;
+
+	}
+	//查詢自身商品
+	@RequestMapping("/showOwnerGoods")
+	public ModelAndView showGoodsForUser(Integer userId,Integer auditState){
+
+		ModelAndView modelAndView=new ModelAndView();
+		List<Goods> goodsList=goodsService.listGoodsForUser(userId,auditState);
+		modelAndView.addObject("goodsList",goodsList);
+		modelAndView.setViewName("user");
+		return modelAndView;
+
+	}
+	//商品詳細信息
+	@RequestMapping("/detailOfGoods")
+	public ModelAndView detailOfGoods(Goods goods){
+
+		ModelAndView modelAndView=new ModelAndView();
+		goods=goodsService.getDetailOfGoods(goods.getId());
+		modelAndView.addObject("goods",goods);
+		modelAndView.setViewName("detailOfGoods");
+		return modelAndView;
+	}
+    //添加商品
+	@RequestMapping("/saveGoods")
+	public ModelAndView saveGoods(Goods goods,Integer userId,Integer categoryId){
+
+		ModelAndView modelAndView=new ModelAndView();
+		boolean saveRes=goodsService.saveGoods(goods,userId,categoryId);
+		if(!saveRes){
+			modelAndView.addObject("failInfo","商品上架異常！");
+		}
+		modelAndView.setViewName("user");
+		return modelAndView;
+	}
+	//修改商品
+	@RequestMapping("/updateGoods")
+	public ModelAndView updateGoods(Goods goods){
+
+		ModelAndView modelAndView=new ModelAndView();
+
+		boolean updateRes=goodsService.updateGoods(goods);
+		if(!updateRes){
+			modelAndView.addObject("failInfo","商品修改異常！");
+		}
+		modelAndView.setViewName("user");
+		return modelAndView;
+	}
+	//修改商品
+	@RequestMapping("/removeGoods")
+	public ModelAndView removeGoods(Goods goods){
+
+		ModelAndView modelAndView=new ModelAndView();
+		boolean removeRes=goodsService.removeGoods(goods.getId());
+		if(!removeRes){
+			modelAndView.addObject("failInfo","商品刪除異常！");
+		}
+		modelAndView.setViewName("user");
+		return modelAndView;
+	}
 }
 
 

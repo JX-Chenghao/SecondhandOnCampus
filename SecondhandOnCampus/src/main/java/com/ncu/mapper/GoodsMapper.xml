@@ -9,7 +9,7 @@
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="used_month" property="usedMonth" jdbcType="INTEGER" />
     <result column="publish_date" property="publishDate" jdbcType="DATE" />
-    <result column="goods_state" property="goodsState" jdbcType="DATE" />
+    <result column="goods_state" property="goodsState" jdbcType="INTEGER" />
     <result column="audit_state" property="auditState" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
@@ -95,7 +95,7 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null" >
-      order by ${orderByClause},id
+      order by ${orderByClause}
     </if>
     <if test="startRow != null and pageSize != null and pageSize != 0">
      limit #{startRow},#{pageSize}
@@ -112,10 +112,10 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null" >
-      order by ${orderByClause},id
+      order by ${orderByClause}
     </if>
     <if test="startRow != null and pageSize != null and pageSize != 0">
-     limit #{startRow},#{pageSize}
+   	 limit #{startRow},#{pageSize}
 	</if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
@@ -144,7 +144,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
       #{quantity,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{usedMonth,jdbcType=INTEGER}, 
-      #{publishDate,jdbcType=DATE}, #{goodsState,jdbcType=DATE}, #{auditState,jdbcType=INTEGER}, 
+      #{publishDate,jdbcType=DATE}, #{goodsState,jdbcType=INTEGER}, #{auditState,jdbcType=INTEGER}, 
       #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{introducedText,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -211,7 +211,7 @@
         #{publishDate,jdbcType=DATE},
       </if>
       <if test="goodsState != null" >
-        #{goodsState,jdbcType=DATE},
+        #{goodsState,jdbcType=INTEGER},
       </if>
       <if test="auditState != null" >
         #{auditState,jdbcType=INTEGER},
@@ -258,7 +258,7 @@
         publish_date = #{record.publishDate,jdbcType=DATE},
       </if>
       <if test="record.goodsState != null" >
-        goods_state = #{record.goodsState,jdbcType=DATE},
+        goods_state = #{record.goodsState,jdbcType=INTEGER},
       </if>
       <if test="record.auditState != null" >
         audit_state = #{record.auditState,jdbcType=INTEGER},
@@ -286,7 +286,7 @@
       price = #{record.price,jdbcType=DOUBLE},
       used_month = #{record.usedMonth,jdbcType=INTEGER},
       publish_date = #{record.publishDate,jdbcType=DATE},
-      goods_state = #{record.goodsState,jdbcType=DATE},
+      goods_state = #{record.goodsState,jdbcType=INTEGER},
       audit_state = #{record.auditState,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       category_id = #{record.categoryId,jdbcType=INTEGER},
@@ -304,7 +304,7 @@
       price = #{record.price,jdbcType=DOUBLE},
       used_month = #{record.usedMonth,jdbcType=INTEGER},
       publish_date = #{record.publishDate,jdbcType=DATE},
-      goods_state = #{record.goodsState,jdbcType=DATE},
+      goods_state = #{record.goodsState,jdbcType=INTEGER},
       audit_state = #{record.auditState,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       category_id = #{record.categoryId,jdbcType=INTEGER}
@@ -334,7 +334,7 @@
         publish_date = #{publishDate,jdbcType=DATE},
       </if>
       <if test="goodsState != null" >
-        goods_state = #{goodsState,jdbcType=DATE},
+        goods_state = #{goodsState,jdbcType=INTEGER},
       </if>
       <if test="auditState != null" >
         audit_state = #{auditState,jdbcType=INTEGER},
@@ -359,7 +359,7 @@
       price = #{price,jdbcType=DOUBLE},
       used_month = #{usedMonth,jdbcType=INTEGER},
       publish_date = #{publishDate,jdbcType=DATE},
-      goods_state = #{goodsState,jdbcType=DATE},
+      goods_state = #{goodsState,jdbcType=INTEGER},
       audit_state = #{auditState,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       category_id = #{categoryId,jdbcType=INTEGER},
@@ -374,7 +374,7 @@
       price = #{price,jdbcType=DOUBLE},
       used_month = #{usedMonth,jdbcType=INTEGER},
       publish_date = #{publishDate,jdbcType=DATE},
-      goods_state = #{goodsState,jdbcType=DATE},
+      goods_state = #{goodsState,jdbcType=INTEGER},
       audit_state = #{auditState,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       category_id = #{categoryId,jdbcType=INTEGER}

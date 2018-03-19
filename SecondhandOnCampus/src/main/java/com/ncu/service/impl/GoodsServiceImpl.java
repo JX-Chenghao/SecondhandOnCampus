@@ -43,8 +43,7 @@ public class GoodsServiceImpl implements GoodsService {
         final int length = pageSize; 
         //当前页    此函数   若传入0  则当作1（即首次进入页面时）
         final int currentPage = PageBean.countCurrentPage(currPage); 
-        
-      
+
         //记录集合
         ex.setStartRow(offset);
         ex.setPageSize(pageSize);
@@ -52,6 +51,64 @@ public class GoodsServiceImpl implements GoodsService {
         pageBean.setList(goodsList);
         
 		return pageBean;
+	}
+
+	@Override
+	public boolean saveGoods(Goods goods, int userId, int categoryId) {
+		if(goods!=null){
+			//未審核商品
+			goods.setAuditState(0);
+			//未賣出狀態
+			goods.setGoodsState(0);
+			goods.setUserId(userId);
+			goods.setCategoryId(categoryId);
+			goodsMapper.insert(goods);
+			return  true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateGoods(Goods goods) {
+		if(goods!=null){
+			//未審核商品
+			goods.setAuditState(0);
+			goodsMapper.updateByPrimaryKeySelective(goods);
+			return  true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean removeGoods(int goodsId) {
+		goodsMapper.deleteByPrimaryKey(goodsId);
+		return true;
+	}
+
+	@Override
+	public Goods getDetailOfGoods(Integer id) {
+		return goodsMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Goods> listGoodsForCollection(Integer userId) {
+		/*連收藏表*/
+        return null;
+	}
+
+	@Override
+	public List<Goods> listGoodsForUser(Integer userId, Integer auditState) {
+		GoodsExample ex=new GoodsExample();
+		if(auditState != null){
+			//查詢所有自身還未審核商品
+			//查詢所有自身已通過商品
+			//查詢所有自身未通過商品
+			ex.createCriteria().andAuditStateEqualTo(auditState);
+		}
+		ex.createCriteria().andUserIdEqualTo(userId);
+
+		List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
+		return goodsList;
 	}
 
 }
