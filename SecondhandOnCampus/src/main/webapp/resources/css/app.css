@@ -580,25 +580,26 @@ body {
 
 }
 /* user.html */
-.userInfo{
+.user-info{
 	width: 650px;
-	margin:0 auto;
+	/* margin:0 auto; */
+	margin-left: 350px
 }
-.userInfo >a{
+.user-info >a{
    	text-decoration:none;
 	 color:lightblue
 }
-.userInfo >div{
+.user-info >div{
      width: 250px;
      text-align: right;
      float: left;
 }
-.userInfo >img{
+.user-info >img{
      width: 125px;
      position: relative;
      bottom :125px;
 }
-.userInfo >input{
+.user-info >input{
      width: 150px;
      text-align: right;
      float: left;
@@ -608,7 +609,7 @@ body {
 	font-size: 120%;
 	background-color:#e1dfdf;
 	margin:10px auto;
-
+    margin-left: 300px
 }
 .setPosition{
 	  position: relative;
@@ -617,9 +618,11 @@ body {
 .updateImg{
 	
 	margin:0 auto;
+	
 	position: absolute;
 	top: 185px;
-	left: 355px;
+	/* left: 355px; */
+	left: 415px;
 }
 .updateImg img{
 	 width: 125px;
@@ -639,7 +642,89 @@ body {
 	text-decoration:none;
 	 color:lightblue
 }
+.left_option {
+    margin-top: 10px;
+    float: left;
+    width: 200px;
+    background: #ffffff;
+}
+.left_option dl {
+    background: #e8e8e8;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ffffff; 
+    text-align: center;
+}
+.left_option dl.catalog {
+    background: #e1dfdf;
+}
 
+/*userSign.html  */
+
+
+.sign-info{
+	
+}
+.sign-info table {
+	width: 80%;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+
+}
+.sign-info td {    	
+	background-color: #F4F4F4;
+    	border: 1px solid #BBBBBB;
+	box-shadow: 1px 1px 1px #FFFFFF inset;	
+	padding:3px;
+	padding: 7px;
+}
+.sign-info td a{
+	color:#444;
+	line-height:19px;
+	text-decoration:none;
+	font-weight:bold;
+	text-shadow: 0 1px #fff;
+	padding:3px;
+} 
+
+
+.sign-info thead td {
+	color: #4D4D4D;
+	font-weight: bold;
+	background-color: #e1dfdf;
+    	border: 1px solid #BBBBBB;
+	box-shadow: 1px 1px 1px #FFFFFF inset;
+}
+.sign-info thead .remove, .sign-info thead .image {
+	text-align: center;
+}
+.sign-info thead .name, .sign-info thead .model {
+	text-align: left;
+}
+.sign-info thead .quantity, .sign-info thead .price, .sign-info thead .total {
+	text-align: right;
+}
+.sign-info tbody td {
+	vertical-align: top;
+	border-bottom: 1px solid #DDDDDD;
+}
+.sign-info tbody .remove {
+	vertical-align: middle;
+}
+.sign-info tbody .remove, .sign-info tbody .image {
+	text-align: center;
+}
+.sign-info tbody .name, .sign-info tbody .model {
+	text-align: left;
+}
+.sign-info tbody .quantity, .sign-info tbody .price, .sign-info tbody .total {
+	text-align: right;
+}
+.sign-info tbody span.stock {
+	color: #F00;
+	font-weight: bold;
+}
 
 
 /* detailOfGoods.jsp */

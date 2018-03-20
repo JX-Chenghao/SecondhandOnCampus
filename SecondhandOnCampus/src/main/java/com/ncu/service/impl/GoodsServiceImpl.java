@@ -1,19 +1,26 @@
 package com.ncu.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ncu.mapper.GoodsMapper;
+import com.ncu.mapper.SignMapper;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.GoodsExample;
 import com.ncu.pojo.PageBean;
+import com.ncu.pojo.Sign;
+import com.ncu.pojo.SignExample;
 import com.ncu.service.GoodsService;
 
 public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
 	GoodsMapper goodsMapper;
+	@Autowired
+	SignMapper signMapper;
+	
 	
 	@Override
 	public PageBean<Goods> getGoodsByPage(int currPage) {
@@ -92,8 +99,15 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List<Goods> listGoodsForCollection(Integer userId) {
-		/*連收藏表*/
-        return null;
+		/*收藏表*/
+		SignExample ex = new SignExample();
+		ex.createCriteria().andUserIdEqualTo(userId);
+		List<Sign> signList = signMapper.selectByExample(ex);
+		List<Goods> goodsList=new ArrayList<Goods>();
+		for(Sign sign : signList){
+			goodsList.add(goodsMapper.selectByPrimaryKey(sign.getGoodsId()));
+		}
+		return goodsList;
 	}
 
 	@Override

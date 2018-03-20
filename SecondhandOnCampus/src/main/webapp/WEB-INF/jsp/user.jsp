@@ -9,6 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/app.css" />
 <link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css" all /> 
 <title>校园二手交易网站</title>
@@ -205,8 +206,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 </div>  
 	</div>  
   <div class="container" style="width:83%;margin-left:100px">
+  
+  
+       <div class="left_option">
+            <ul>
+                 <a style="text-decoration: none; color: #333;font-size:16px;">
+                        <dl id="dt_1" class="catalog"> 首页</dl>
+                 </a>
+                 <a href="#" style="text-decoration: none; color: #333;font-size:16px;">
+                       <dl id="dt_2" >我的信息</dl>
+                  </a>
+                 <a href="${pageContext.request.contextPath}/goods/showCollection.action?userId=${sessionScope.user.id}"  style="text-decoration: none; color: #333;font-size:16px;">
+                       <dl id="dt_3" class="catalog">  我的收藏</dl>
+                  </a>
+                   <a href="#"  style="text-decoration: none; color: #333;font-size:16px;">
+                      <dl id="dt_5" class="catalog"> 正审核商品</dl>
+                      </a>
+                   <a  href="#"  style="text-decoration: none; color: #333;font-size:16px;">
+                        <dl id="dt_5" class="catalog"> 已通过商品</dl>
+                      </a>
+                  <a href="#" style="text-decoration: none; color: #333;font-size:16px;">
+                        <dl id="dt_6" class="catalog">未通过管理</dl>
+                   </a>                                    
+            </dt>
+        </div>
+  
+  
+  
           		 <div class="decorationBlock">个人信息：</div>
-           			<div class="userInfo">
+           			<div class="user-info">
                       <div>用户名:</div><input type="text" Name="Userame" placeholder="用户名/学号" required="" disabled="disabled" value="${sessionScope.user.aliasName }"><br/>
                       <div>学号:</div><input type="text" Name="sno" placeholder="学号" required="" disabled="disabled" value="${sessionScope.user.sno }"><br/>
                       <div>手机号:</div><input type="text" Name="phoneNumber" placeholder="手机号" required="" disabled="disabled" value="${sessionScope.user.phoneNumber }"><br/>
@@ -230,14 +258,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          		 </div>
      
                  <div class="decorationBlock">交易信息：</div>
-                 <div class="userInfo two">
+                 <div class="user-info two">
                             <div>支付宝账户:</div><input type="text" Name="alipayNumber" placeholder="支付宝账户" required="" disabled="disabled" value="${sessionScope.user.alipayNumber }" ><br/>
                             <div>收货地址:</div><input type="text" Name="shippingAddress" placeholder="收货地址" required="" disabled="disabled" value="${sessionScope.user.shippingAddress }">
                               <a href="#" id="twoSet">修改</a> <a id="twoSave" href="javascript:void(0);" onclick="updateTradeInfo()" >保存</a>
                  </div>
 
                   <div class="decorationBlock">修改密码：</div>
-                  <div class="userInfo three">
+                  <div class="user-info three">
                         <div>旧密码:</div><input type="password" Name="pwd_old" placeholder="旧密码" required="" disabled="disabled"><br/>
                         <div>新密码:</div><input type="password" Name="pwd_new" placeholder="新密码" required="" disabled="disabled"><br/>
                          <div>再次确认密码:</div><input type="password" Name="pwd_confirm" placeholder="再次确认密码" required="" disabled="disabled">

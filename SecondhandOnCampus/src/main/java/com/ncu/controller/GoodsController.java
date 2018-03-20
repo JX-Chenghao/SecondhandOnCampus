@@ -56,11 +56,11 @@ public class GoodsController {
 	public ModelAndView showGoodsForUser(Integer userId){
 
 		ModelAndView modelAndView=new ModelAndView();
-
+        
         //展示用戶收藏商品
         List<Goods> goodsList= goodsService.listGoodsForCollection(userId);
         modelAndView.addObject("goodsList",goodsList);
-		modelAndView.setViewName("user");
+		modelAndView.setViewName("userSign");
 		return modelAndView;
 
 	}
