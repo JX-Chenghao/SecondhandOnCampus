@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<li ><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
 		<li ><a href="cart.html" class="cart">购物车</a></li>
 		<li ><a href="order.html" class="orderInfo">订单信息</a></li>
-		<li class="active"><a href="#" class="userInfo">完善信息</a></li>
+		<li class="active"><a href="#" class="userInfo">个人中心</a></li>
 		
 		<c:if test="${sessionScope.user==null}">
 			<li style="float:right;"><a href="${pageContext.request.contextPath}/user/index.action" class="login">登录</a></li>
@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div class="linktree">
         		<a href="#">主页</a>
-        		&raquo; <a href="#">完善信息</a>
+        		&raquo; <a href="#">个人中心</a>&raquo; <a href="#">我的收藏</a>
 	</div>
 	<div style="width:1000px;margin:0 auto;">
     		<div id="cart">
@@ -96,18 +96,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </tr>
         </thead>
         <tbody>
+        <c:forEach items="${signGoodsList}" var="signGoods">
           <tr>
             <td class="image"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" alt="iMac" title="iMac" /></a>
             </td>
-            <td class="name"><a href="#">iMac</a>
+            <td class="name"><a href="#">${signGoods.goods.name}</a>
               <div>
               </div>
             </td>
-            <td class="model">Product 14</td>
-            <td class="quantity"><input type="text" name="quantity[41]" value="2" size="3" /></td>
-            <td class="price">$100.00</td>
-            <td class="remove"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
-          </tr>   
+            <td class="introduce">${signGoods.goods.introducedText}</td>
+            <td class="quantity">${signGoods.goods.quantity}</td>
+            <td class="price">￥${signGoods.goods.price}</td>
+            <td class="remove"><a href="${pageContext.request.contextPath}/user/sign/remove.action?userId=${signGoods.userId}&signId=${signGoods.signId}"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
+          </tr> 
+         </c:forEach>  
         </tbody>
       </table>
     </div>

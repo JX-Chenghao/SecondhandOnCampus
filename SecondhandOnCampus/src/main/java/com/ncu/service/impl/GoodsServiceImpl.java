@@ -12,6 +12,7 @@ import com.ncu.pojo.GoodsExample;
 import com.ncu.pojo.PageBean;
 import com.ncu.pojo.Sign;
 import com.ncu.pojo.SignExample;
+import com.ncu.pojo.vo.SignVO;
 import com.ncu.service.GoodsService;
 
 public class GoodsServiceImpl implements GoodsService {
@@ -98,16 +99,21 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<Goods> listGoodsForCollection(Integer userId) {
+	public List<SignVO> listGoodsForCollection(Integer userId) {
 		/*收藏表*/
 		SignExample ex = new SignExample();
 		ex.createCriteria().andUserIdEqualTo(userId);
 		List<Sign> signList = signMapper.selectByExample(ex);
-		List<Goods> goodsList=new ArrayList<Goods>();
+		List<SignVO> signGoodsList=new ArrayList<SignVO>();
 		for(Sign sign : signList){
-			goodsList.add(goodsMapper.selectByPrimaryKey(sign.getGoodsId()));
+			SignVO signVO = new SignVO();
+			signVO.setGoods(goodsMapper.selectByPrimaryKey(sign.getGoodsId()));
+			signVO.setSignId(sign.getId());
+			signVO.setUserId(sign.getUserId());
+			
+			signGoodsList.add(signVO);
 		}
-		return goodsList;
+		return signGoodsList;
 	}
 
 	@Override

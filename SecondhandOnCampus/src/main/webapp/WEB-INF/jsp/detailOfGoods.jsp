@@ -14,8 +14,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$('#da-slider').cslider();
+			$('#da-slider').cslider();	
+			
 		});
+		function sign(goodsId,userId){
+					$.ajax({
+                                url:'${pageContext.request.contextPath}/user/sign/add.action',
+		                     	type:"post",
+			                    dataType :"json",
+			                    data:"goodsId="+goodsId+"&userId="+userId,
+			                    success:function(data){
+			                      
+			                      	 	if(data.res=="success"){
+			                         	 	 alert("<添加收藏成功！>");
+			                         	 	 $('.one').attr("disabled","disabled");
+			                         	 	 $('#oneSave').hide();
+			                      		 }else if(data.res=="collected"){
+			                       		     alert("<已经收藏过了>");
+			                      		 }
+			                       
+                                }
+                        });
+		}
 	</script>
 </head>
 <body>
@@ -104,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<span>&nbsp;&nbsp;- OR -&nbsp;&nbsp;</span>
 								</div>
 								<div>
-									<a class="wishlist"><img src="${pageContext.request.contextPath}/resources/images/collect.png" style="margin-top:2px;" title="收藏"/></a>
+									<a onclick="sign(${goods.id},${sessionScope.user.id })" class="wishlist"><img src="${pageContext.request.contextPath}/resources/images/collect.png" style="margin-top:2px;" title="收藏"/></a>
 									
 								</div>
 							</div>

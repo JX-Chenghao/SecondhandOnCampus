@@ -1,29 +1,18 @@
 package com.ncu.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.hamcrest.core.IsNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ncu.common.RegularExpressionUtil;
-import com.ncu.common.StringUtil;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.PageBean;
-import com.ncu.pojo.User;
+import com.ncu.pojo.vo.SignVO;
 import com.ncu.service.GoodsService;
-import com.ncu.service.UserService;
 
 
 @Controller 
@@ -58,8 +47,8 @@ public class GoodsController {
 		ModelAndView modelAndView=new ModelAndView();
         
         //展示用戶收藏商品
-        List<Goods> goodsList= goodsService.listGoodsForCollection(userId);
-        modelAndView.addObject("goodsList",goodsList);
+        List<SignVO> signGoodsList= goodsService.listGoodsForCollection(userId);
+        modelAndView.addObject("signGoodsList",signGoodsList);
 		modelAndView.setViewName("userSign");
 		return modelAndView;
 

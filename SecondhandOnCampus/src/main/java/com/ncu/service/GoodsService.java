@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.PageBean;
+import com.ncu.pojo.vo.SignVO;
 
 public interface GoodsService {
     /*商品分頁*/
@@ -17,7 +18,7 @@ public interface GoodsService {
     /*商品詳細信息*/
     Goods getDetailOfGoods(Integer id);
     /*列出用戶收藏商品*/
-    List<Goods> listGoodsForCollection(Integer userId);
+    List<SignVO> listGoodsForCollection(Integer userId);
     /*列出用戶自身商品*/
     List<Goods> listGoodsForUser(Integer userId, Integer auditState);
 }
