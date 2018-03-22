@@ -66,10 +66,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <dl id="dt_2" class="catalog">我的信息</dl>
                   </a>
                  <a href="#"  style="text-decoration: none; color: #333;font-size:16px;">
-                       <dl id="dt_3" class="catalog">  我的收藏</dl>
+                       <dl id="dt_3">  我的收藏</dl>
                   </a>
                    <a href="#"  style="text-decoration: none; color: #333;font-size:16px;">
-                      <dl id="dt_5" class="catalog"> 正审核商品</dl>
+                      <dl id="dt_4" class="catalog"> 正审核商品</dl>
                       </a>
                    <a  href="#"  style="text-decoration: none; color: #333;font-size:16px;">
                         <dl id="dt_5" class="catalog"> 已通过商品</dl>

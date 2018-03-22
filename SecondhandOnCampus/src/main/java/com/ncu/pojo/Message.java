@@ -9,6 +9,10 @@ public class Message {
 
     private Integer userId;
 
+    private Integer goodsId;
+
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +43,21 @@ public class Message {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
