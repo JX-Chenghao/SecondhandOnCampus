@@ -8,6 +8,7 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="message_date" property="messageDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, content, parent_message, user_id, goods_id, status
+    id, content, parent_message, user_id, goods_id, status, message_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.MessageExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Message" >
     insert into message (id, content, parent_message, 
-      user_id, goods_id, status
-      )
+      user_id, goods_id, status, 
+      message_date)
     values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{parentMessage,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
-      )
+      #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{messageDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Message" >
     insert into message
@@ -129,6 +130,9 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="messageDate != null" >
+        message_date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -148,6 +152,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="messageDate != null" >
+        #{messageDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.messageDate != null" >
+        message_date = #{record.messageDate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       parent_message = #{record.parentMessage,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       goods_id = #{record.goodsId,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      message_date = #{record.messageDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="messageDate != null" >
+        message_date = #{messageDate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       parent_message = #{parentMessage,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       goods_id = #{goodsId,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      message_date = #{messageDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

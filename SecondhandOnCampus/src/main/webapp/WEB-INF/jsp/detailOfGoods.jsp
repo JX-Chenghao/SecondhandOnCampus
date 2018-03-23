@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -35,6 +36,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                       
                                 }
                         });
+		}
+		function findEvaluate(userId){
+		   $("#messageBlock").remove();
+		   $("#tab-info").removeClass("selected");
+		   $("#tab-related").removeClass("selected");
+		   $("#tab-evaluate").addClass("selected");
+		   $.ajax({
+                                url:'${pageContext.request.contextPath}/user/evaluate/query.action',
+		                     	type:"get",
+			                    dataType :"json",
+			                    data:"userId="+userId,
+			                    success:function(data){
+			                            var evaluateHTML="<div id='evaluateBlock' class='evaluate'>";
+			                      	 	for(var i=0;i <data.length;i++){
+			                      	 		evaluateHTML+="<div class='lineItem'>匿名买家：";
+			                      	 	    evaluateHTML+= data[i].content;
+			                      	 	    evaluateHTML+= "<span class='dateTag'>"
+			                      	 	    evaluateHTML+=data[i].evaluateDate;
+			                      	 	    evaluateHTML+= "</span>";
+			                      	 	    evaluateHTML+="</div><br/>";
+			                      	 	}
+			                      	 	evaluateHTML+="</div>";
+			                       		 $("#goodsIntroduce").after(evaluateHTML);
+                                }
+                        });
+		  
+		}
+		function findOtherGoods(userId,excludeGoodsId){
+		   $("#messageBlock").remove();
+		   $("#evaluateBlock").remove();
+		   $("#tab-info").removeClass("selected");
+		   $("#tab-evaluate").removeClass("selected");
+		   $("#tab-related").addClass("selected");
+		  
 		}
 	</script>
 </head>
@@ -95,10 +130,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<div class="right">
 						<div id="tabs" class="tabs">
-							<a href="#tab-information" class="selected"><img alt="Information" src="${pageContext.request.contextPath}/resources/images/Info.png" style="margin-top:6px;" /><div></div></a>
-							<a href="#tab-description">商品留言数 (0)</a>
-							<a href="#tab-review">商家评论数 (0)</a>
-							<a href="#tab-related">商家其他商品 (2)</a>
+							<a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${goods.id}" id="tab-info" class="selected"><img alt="Information" src="${pageContext.request.contextPath}/resources/images/Info.png" style="margin-top:6px;" /><div></div></a>
+							<a id="tab-evaluate" onclick="findEvaluate(${goods.userId })">商家评价</a>
+							<a id="tab-related" onclick="findOtherGoods(${goods.userId },${goods.id})" >商家其他商品 </a>
 						</div>
 
 						<div id="tab-information" class="tab-content">		
@@ -128,15 +162,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 								</div>
 							</div>
-							<div class="review">
-								<div>
+							 <div id="goodsIntroduce">商品介绍：${goods.introducedText }<br/><br/><br/></div>
+							<div id="messageBlock">
+								<div class="review">
+								<div >
 									&nbsp;&nbsp;
-									<a >0 评论</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-									<a >添加评论</a>
+									<a >${fn:length(messagesVO)}&nbsp; 留言</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+									<input type="text" />&nbsp;<a href="#">留言</a>
 								</div>
-							</div>
-							<div>
-								${goods.introducedText }
+								</div>
+								<div >
+								
+									<c:forEach items="${ messagesVO}" var="messageVO">
+								  	 <div class="messageDiv">
+								   	 <div class="lineItem"><span>${messageVO.userAliasname } :<span>${ messageVO.message.content} <span class="dateTag"><f:formatDate value="${messageVO.message.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> <span></div>
+								    	<c:if test="${messageVO.replyStatus==true }">
+								    		<div class="lineItem">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;商家回复： ${messageVO.replyMessage.content} <span class="dateTag"><f:formatDate value="${messageVO.replyMessage.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> <span></div>
+								    	</c:if>
+								  	 </div>
+									</c:forEach>
+								</div>
 							</div>
 
 						</div>

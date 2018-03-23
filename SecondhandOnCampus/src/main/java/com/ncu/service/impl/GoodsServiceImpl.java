@@ -1,6 +1,7 @@
 package com.ncu.service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,14 +121,36 @@ public class GoodsServiceImpl implements GoodsService {
 	public List<Goods> listGoodsForUser(Integer userId, Integer auditState) {
 		GoodsExample ex=new GoodsExample();
 		if(auditState != null){
-			//查詢所有自身還未審核商品
-			//查詢所有自身已通過商品
-			//查詢所有自身未通過商品
-			ex.createCriteria().andAuditStateEqualTo(auditState);
+			//查詢所有自身還未審核商品0
+			//查詢所有自身已通過商品1
+			//查詢所有自身未通過商品2
+			ex.createCriteria().andAuditStateEqualTo(auditState).andUserIdEqualTo(userId);
+		}else{
+			ex.createCriteria().andUserIdEqualTo(userId);
 		}
-		ex.createCriteria().andUserIdEqualTo(userId);
 
 		List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
+		return goodsList;
+	}
+
+	@Override
+	public List<Goods> findOtherGoodsOfUser(Integer userId,
+			Integer excludeGoodsId) {
+		//已通過商品
+		List<Goods> goodsList = listGoodsForUser(userId, 1);
+		for(Goods g:goodsList){
+			if(g.getId().equals(excludeGoodsId)){
+				
+			}
+		}
+		Iterator<Goods> iterator = goodsList.iterator();
+		while(iterator.hasNext()){
+			Goods g=iterator.next();
+			if(g.getId().equals(excludeGoodsId)){
+				iterator.remove();
+			}
+		}
+		
 		return goodsList;
 	}
 

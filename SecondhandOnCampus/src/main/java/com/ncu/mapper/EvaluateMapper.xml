@@ -7,6 +7,7 @@
     <result column="star_level" property="starLevel" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="crop_id" property="cropId" jdbcType="INTEGER" />
+    <result column="evaluate_date" property="evaluateDate" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, content, star_level, user_id, crop_id
+    id, content, star_level, user_id, crop_id, evaluate_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.EvaluateExample" >
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Evaluate" >
     insert into evaluate (id, content, star_level, 
-      user_id, crop_id)
+      user_id, crop_id, evaluate_date
+      )
     values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{starLevel,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER})
+      #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}, #{evaluateDate,jdbcType=DATE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Evaluate" >
     insert into evaluate
@@ -123,6 +126,9 @@
       <if test="cropId != null" >
         crop_id,
       </if>
+      <if test="evaluateDate != null" >
+        evaluate_date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +145,9 @@
       </if>
       <if test="cropId != null" >
         #{cropId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateDate != null" >
+        #{evaluateDate,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.cropId != null" >
         crop_id = #{record.cropId,jdbcType=INTEGER},
       </if>
+      <if test="record.evaluateDate != null" >
+        evaluate_date = #{record.evaluateDate,jdbcType=DATE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       content = #{record.content,jdbcType=VARCHAR},
       star_level = #{record.starLevel,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      crop_id = #{record.cropId,jdbcType=INTEGER}
+      crop_id = #{record.cropId,jdbcType=INTEGER},
+      evaluate_date = #{record.evaluateDate,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="cropId != null" >
         crop_id = #{cropId,jdbcType=INTEGER},
       </if>
+      <if test="evaluateDate != null" >
+        evaluate_date = #{evaluateDate,jdbcType=DATE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +221,8 @@
     set content = #{content,jdbcType=VARCHAR},
       star_level = #{starLevel,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
-      crop_id = #{cropId,jdbcType=INTEGER}
+      crop_id = #{cropId,jdbcType=INTEGER},
+      evaluate_date = #{evaluateDate,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

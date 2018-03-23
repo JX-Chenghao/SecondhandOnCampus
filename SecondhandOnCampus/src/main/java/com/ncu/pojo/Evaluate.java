@@ -1,5 +1,7 @@
 package com.ncu.pojo;
 
+import java.util.Date;
+
 public class Evaluate {
     private Integer id;
 
@@ -10,6 +12,8 @@ public class Evaluate {
     private Integer userId;
 
     private Integer cropId;
+
+    private Date evaluateDate;
 
     public Integer getId() {
         return id;
@@ -49,5 +53,13 @@ public class Evaluate {
 
     public void setCropId(Integer cropId) {
         this.cropId = cropId;
+    }
+
+    public Date getEvaluateDate() {
+        return evaluateDate;
+    }
+
+    public void setEvaluateDate(Date evaluateDate) {
+        this.evaluateDate = evaluateDate;
     }
 }

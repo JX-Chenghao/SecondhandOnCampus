@@ -1,6 +1,7 @@
 package com.ncu.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,15 @@ public class EvaluateController {
         evaluateService.saveEvaluate(evaluate);
         resMap.put("res", "success");
         return resMap;
+    }
+    //查询此商品的卖家 评论
+    @RequestMapping("/query")
+    @ResponseBody
+    public List<Evaluate> query(Integer userId) throws Exception {
+    	List<Evaluate> evaluates =null;
+    	if(userId!=null)
+           evaluates = evaluateService.findEvaluateOfUserCrop(userId);
+        return evaluates;
     }
     //移除评价（管理员）
     @RequestMapping("/remove")

@@ -1031,3 +1031,19 @@ a.button span {
     height: 700px
 
 }
+.messageDiv{
+	width:100%;
+	border-bottom:1px solid #BBBBBB;
+	padding:6px 0px;
+	
+}
+.dateTag{
+	float:right;
+}
+.evaluate{
+	width:550px;
+}
+.lineItem{
+	width:100%;
+	
+}

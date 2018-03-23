@@ -7,12 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ncu.pojo.Evaluate;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.PageBean;
+import com.ncu.pojo.vo.MessageVO;
 import com.ncu.pojo.vo.SignVO;
 import com.ncu.service.GoodsService;
+import com.ncu.service.MessageService;
 
 
 @Controller 
@@ -20,6 +24,9 @@ import com.ncu.service.GoodsService;
 public class GoodsController {
     @Autowired
 	GoodsService goodsService;
+    @Autowired
+    MessageService messageService;
+    
     
     //分页展示商品
     @RequestMapping("/showGoodsByPage")
@@ -71,6 +78,8 @@ public class GoodsController {
 		ModelAndView modelAndView=new ModelAndView();
 		goods=goodsService.getDetailOfGoods(goods.getId());
 		modelAndView.addObject("goods",goods);
+		List<MessageVO> messagesVO = messageService.findMessageOfGoods(goods.getId());
+		modelAndView.addObject("messagesVO",messagesVO);
 		modelAndView.setViewName("detailOfGoods");
 		return modelAndView;
 	}
@@ -111,6 +120,14 @@ public class GoodsController {
 		modelAndView.setViewName("user");
 		return modelAndView;
 	}
+    //查询此卖家 的其他商品
+    @RequestMapping("/queryOtherGoods")
+    @ResponseBody
+    public List<Goods> queryOtherGoods(Integer userId,Integer excludeGoodsId) throws Exception {
+    	List<Goods> goodsList =null;
+    	goodsList=goodsService.findOtherGoodsOfUser(userId,excludeGoodsId);
+    	return goodsList;
+    }
 }
 
 

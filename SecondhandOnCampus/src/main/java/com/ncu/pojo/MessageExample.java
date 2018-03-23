@@ -1,6 +1,7 @@
 package com.ncu.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MessageExample {
@@ -471,6 +472,66 @@ public class MessageExample {
 
         public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateIsNull() {
+            addCriterion("message_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateIsNotNull() {
+            addCriterion("message_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateEqualTo(Date value) {
+            addCriterion("message_date =", value, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateNotEqualTo(Date value) {
+            addCriterion("message_date <>", value, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateGreaterThan(Date value) {
+            addCriterion("message_date >", value, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("message_date >=", value, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateLessThan(Date value) {
+            addCriterion("message_date <", value, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateLessThanOrEqualTo(Date value) {
+            addCriterion("message_date <=", value, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateIn(List<Date> values) {
+            addCriterion("message_date in", values, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateNotIn(List<Date> values) {
+            addCriterion("message_date not in", values, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateBetween(Date value1, Date value2) {
+            addCriterion("message_date between", value1, value2, "messageDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageDateNotBetween(Date value1, Date value2) {
+            addCriterion("message_date not between", value1, value2, "messageDate");
             return (Criteria) this;
         }
     }

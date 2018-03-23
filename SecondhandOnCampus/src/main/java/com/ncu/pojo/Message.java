@@ -1,5 +1,7 @@
 package com.ncu.pojo;
 
+import java.util.Date;
+
 public class Message {
     private Integer id;
 
@@ -12,6 +14,8 @@ public class Message {
     private Integer goodsId;
 
     private Integer status;
+
+    private Date messageDate;
 
     public Integer getId() {
         return id;
@@ -59,5 +63,13 @@ public class Message {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getMessageDate() {
+        return messageDate;
+    }
+
+    public void setMessageDate(Date messageDate) {
+        this.messageDate = messageDate;
     }
 }
