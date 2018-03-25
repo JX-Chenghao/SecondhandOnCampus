@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('#headImgFile').hide();
                     $('#btnUpdateImg').hide();
                     $('#btnUpdateImg').click(function(){
-                         $('#headImgFile').click();
+                    $('#headImgFile').click();
                            
                     });
                     $('#headImg,#btnUpdateImg').mouseover(function(){
@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     //头像注册改变事件
                      $("form :file").change(function(){
 	      					$('#btnSaveImg').show();
-	      					  
+	      					$('#headImg').unbind(); 
 					 });
 					//保存头像按钮
 					$('#btnSaveImg').click(function(){
@@ -219,14 +219,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <a href="${pageContext.request.contextPath}/goods/showCollection.action?userId=${sessionScope.user.id}"  style="text-decoration: none; color: #333;font-size:16px;">
                        <dl id="dt_3" class="catalog">  我的收藏</dl>
                   </a>
-                   <a href="#"  style="text-decoration: none; color: #333;font-size:16px;">
+                   <a href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=0"  style="text-decoration: none; color: #333;font-size:16px;">
                       <dl id="dt_5" class="catalog"> 正审核商品</dl>
                       </a>
-                   <a  href="#"  style="text-decoration: none; color: #333;font-size:16px;">
+                   <a href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=1"  style="text-decoration: none; color: #333;font-size:16px;">
                         <dl id="dt_5" class="catalog"> 已通过商品</dl>
                       </a>
-                  <a href="#" style="text-decoration: none; color: #333;font-size:16px;">
-                        <dl id="dt_6" class="catalog">未通过管理</dl>
+                   <a href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=2" style="text-decoration: none; color: #333;font-size:16px;">
+                        <dl id="dt_6" class="catalog">未通过商品</dl>
                    </a>                                    
             </dt>
         </div>

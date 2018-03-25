@@ -15,31 +15,26 @@ public class GoodsExample {
     private Integer startRow;
     
     private Integer pageSize;
-
+    
     public GoodsExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    
     public Integer getStartRow() {
 		return startRow;
 	}
-
 
 	public void setStartRow(Integer startRow) {
 		this.startRow = startRow;
 	}
 
-
 	public Integer getPageSize() {
 		return pageSize;
 	}
 
-
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-
 
 	public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -110,7 +105,6 @@ public class GoodsExample {
             return criteria;
         }
 
-        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -835,6 +829,76 @@ public class GoodsExample {
 
         public Criteria andCategoryIdNotBetween(Integer value1, Integer value2) {
             addCriterion("category_id not between", value1, value2, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextIsNull() {
+            addCriterion("failure_text is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextIsNotNull() {
+            addCriterion("failure_text is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextEqualTo(String value) {
+            addCriterion("failure_text =", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextNotEqualTo(String value) {
+            addCriterion("failure_text <>", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextGreaterThan(String value) {
+            addCriterion("failure_text >", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextGreaterThanOrEqualTo(String value) {
+            addCriterion("failure_text >=", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextLessThan(String value) {
+            addCriterion("failure_text <", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextLessThanOrEqualTo(String value) {
+            addCriterion("failure_text <=", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextLike(String value) {
+            addCriterion("failure_text like", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextNotLike(String value) {
+            addCriterion("failure_text not like", value, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextIn(List<String> values) {
+            addCriterion("failure_text in", values, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextNotIn(List<String> values) {
+            addCriterion("failure_text not in", values, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextBetween(String value1, String value2) {
+            addCriterion("failure_text between", value1, value2, "failureText");
+            return (Criteria) this;
+        }
+
+        public Criteria andFailureTextNotBetween(String value1, String value2) {
+            addCriterion("failure_text not between", value1, value2, "failureText");
             return (Criteria) this;
         }
     }

@@ -9,15 +9,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/app.css" />
 <link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css" all /> 
 <title>校园二手交易网站</title>
-           <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script type="text/javascript">
-		$(function() {
-			$('#da-slider').cslider();	
-			
-		});
+		function addMessage(goodsId,userId, aliasName){
+					var content=$('#contentInput').val();
+					if(content==""){
+					   alert("请填写留言！");
+					   return ;
+					}
+					$.ajax({
+                                url:'${pageContext.request.contextPath}/user/message/add.action',
+		                     	type:"post",
+			                    dataType :"json",
+			                    data:"goodsId="+goodsId+"&userId="+userId+"&content="+content,
+			                    success:function(data){
+			                      
+			                      	 	if(data.res=="success"){
+			                         	 	 alert("<留言成功！>");
+			                         	 	 var innerHTML="<div class='messageDiv'>";
+			                         	 	 innerHTML+="<div class='lineItem'><span>"+aliasName+" :"+"<span>"+content+"<span class='dateTag'>111<span></div>";
+			                         	 	 innerHTML+="</div>";
+			                         	 	 $('.review').after(innerHTML);
+			                      		 }else {
+			                       		     alert("<异常>");
+			                      		 }
+			                       
+                                }
+                        });
+		}
 		function sign(goodsId,userId){
 					$.ajax({
                                 url:'${pageContext.request.contextPath}/user/sign/add.action',
@@ -58,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                      	 	    evaluateHTML+="</div><br/>";
 			                      	 	}
 			                      	 	evaluateHTML+="</div>";
-			                       		 $("#goodsIntroduce").after(evaluateHTML);
+			                       		$("#goodsIntroduce").after(evaluateHTML);
                                 }
                         });
 		  
@@ -159,25 +182,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div>
 									<a onclick="sign(${goods.id},${sessionScope.user.id })" class="wishlist"><img src="${pageContext.request.contextPath}/resources/images/collect.png" style="margin-top:2px;" title="收藏"/></a>
-									
 								</div>
 							</div>
 							 <div id="goodsIntroduce">商品介绍：${goods.introducedText }<br/><br/><br/></div>
 							<div id="messageBlock">
 								<div class="review">
-								<div >
-									&nbsp;&nbsp;
-									<a >${fn:length(messagesVO)}&nbsp; 留言</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-									<input type="text" />&nbsp;<a href="#">留言</a>
-								</div>
-								</div>
+									<div >
+										&nbsp;&nbsp;
+										<a >${fn:length(messagesVO)}&nbsp; 留言</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+										<input id="contentInput" type="text" />&nbsp;<a onclick="addMessage('${goods.id}','${sessionScope.user.id }','${sessionScope.user.aliasName}')">留言</a>
+									</div>
+									</div>
 								<div >
 								
 									<c:forEach items="${ messagesVO}" var="messageVO">
 								  	 <div class="messageDiv">
-								   	 <div class="lineItem"><span>${messageVO.userAliasname } :<span>${ messageVO.message.content} <span class="dateTag"><f:formatDate value="${messageVO.message.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> <span></div>
+								   	 	<div class="lineItem"><span>${messageVO.userAliasname } :</span>${ messageVO.message.content} <span class="dateTag"><f:formatDate value="${messageVO.message.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> </span></div>
 								    	<c:if test="${messageVO.replyStatus==true }">
-								    		<div class="lineItem">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;商家回复： ${messageVO.replyMessage.content} <span class="dateTag"><f:formatDate value="${messageVO.replyMessage.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> <span></div>
+								    		<div class="lineItem">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;商家回复： ${messageVO.replyMessage.content} <span class="dateTag"><f:formatDate value="${messageVO.replyMessage.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> </span></div>
 								    	</c:if>
 								  	 </div>
 									</c:forEach>

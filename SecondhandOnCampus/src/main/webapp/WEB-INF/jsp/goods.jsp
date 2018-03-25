@@ -8,15 +8,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/app.css" />
-<link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css" all /> 
+<link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css"  /> 
 <title>校园二手交易网站</title>
-           <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$('#da-slider').cslider();
-		});
-	</script>
+     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+
 </head>
 <body>
 	<div class="menu">

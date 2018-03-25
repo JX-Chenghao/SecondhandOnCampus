@@ -68,14 +68,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <a href="#"  style="text-decoration: none; color: #333;font-size:16px;">
                        <dl id="dt_3">  我的收藏</dl>
                   </a>
-                   <a href="#"  style="text-decoration: none; color: #333;font-size:16px;">
+                   <a href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=0"  style="text-decoration: none; color: #333;font-size:16px;">
                       <dl id="dt_4" class="catalog"> 正审核商品</dl>
                       </a>
-                   <a  href="#"  style="text-decoration: none; color: #333;font-size:16px;">
+                   <a href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=1"  style="text-decoration: none; color: #333;font-size:16px;">
                         <dl id="dt_5" class="catalog"> 已通过商品</dl>
                       </a>
-                  <a href="#" style="text-decoration: none; color: #333;font-size:16px;">
-                        <dl id="dt_6" class="catalog">未通过管理</dl>
+                  <a href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=2" style="text-decoration: none; color: #333;font-size:16px;">
+                        <dl id="dt_6" class="catalog">未通过商品</dl>
                    </a>                                    
             </dt>
         </div>

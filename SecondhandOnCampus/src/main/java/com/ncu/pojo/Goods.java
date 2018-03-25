@@ -25,8 +25,10 @@ public class Goods {
 
     private Integer categoryId;
 
+    private String failureText;
+
     private String introducedText;
-    
+
     public Integer getId() {
         return id;
     }
@@ -113,6 +115,14 @@ public class Goods {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getFailureText() {
+        return failureText;
+    }
+
+    public void setFailureText(String failureText) {
+        this.failureText = failureText == null ? null : failureText.trim();
     }
 
     public String getIntroducedText() {

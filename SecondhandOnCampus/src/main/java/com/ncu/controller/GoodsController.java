@@ -66,8 +66,9 @@ public class GoodsController {
 
 		ModelAndView modelAndView=new ModelAndView();
 		List<Goods> goodsList=goodsService.listGoodsForUser(userId,auditState);
-		modelAndView.addObject("goodsList",goodsList);
-		modelAndView.setViewName("user");
+		modelAndView.addObject("ownGoodsList",goodsList);
+		modelAndView.addObject("statusType",auditState);
+		modelAndView.setViewName("userGoods");
 		return modelAndView;
 
 	}
@@ -108,7 +109,7 @@ public class GoodsController {
 		modelAndView.setViewName("user");
 		return modelAndView;
 	}
-	//修改商品
+	//删除商品
 	@RequestMapping("/removeGoods")
 	public ModelAndView removeGoods(Goods goods){
 
@@ -128,6 +129,14 @@ public class GoodsController {
     	goodsList=goodsService.findOtherGoodsOfUser(userId,excludeGoodsId);
     	return goodsList;
     }
+    //审核商品(管理员)
+	@RequestMapping("/auditGoods")
+	public ModelAndView auditGoods(Goods goods){
+
+		ModelAndView modelAndView=new ModelAndView();
+     	
+		return modelAndView;
+	}
 }
 
 
