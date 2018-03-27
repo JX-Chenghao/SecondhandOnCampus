@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,7 +14,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css"  /> 
 <title>校园二手交易网站</title>
      <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-
+     <script type="text/javascript">
+           function addCart(goodsId){
+               $.ajax({
+                   url :'${pageContext.request.contextPath}/cart/add.action?id='+goodsId,
+                   type :"get",
+                   dataType:"json",
+                   success :function(data){
+                       if(data.res=="success"){
+                           alert("添加到购物车成功");
+                           $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
+                           
+                       }                  
+                   }
+               });
+               
+           		
+           }
+      
+     </script>
 </head>
 <body>
 	<div class="menu">
@@ -46,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="heading">
 			<a style="padding:8px;margin-left:-14px;">购物车</a>
 			<span style="font-size:14px;color:#fff;">&raquo;</span>
-      			<a><span id="cart_total">0 项 - ￥0.00</span></a>
+      			<a><span id="cart_total">${fn:length(sessionScope.cart.items)} 项 - ￥${sessionScope.cart.total}</span></a>
     		  	</div>
    
 		 </div>  
@@ -128,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="priced">
 							<ul>
 								<li>￥${goods.price }</li>
-								<li><a href="#">添加到购物车</a></li>
+								<li><a onclick="addCart(${goods.id})" href="#">添加到购物车</a></li>
 							</ul>
 						</div>
 						

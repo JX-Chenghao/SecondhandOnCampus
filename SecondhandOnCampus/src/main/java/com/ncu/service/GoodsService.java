@@ -23,4 +23,6 @@ public interface GoodsService {
     List<Goods> listGoodsForUser(Integer userId, Integer auditState);
     /*列出用户其他商品*/
 	List<Goods> findOtherGoodsOfUser(Integer userId, Integer excludeGoodsId);
+	/*以ID查找对应的商品*/
+	Goods findGoodsById(Integer id);
 }

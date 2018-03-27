@@ -94,6 +94,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   $("#tab-related").addClass("selected");
 		  
 		}
+		  function addCart(goodsId){
+               $.ajax({
+                   url :'${pageContext.request.contextPath}/cart/add.action?id='+goodsId,
+                   type :"get",
+                   dataType:"json",
+                   success :function(data){
+                       if(data.res=="success"){
+                           alert("添加到购物车成功");
+                           $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
+                           
+                       }                  
+                   }
+               });
+               
+           		
+           }
 	</script>
 </head>
 <body>
@@ -127,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="heading">
 			<a style="padding:8px;margin-left:-14px;">购物车</a>
 			<span style="font-size:14px;color:#fff;">&raquo;</span>
-      			<a><span id="cart_total">0 项 - ￥0.00</span></a>
+      			<a><span id="cart_total">${fn:length(sessionScope.cart.items)} 项 - ￥${sessionScope.cart.total}</span></a>
     		  	</div>
    
 		 </div>  
@@ -175,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="cart">
 								<div>数量:<input class="quantity" type="text" name="quantity" size="2" value="1" />
 									<input type="hidden" name="product_id"  value="41" />
-									&nbsp;<a id="button-cart" class="button" href="${goods.id } "><span>添加到购物车</span></a>
+									&nbsp;<a id="button-cart" class="button" onclick="addCart(${goods.id }) " href="#"><span>添加到购物车</span></a>
 								</div>
 								<div>
 									<span>&nbsp;&nbsp;- OR -&nbsp;&nbsp;</span>

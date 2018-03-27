@@ -154,4 +154,9 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsList;
 	}
 
+	@Override
+	public Goods findGoodsById(Integer id) {
+		return goodsMapper.selectByPrimaryKey(id);
+	}
+
 }
