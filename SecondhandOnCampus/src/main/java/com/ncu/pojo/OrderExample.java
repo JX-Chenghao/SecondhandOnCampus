@@ -491,6 +491,66 @@ public class OrderExample {
             addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
+
+        public Criteria andCropIdIsNull() {
+            addCriterion("crop_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdIsNotNull() {
+            addCriterion("crop_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdEqualTo(Integer value) {
+            addCriterion("crop_id =", value, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdNotEqualTo(Integer value) {
+            addCriterion("crop_id <>", value, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdGreaterThan(Integer value) {
+            addCriterion("crop_id >", value, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("crop_id >=", value, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdLessThan(Integer value) {
+            addCriterion("crop_id <", value, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdLessThanOrEqualTo(Integer value) {
+            addCriterion("crop_id <=", value, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdIn(List<Integer> values) {
+            addCriterion("crop_id in", values, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdNotIn(List<Integer> values) {
+            addCriterion("crop_id not in", values, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdBetween(Integer value1, Integer value2) {
+            addCriterion("crop_id between", value1, value2, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("crop_id not between", value1, value2, "cropId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -8,6 +8,7 @@
     <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
     <result column="pay_way" property="payWay" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="crop_id" property="cropId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_date, order_state, total_price, pay_way, user_id
+    id, order_date, order_state, total_price, pay_way, user_id, crop_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.OrderExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Order" >
     insert into order (id, order_date, order_state, 
-      total_price, pay_way, user_id
-      )
+      total_price, pay_way, user_id, 
+      crop_id)
     values (#{id,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
-      #{totalPrice,jdbcType=DOUBLE}, #{payWay,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
-      )
+      #{totalPrice,jdbcType=DOUBLE}, #{payWay,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{cropId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Order" >
     insert into order
@@ -129,6 +130,9 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="cropId != null" >
+        crop_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -148,6 +152,9 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cropId != null" >
+        #{cropId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.cropId != null" >
+        crop_id = #{record.cropId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       order_state = #{record.orderState,jdbcType=INTEGER},
       total_price = #{record.totalPrice,jdbcType=DOUBLE},
       pay_way = #{record.payWay,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER}
+      user_id = #{record.userId,jdbcType=INTEGER},
+      crop_id = #{record.cropId,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="cropId != null" >
+        crop_id = #{cropId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       order_state = #{orderState,jdbcType=INTEGER},
       total_price = #{totalPrice,jdbcType=DOUBLE},
       pay_way = #{payWay,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER}
+      user_id = #{userId,jdbcType=INTEGER},
+      crop_id = #{cropId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

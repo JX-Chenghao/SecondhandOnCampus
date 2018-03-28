@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul>
 		<li><a href="main.html" class="home">首页</a></li>
 		<li ><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
-		<li ><a href="cart.html" class="cart">购物车</a></li>
+		<li ><a href="${pageContext.request.contextPath}/cart/showCart.action" class="cart">购物车</a></li>
 		<li ><a href="order.html" class="orderInfo">订单信息</a></li>
 		<li class="active"><a href="#" class="userInfo">个人中心</a></li>
 		

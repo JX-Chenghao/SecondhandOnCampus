@@ -15,6 +15,8 @@ public class Order {
 
     private Integer userId;
 
+    private Integer cropId;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class Order {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getCropId() {
+        return cropId;
+    }
+
+    public void setCropId(Integer cropId) {
+        this.cropId = cropId;
     }
 }
