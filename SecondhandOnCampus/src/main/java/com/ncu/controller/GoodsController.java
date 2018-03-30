@@ -1,16 +1,22 @@
 package com.ncu.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ncu.pojo.Evaluate;
+import com.ncu.common.FileSaveUtils;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.PageBean;
 import com.ncu.pojo.vo.MessageVO;
@@ -84,18 +90,33 @@ public class GoodsController {
 		modelAndView.setViewName("detailOfGoods");
 		return modelAndView;
 	}
-    //添加商品
-	@RequestMapping("/saveGoods")
-	public ModelAndView saveGoods(Goods goods,Integer userId,Integer categoryId){
-
-		ModelAndView modelAndView=new ModelAndView();
-		boolean saveRes=goodsService.saveGoods(goods,userId,categoryId);
-		if(!saveRes){
-			modelAndView.addObject("failInfo","商品上架異常！");
-		}
-		modelAndView.setViewName("user");
+	@RequestMapping("/addGoodsView")
+	public ModelAndView addGoods(Goods goods, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("userAddGoods");
 		return modelAndView;
 	}
+    //添加商品
+	@RequestMapping("/saveGoods")
+	public String saveGoods(Goods goods,Integer userId,Integer categoryId,@RequestParam MultipartFile[] pics){
+		String path=null;
+		try {
+			path="D:\\upfilesForBS\\goods\\"+userId+ UUID.randomUUID().toString();
+			savePics(pics, path);
+			goods.setPicture(path);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		boolean saveRes=goodsService.saveGoods(goods,userId,categoryId);
+		if(!saveRes){
+			/*modelAndView.addObject("failInfo","商品上架異常！");*/
+		}
+		return "redirect:/goods/showOwnerGoods.action?auditState=0";
+	}
+
+
 	//修改商品
 	@RequestMapping("/updateGoods")
 	public ModelAndView updateGoods(Goods goods){
@@ -136,6 +157,16 @@ public class GoodsController {
 		ModelAndView modelAndView=new ModelAndView();
      	
 		return modelAndView;
+	}
+	
+	
+	//保存图片
+	private void savePics(MultipartFile[] pics,String path) throws IllegalStateException, IOException {
+		int i=1;
+		for (MultipartFile pic : pics) {
+			FileSaveUtils.saveFile(pic,path,i+"");
+			i++;
+        }
 	}
 }
 

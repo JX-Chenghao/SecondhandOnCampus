@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    success:function(data){
 			                            var evaluateHTML="<div id='evaluateBlock' class='evaluate'>";
 			                      	 	for(var i=0;i <data.length;i++){
-			                      	 		evaluateHTML+="<div class='lineItem'>匿名买家：";
+			                      	 		evaluateHTML+="<div class='lineItemEvaluate'>匿名买家：";
 			                      	 	    evaluateHTML+= data[i].content;
 			                      	 	    evaluateHTML+= "<span class='dateTag'>"
 			                      	 	    evaluateHTML+=data[i].evaluateDate;

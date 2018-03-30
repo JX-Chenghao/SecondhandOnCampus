@@ -20,7 +20,7 @@ public class Cart{
 	public void changeQuantity(int goodsId,int quantity){
 		CartItem item = cart.get(goodsId);
 		if(item != null){
-			int count = item.getQuantity() + quantity;
+			int count = quantity;
 			if(count < 1)
 				cart.remove(goodsId);
 			else

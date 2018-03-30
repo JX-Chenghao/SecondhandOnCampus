@@ -1048,9 +1048,11 @@ a.button span {
 }
 .lineItem{
 	width:100%;
-	
 }
-
+.lineItemEvaluate{
+	width:100%;
+	border-top:1px solid gray
+}
 /*userGoods.jsp*/
 .ownGoods-info table {
 	width: 80%;

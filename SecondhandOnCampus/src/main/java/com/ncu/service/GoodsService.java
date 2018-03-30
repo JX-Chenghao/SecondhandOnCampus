@@ -25,4 +25,6 @@ public interface GoodsService {
 	List<Goods> findOtherGoodsOfUser(Integer userId, Integer excludeGoodsId);
 	/*以ID查找对应的商品*/
 	Goods findGoodsById(Integer id);
+	/*找到商品的个数*/
+	Integer findGoodsQuantityById(Integer id);
 }

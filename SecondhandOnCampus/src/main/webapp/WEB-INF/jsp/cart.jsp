@@ -33,6 +33,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                
            		
            }
+
+           function changeQuantity(goodsId){
+               var quantity=$("#tr"+goodsId+" input").val()
+               if(isNaN(quantity)){
+                   alert("请填入数字！"); 
+                   return ;
+               }
+                 
+               $.ajax({
+                   url :'${pageContext.request.contextPath}/cart/change.action?id='+goodsId+'&quantity='+quantity,
+                   type :"post",
+                   dataType:"json",
+                   success :function(data){
+                       if(data.res=="success"){
+                           if(quantity<=0)
+                              $("#tr"+goodsId).remove();
+                           alert("修改商品个数成功");
+                           $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
+                       } else if(data.res=="notEnough"){
+                           alert("商品库存不足");
+                       } else{
+                           alert("异常");
+                       }                
+                   }
+               });
+            
+           }
       
      </script>
 </head>
@@ -98,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</td>
 						<td class="introduceText">${item.goods.introducedText}</td>
-						<td class="quantity"><input type="text"  value="${item.quantity }" size="3" /></td>
+						<td class="quantity"><input type="text"  value="${item.quantity }" onchange="changeQuantity('${item.goods.id}')"  size="3" /></td>
 						<td class="price">￥${item.goods.price}</td>
 						<td class="total">￥${item.goods.price*item.quantity }</td>
 						<td class="remove"><a href="#" onclick="removeCart(${item.goods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove.png"> </a></td>

@@ -1,6 +1,7 @@
 package com.ncu.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class GoodsServiceImpl implements GoodsService {
 			goods.setGoodsState(0);
 			goods.setUserId(userId);
 			goods.setCategoryId(categoryId);
+			goods.setPublishDate(new Date());
 			goodsMapper.insert(goods);
 			return  true;
 		}
@@ -157,6 +159,12 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Goods findGoodsById(Integer id) {
 		return goodsMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public Integer findGoodsQuantityById(Integer id) {
+		Integer quantity = findGoodsById(id).getQuantity();
+		return quantity;
 	}
 
 }

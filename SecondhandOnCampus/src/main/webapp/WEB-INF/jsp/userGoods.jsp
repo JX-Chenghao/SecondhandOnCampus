@@ -101,8 +101,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       </a>
                    <a   href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=2" style="text-decoration: none; color: #333;font-size:16px;">
                         <dl id="dt_6" >未通过商品</dl>
-                   </a>    
+                   </a> 
+                       
                 </c:if>
+                    <a   href="${pageContext.request.contextPath}/goods/addGoodsView.action" style="text-decoration: none; color: #333;font-size:16px;">
+                        <dl id="dt_6" class="catalog">上架商品</dl>
+                   </a>   
                                                    
             </dt>
         </div>
