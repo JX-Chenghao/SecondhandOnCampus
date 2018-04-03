@@ -104,7 +104,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                            alert("添加到购物车成功");
                            $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
                            
-                       }                  
+                       }  else if( data.res=="fail") {
+                           alert("添加到购物车失败，添加数量大于物品转让的个数");
+                       }                    
                    }
                });
                

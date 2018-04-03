@@ -5,6 +5,8 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, goods_id, order_id
+    id, goods_id, order_id, quantity, price
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.OrderitemExample" >
     select
@@ -98,10 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Orderitem" >
-    insert into orderitem (id, goods_id, order_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}
-      )
+    insert into orderitem (id, goods_id, order_id, 
+      quantity, price)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+      #{quantity,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Orderitem" >
     insert into orderitem
@@ -115,6 +117,12 @@
       <if test="orderId != null" >
         order_id,
       </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -125,6 +133,12 @@
       </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -146,6 +160,12 @@
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
+      <if test="record.quantity != null" >
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +175,9 @@
     update orderitem
     set id = #{record.id,jdbcType=INTEGER},
       goods_id = #{record.goodsId,jdbcType=INTEGER},
-      order_id = #{record.orderId,jdbcType=INTEGER}
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +191,21 @@
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=INTEGER},
       </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ncu.pojo.Orderitem" >
     update orderitem
     set goods_id = #{goodsId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER}
+      order_id = #{orderId,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

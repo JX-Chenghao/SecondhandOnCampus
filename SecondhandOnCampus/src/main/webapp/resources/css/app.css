@@ -1114,3 +1114,14 @@ a.button span {
 	color: #F00;
 	font-weight: bold;
 }
+
+
+/*userAddGoods.jsp*/
+.goodsTypeSelect{
+	width:180px;
+	height:40px;
+	font-size:20px;
+	position:absolute;
+	left:728px;
+	top:340px;
+}

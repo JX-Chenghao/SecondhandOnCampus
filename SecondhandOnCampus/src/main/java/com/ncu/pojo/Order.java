@@ -72,4 +72,12 @@ public class Order {
     public void setCropId(Integer cropId) {
         this.cropId = cropId;
     }
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", orderDate=" + orderDate + ", orderState="
+				+ orderState + ", totalPrice=" + totalPrice + ", payWay="
+				+ payWay + ", userId=" + userId + ", cropId=" + cropId + "]";
+	}
+    
 }

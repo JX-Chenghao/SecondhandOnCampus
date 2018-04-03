@@ -24,8 +24,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        if(data.res=="success"){
                            alert("添加到购物车成功");
                            $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
-                           
-                       }                  
+                       }  else if( data.res=="fail") {
+                           alert("添加到购物车失败，添加数量大于物品转让的个数");
+                       }               
                    }
                });
                
@@ -147,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="priced">
 							<ul>
 								<li>￥${goods.price }</li>
-								<li><a onclick="addCart(${goods.id})" href="#">添加到购物车</a></li>
+								<li><a onclick="addCart(${goods.id})" >添加到购物车</a></li>
 							</ul>
 						</div>
 						

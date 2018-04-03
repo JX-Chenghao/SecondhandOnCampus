@@ -34,10 +34,14 @@ public class CartController {
 		Map<String, String> resMap = new HashMap<String, String>();
 		goods = goodsService.findGoodsById(goods.getId());
 		Cart cart = getCart(request);
-		cart.add(goods);
-		resMap.put("res", "success");
-		resMap.put("totalPrice", cart.getTotal() + "");
-		resMap.put("items", cart.getItems().size() + "");
+		boolean res = cart.add(goods);
+		if(res){
+			resMap.put("res", "success");
+			resMap.put("totalPrice", cart.getTotal() + "");
+			resMap.put("items", cart.getItems().size() + "");
+		}else{
+			resMap.put("res", "fail");
+		}
 		return resMap;
 	}
 

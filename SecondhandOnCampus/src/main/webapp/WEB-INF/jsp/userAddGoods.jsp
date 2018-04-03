@@ -17,18 +17,14 @@
 	href="${pageContext.request.contextPath}/resources/css/reset.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/app.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/slider.css" all />
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/add_style.css"  />	
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/select2css.css"  />	
+
 <title>校园二手交易网站</title>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
-<script type="text/javascript" 
-    src="${pageContext.request.contextPath}/resources/js/select2css.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -243,7 +239,7 @@
 
 				</ul>
 						 <div id="uboxstyle"  style="float:left; margin-right:30px;">
-						   <select name="language" id="language">
+						   <select name="language" class="goodsTypeSelect">
 								<option value="选择风格" selected="selected">商品类型</option>
 							    <option value="复古风">电子物品</option>
 						   		<option value="摇滚风">生活用品</option>

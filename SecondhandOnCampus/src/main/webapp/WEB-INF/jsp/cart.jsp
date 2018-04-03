@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            		
            }
 
-           function changeQuantity(goodsId){
-               var quantity=$("#tr"+goodsId+" input").val()
+           function changeQuantity(goodsId,oldQuantity){
+               var quantity=$("#tr"+goodsId+" input").val();
                if(isNaN(quantity)){
                    alert("请填入数字！"); 
                    return ;
@@ -47,12 +47,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    dataType:"json",
                    success :function(data){
                        if(data.res=="success"){
-                           if(quantity<=0)
+                           if(quantity<=0){
                               $("#tr"+goodsId).remove();
-                           alert("修改商品个数成功");
+                                alert("移除成功");
+                           }else{
+                                alert("修改商品个数成功");
+                           }
                            $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
                        } else if(data.res=="notEnough"){
                            alert("商品库存不足");
+                           $("#tr"+goodsId+" input").val(oldQuantity);
                        } else{
                            alert("异常");
                        }                
@@ -69,9 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul>
 		<li><a href="main.html" class="home">首页</a></li>
 		<li ><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
-		<li ><a href="cart.html" class="cart">购物车</a></li>
+		<li class="active"><a href="cart.html" class="cart">购物车</a></li>
 		<li ><a href="order.html" class="orderInfo">订单信息</a></li>
-		<li class="active"><a href="#" class="userInfo">个人中心</a></li>
+		<li ><a href="${pageContext.request.contextPath}/user/user.action" class="userInfo">个人中心</a></li>
 		
 		<c:if test="${sessionScope.user==null}">
 			<li style="float:right;"><a href="${pageContext.request.contextPath}/user/index.action" class="login">登录</a></li>
@@ -85,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div class="linktree">
         		<a href="#">主页</a>
-        		&raquo; <a href="#">个人中心</a>&raquo; <a href="#">我的收藏</a>
+        		&raquo; <a href="#">购物车</a>
 	</div>
 	<div style="width:1000px;margin:0 auto;">
     		<div id="cart">
@@ -125,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</td>
 						<td class="introduceText">${item.goods.introducedText}</td>
-						<td class="quantity"><input type="text"  value="${item.quantity }" onchange="changeQuantity('${item.goods.id}')"  size="3" /></td>
+						<td class="quantity"><input type="text"  value="${item.quantity }" onchange="changeQuantity('${item.goods.id}','${item.quantity}')"  size="3" /></td>
 						<td class="price">￥${item.goods.price}</td>
 						<td class="total">￥${item.goods.price*item.quantity }</td>
 						<td class="remove"><a href="#" onclick="removeCart(${item.goods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove.png"> </a></td>
@@ -136,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</table>
 
 		</div>
-		<div style="float:right"><a href="order.html">提交订单</a></div>
+		<div style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderView.action">提交订单</a></div>
 	</form>
 	
   

@@ -3,11 +3,12 @@ package com.ncu.pojo.vo;
 import com.ncu.pojo.Order;
 import com.ncu.pojo.Orderitem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderVO {
     private Order order;
-    private List<Orderitem> orderitems;
+    private List<Orderitem> orderitems=new ArrayList<Orderitem>();
 
     public Order getOrder() {
         return order;

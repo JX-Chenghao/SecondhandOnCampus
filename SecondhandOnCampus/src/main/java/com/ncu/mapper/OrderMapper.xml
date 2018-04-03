@@ -102,6 +102,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Order" >
+  <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select LAST_INSERT_ID()
+    </selectKey>
     insert into order (id, order_date, order_state, 
       total_price, pay_way, user_id, 
       crop_id)
@@ -110,6 +113,9 @@
       #{cropId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Order" >
+  <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select LAST_INSERT_ID()
+    </selectKey>
     insert into order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
