@@ -28,31 +28,46 @@
 
 <script type="text/javascript">
 	$(function() {
-	 		$("form input[type=text]").change(function(){
+	    if($("form input[type=text]").val()!=""){
+	       $("form input[type=text]").css("border-left","lightgreen solid 4px");
+	    }
+	    if($("form select").val()!="0"){
+	       $("form select").css("border-left","lightgreen solid 4px");
+	    }
+	    if($("form :file").val()!=""){
+	       $("form :file").css("border-left","lightgreen solid 4px");
+	    }
+	 	$("form input[type=text]").change(function(){
 	   		  if($(this).val()!=""){
 	   	 	    $(this).css("border-left","lightgreen solid 4px");
-	   	 	 }
+	   	 	  }else{
+	   	 	    $(this).css("border-left","red solid 4px");
+	   	 	  }
 		 });
 		 $("form select").change(function(){
-		  	   if($(this).val()!=""&& $(this).val()!="-请选择-"){
-	 	  	     $(this).css("border-left","lightgreen solid 4px");
+		  	   if($(this).val()!="" && $(this).val()!="0"){
+	 	  	     $(this).css("border","lightgreen solid 2px");
+	 	 	   }else{
+	 	 	     $(this).css("border","red solid 2px");
 	 	 	   }
 	 	});
 	 	$("form :file").change(function(){
 	  	 	  if($(this).val()!=""){
 	  	    	  $(this).parent().css("border-left","lightgreen solid 4px");
-	  	 	  }
+	  	 	  }else{
+	   	 	    $(this).parent().css("border-left","red solid 4px");
+	   	 	  }
 		 });
+
 	});
 	//提交表单
    	function sendForm(){
            //控制空值检验
              var error=0;
-
             //检查文件是否为图片
               var image =$("input[type=file]").each(function(){
                    if($(this).val()!=''){
-			        if (!$(this).val().match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG)$/))
+			        if (!$(this).val().match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG|\.gif|\.GIF)$/))
 			          {
 			          	  $(this).parent().css("border-left","orange solid 4px");
 			    	      error++; 
@@ -61,8 +76,8 @@
                });
 
               if(error>0) {
-              	  alert("请选择图片格式  .jpg,.png,.jpeg的文件上传！");
-              	  return ;
+              	  alert("请选择图片格式  .jpg,.png,.jpeg,.gif的文件上传！");
+              	  return false;
               }
              $("form input[type=text]").each(function(){
                  if($(this).val()==""){
@@ -77,16 +92,18 @@
                     error++;
                  }
              });
-
-              
-
+             $("form select").each(function(){
+                //alert($(this).val());
+                 if($(this).val()=="0"){
+                    $(this).css("border","red solid 2px");
+                    error++;
+                 }
+             });
               if(error>0) {
               	alert("请填写完信息！");
               	return false;
               }
-             
-             
-           //提交
+            //提交
              $("form[name=addForm]").submit();
 				
    }	
@@ -184,23 +201,23 @@
 				</dt>
 		</div>
 		<div class="addGoods">
-			<form>
+			<form name="addForm" action="${pageContext.request.contextPath}/goods/saveGoods.action" method="post" enctype="multipart/form-data">
 				<ul class="left-form">
 
-					<li><input type="text" placeholder="商品名" required />
+					<li><input type="text" name="name" placeholder="商品名" required />
 						<div class="clear"></div></li>
-					<li><input type="text" placeholder="数量" required />
+					<li><input type="text" name="quantity" placeholder="数量" required />
 
 						<div class="clear"></div></li>
-					<li><input type="text" placeholder="单价" required />
-
-						<div class="clear"></div></li>
-
-					<li><input type="text" placeholder="商品介绍" required />
+					<li><input type="text" name="price" placeholder="单价" required />
 
 						<div class="clear"></div></li>
 
-					<li><input type="text" placeholder="已使用月份" required />
+					<li><input type="text" name="introducedText" placeholder="商品介绍" required />
+
+						<div class="clear"></div></li>
+
+					<li><input type="text" name="usedMonth"  placeholder="已使用月份" required />
 
 						<div class="clear"></div></li>
 					<input type="submit" onclick="sendForm()" value="确认上架"
@@ -209,28 +226,28 @@
 
 						<a href="javascript:void(0);" class="btn_addPic"><span><em>+</em>添加图片</span><input
 							type="file" tabindex="3" title="支持jpg、jpeg、gif、png格式，文件小于5M"
-							size="3" name="pic" class="filePrew">
+							size="3" name="pics" class="filePrew">
 						</a>
 						<div class="clear"></div>
 
 
 						<a href="javascript:void(0);" class="btn_addPic"><span><em>+</em>添加图片</span><input
 							type="file" tabindex="3" title="支持jpg、jpeg、gif、png格式，文件小于5M"
-							size="3" name="pic" class="filePrew">
+							size="3" name="pics" class="filePrew">
 						</a>
 						<div class="clear"></div>
 
 
 						<a href="javascript:void(0);" class="btn_addPic"><span><em>+</em>添加图片</span><input
 							type="file" tabindex="3" title="支持jpg、jpeg、gif、png格式，文件小于5M"
-							size="3" name="pic" class="filePrew">
+							size="3" name="pics" class="filePrew">
 						</a>
 						<div class="clear"></div>
 
 
 						<a href="javascript:void(0);" class="btn_addPic"><span><em>+</em>添加图片</span><input
 							type="file" tabindex="3" title="支持jpg、jpeg、gif、png格式，文件小于5M"
-							size="3" name="pic" class="filePrew">
+							size="3" name="pics" class="filePrew">
 						</a>
 						<div class="clear"></div>
 
@@ -239,12 +256,12 @@
 
 				</ul>
 						 <div id="uboxstyle"  style="float:left; margin-right:30px;">
-						   <select name="language" class="goodsTypeSelect">
-								<option value="选择风格" selected="selected">商品类型</option>
-							    <option value="复古风">电子物品</option>
-						   		<option value="摇滚风">生活用品</option>
-						   		<option value="怀旧风">阅读书籍</option>
-						   		<option value="站长素材">服装物品</option>
+						   <select name="categoryId" class="goodsTypeSelect">
+						        <!--需要去数据库中读出来  -->
+								<option  value="0" selected="selected">商品类型</option>
+						   		<c:forEach items="${categories}" var="category">
+						   			<option  value="${category.id}">${category.name }</option>
+						   		</c:forEach>
 						   </select>
 						</div>
 			</form>

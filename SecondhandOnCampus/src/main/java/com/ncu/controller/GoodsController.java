@@ -1,8 +1,6 @@
 package com.ncu.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,10 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ncu.common.FileSaveUtils;
+import com.ncu.pojo.Category;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.PageBean;
+import com.ncu.pojo.User;
 import com.ncu.pojo.vo.MessageVO;
 import com.ncu.pojo.vo.SignVO;
+import com.ncu.service.CategoryService;
 import com.ncu.service.GoodsService;
 import com.ncu.service.MessageService;
 
@@ -32,6 +33,8 @@ public class GoodsController {
 	GoodsService goodsService;
     @Autowired
     MessageService messageService;
+    @Autowired
+    CategoryService categoryService;
     
     
     //分页展示商品
@@ -93,15 +96,18 @@ public class GoodsController {
 	@RequestMapping("/addGoodsView")
 	public ModelAndView addGoods(Goods goods, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
+		List<Category> categories = categoryService.findAllCategoryData();
 		modelAndView.setViewName("userAddGoods");
+		System.out.println(categories.size());
+		modelAndView.addObject("categories",categories);
 		return modelAndView;
 	}
     //添加商品
 	@RequestMapping("/saveGoods")
-	public String saveGoods(Goods goods,Integer userId,Integer categoryId,@RequestParam MultipartFile[] pics){
+	public String saveGoods(Goods goods,Integer categoryId,HttpServletRequest request,@RequestParam MultipartFile[] pics){
 		String path=null;
 		try {
-			path="D:\\upfilesForBS\\goods\\"+userId+ UUID.randomUUID().toString();
+			path="D:\\upfilesForBS\\goods\\"+getUserID(request)+"\\"+ UUID.randomUUID().toString()+"\\";
 			savePics(pics, path);
 			goods.setPicture(path);
 		} catch (IllegalStateException e) {
@@ -109,11 +115,12 @@ public class GoodsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		boolean saveRes=goodsService.saveGoods(goods,userId,categoryId);
+		System.out.println(goods.toString()+"categoryId:"+categoryId);
+		boolean saveRes=goodsService.saveGoods(goods,getUserID(request),categoryId);
 		if(!saveRes){
 			/*modelAndView.addObject("failInfo","商品上架異常！");*/
 		}
-		return "redirect:/goods/showOwnerGoods.action?auditState=0";
+		return "redirect:/goods/showOwnerGoods.action?auditState=0&userId="+getUserID(request);
 	}
 
 
@@ -168,6 +175,14 @@ public class GoodsController {
 			i++;
         }
 	}
+	
+	private Integer getUserID(HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+		   return user.getId();
+		}
+		return null;
+	}	
 }
 
 
