@@ -442,6 +442,9 @@ body {
 .cart-info tbody .name, .cart-info tbody .model {
 	text-align: left;
 }
+.cart-info .image a img{
+	width:80px;
+}
 .cart-info tbody .quantity, .cart-info tbody .price, .cart-info tbody .total {
 	text-align: right;
 }
@@ -665,8 +668,8 @@ body {
 /*userSign.html  */
 
 
-.sign-info{
-	
+.sign-info .image img{
+	width:80px;
 }
 .sign-info table {
 	width: 80%;
@@ -783,7 +786,7 @@ body {
 	overflow: hidden;
 
 }
-.product-info .image-additional img {display: block;}
+.product-info .image-additional img {display: block;width:80px;}
 
 .product-info .image-additional a {
 	border: 1px solid #ededed;
@@ -1061,6 +1064,7 @@ a.button span {
 	border-collapse: collapse;
 
 }
+.ownGoods-info .image img{width:80px}
 .ownGoods-info td {    	
 	background-color: #F4F4F4;
     	border: 1px solid #BBBBBB;

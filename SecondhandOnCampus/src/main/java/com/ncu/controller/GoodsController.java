@@ -1,10 +1,13 @@
 package com.ncu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -107,9 +110,12 @@ public class GoodsController {
 	public String saveGoods(Goods goods,Integer categoryId,HttpServletRequest request,@RequestParam MultipartFile[] pics){
 		String path=null;
 		try {
-			path="D:\\upfilesForBS\\goods\\"+getUserID(request)+"\\"+ UUID.randomUUID().toString()+"\\";
+			path="D:\\upfilesForBS\\goods\\";
+			String random=UUID.randomUUID().toString();
+			path=path+getUserID(request)+"\\"+random+"\\";
 			savePics(pics, path);
-			goods.setPicture(path);
+			goods.setCoverPic(1+FileSaveUtils.getSuffixName(pics[0]));
+			goods.setPicturePath(getUserID(request)+"/"+random);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -122,6 +128,7 @@ public class GoodsController {
 		}
 		return "redirect:/goods/showOwnerGoods.action?auditState=0&userId="+getUserID(request);
 	}
+
 
 
 	//修改商品
@@ -171,10 +178,13 @@ public class GoodsController {
 	private void savePics(MultipartFile[] pics,String path) throws IllegalStateException, IOException {
 		int i=1;
 		for (MultipartFile pic : pics) {
-			FileSaveUtils.saveFile(pic,path,i+"");
+			File saveFile = FileSaveUtils.saveFile(pic,path,i+"");
+			//保存缩略图片
+			FileSaveUtils.saveThumbnailFile(saveFile, path+"\\thumbnail\\", saveFile.getName());
 			i++;
         }
 	}
+	
 	
 	private Integer getUserID(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute("user");

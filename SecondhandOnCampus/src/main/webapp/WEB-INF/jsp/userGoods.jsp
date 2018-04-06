@@ -135,8 +135,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <tbody>
         <c:forEach items="${ownGoodsList}" var="ownGoods">
           <tr>
-            <td class="image"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" alt="iMac" title="iMac" /></a>
-            </td>
+           <c:if test="${ownGoods.picturePath==''}">
+				<td class="image"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
+			</c:if>
+			<c:if test="${ownGoods.picturePath!=''}">
+                <td class="image"><a href="#"><img src="/picForBS/goods/${ownGoods.picturePath}/thumbnail/thumb_${ownGoods.coverPic}"  /></a></td>
+           </c:if>
+            
             <td class="name"><a href="#">${ownGoods.name}</a>
               <div>
               </div>

@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String saveHeadImg(MultipartFile pic_file,String store_path, String id) {
-		String saveFileName = FileSaveUtils.saveFile(pic_file, store_path, id);
+		String saveFileName = FileSaveUtils.saveFile(pic_file, store_path, id).getName();
 		User user = new User();
 		user.setId(Integer.parseInt(id));
 		user.setHeadImg(saveFileName);

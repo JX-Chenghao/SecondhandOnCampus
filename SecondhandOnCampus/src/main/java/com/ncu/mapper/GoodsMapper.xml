@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="com.ncu.pojo.Goods" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="picture_path" property="picturePath" jdbcType="VARCHAR" />
+    <result column="cover_pic" property="coverPic" jdbcType="VARCHAR" />
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="used_month" property="usedMonth" jdbcType="INTEGER" />
@@ -77,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, picture, quantity, price, used_month, publish_date, goods_state, audit_state, 
-    user_id, category_id, failure_text
+    id, name, picture_path, cover_pic, quantity, price, used_month, publish_date, goods_state, 
+    audit_state, user_id, category_id, failure_text
   </sql>
   <sql id="Blob_Column_List" >
     introduced_text
@@ -138,16 +139,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Goods" >
-    insert into goods (id, name, picture, 
-      quantity, price, used_month, 
-      publish_date, goods_state, audit_state, 
-      user_id, category_id, failure_text, 
-      introduced_text)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
-      #{quantity,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{usedMonth,jdbcType=INTEGER}, 
-      #{publishDate,jdbcType=DATE}, #{goodsState,jdbcType=INTEGER}, #{auditState,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{failureText,jdbcType=VARCHAR}, 
-      #{introducedText,jdbcType=LONGVARCHAR})
+    insert into goods (id, name, picture_path, 
+      cover_pic, quantity, price, 
+      used_month, publish_date, goods_state, 
+      audit_state, user_id, category_id, 
+      failure_text, introduced_text)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{picturePath,jdbcType=VARCHAR}, 
+      #{coverPic,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{usedMonth,jdbcType=INTEGER}, #{publishDate,jdbcType=DATE}, #{goodsState,jdbcType=INTEGER}, 
+      #{auditState,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
+      #{failureText,jdbcType=VARCHAR}, #{introducedText,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Goods" >
     insert into goods
@@ -158,8 +159,11 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="picture != null" >
-        picture,
+      <if test="picturePath != null" >
+        picture_path,
+      </if>
+      <if test="coverPic != null" >
+        cover_pic,
       </if>
       <if test="quantity != null" >
         quantity,
@@ -199,8 +203,11 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="picture != null" >
-        #{picture,jdbcType=VARCHAR},
+      <if test="picturePath != null" >
+        #{picturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPic != null" >
+        #{coverPic,jdbcType=VARCHAR},
       </if>
       <if test="quantity != null" >
         #{quantity,jdbcType=INTEGER},
@@ -249,8 +256,11 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.picture != null" >
-        picture = #{record.picture,jdbcType=VARCHAR},
+      <if test="record.picturePath != null" >
+        picture_path = #{record.picturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverPic != null" >
+        cover_pic = #{record.coverPic,jdbcType=VARCHAR},
       </if>
       <if test="record.quantity != null" >
         quantity = #{record.quantity,jdbcType=INTEGER},
@@ -291,7 +301,8 @@
     update goods
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      picture = #{record.picture,jdbcType=VARCHAR},
+      picture_path = #{record.picturePath,jdbcType=VARCHAR},
+      cover_pic = #{record.coverPic,jdbcType=VARCHAR},
       quantity = #{record.quantity,jdbcType=INTEGER},
       price = #{record.price,jdbcType=DOUBLE},
       used_month = #{record.usedMonth,jdbcType=INTEGER},
@@ -310,7 +321,8 @@
     update goods
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      picture = #{record.picture,jdbcType=VARCHAR},
+      picture_path = #{record.picturePath,jdbcType=VARCHAR},
+      cover_pic = #{record.coverPic,jdbcType=VARCHAR},
       quantity = #{record.quantity,jdbcType=INTEGER},
       price = #{record.price,jdbcType=DOUBLE},
       used_month = #{record.usedMonth,jdbcType=INTEGER},
@@ -330,8 +342,11 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="picture != null" >
-        picture = #{picture,jdbcType=VARCHAR},
+      <if test="picturePath != null" >
+        picture_path = #{picturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPic != null" >
+        cover_pic = #{coverPic,jdbcType=VARCHAR},
       </if>
       <if test="quantity != null" >
         quantity = #{quantity,jdbcType=INTEGER},
@@ -369,7 +384,8 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ncu.pojo.Goods" >
     update goods
     set name = #{name,jdbcType=VARCHAR},
-      picture = #{picture,jdbcType=VARCHAR},
+      picture_path = #{picturePath,jdbcType=VARCHAR},
+      cover_pic = #{coverPic,jdbcType=VARCHAR},
       quantity = #{quantity,jdbcType=INTEGER},
       price = #{price,jdbcType=DOUBLE},
       used_month = #{usedMonth,jdbcType=INTEGER},
@@ -385,7 +401,8 @@
   <update id="updateByPrimaryKey" parameterType="com.ncu.pojo.Goods" >
     update goods
     set name = #{name,jdbcType=VARCHAR},
-      picture = #{picture,jdbcType=VARCHAR},
+      picture_path = #{picturePath,jdbcType=VARCHAR},
+      cover_pic = #{coverPic,jdbcType=VARCHAR},
       quantity = #{quantity,jdbcType=INTEGER},
       price = #{price,jdbcType=DOUBLE},
       used_month = #{usedMonth,jdbcType=INTEGER},

@@ -7,7 +7,9 @@ public class Goods {
 
     private String name;
 
-    private String picture;
+    private String picturePath;
+
+    private String coverPic;
 
     private Integer quantity;
 
@@ -45,12 +47,20 @@ public class Goods {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPicture() {
-        return picture;
+    public String getPicturePath() {
+        return picturePath;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture == null ? null : picture.trim();
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath == null ? null : picturePath.trim();
+    }
+
+    public String getCoverPic() {
+        return coverPic;
+    }
+
+    public void setCoverPic(String coverPic) {
+        this.coverPic = coverPic == null ? null : coverPic.trim();
     }
 
     public Integer getQuantity() {
@@ -132,4 +142,16 @@ public class Goods {
     public void setIntroducedText(String introducedText) {
         this.introducedText = introducedText == null ? null : introducedText.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Goods [id=" + id + ", name=" + name + ", picturePath="
+				+ picturePath + ", coverPic=" + coverPic + ", quantity="
+				+ quantity + ", price=" + price + ", usedMonth=" + usedMonth
+				+ ", publishDate=" + publishDate + ", goodsState=" + goodsState
+				+ ", auditState=" + auditState + ", userId=" + userId
+				+ ", categoryId=" + categoryId + ", failureText=" + failureText
+				+ ", introducedText=" + introducedText + "]";
+	}
+    
 }

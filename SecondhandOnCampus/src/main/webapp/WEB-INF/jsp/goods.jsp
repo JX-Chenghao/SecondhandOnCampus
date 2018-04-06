@@ -132,11 +132,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="showhim">
 					<div class="image">
 					   <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${goods.id}">
-					        <c:if test="${goods.picture==''}">
+					        <c:if test="${goods.picturePath==''}">
 					        <img src="${pageContext.request.contextPath}/resources/images/product_holder.jpg" alt="${goods.name }" />
 							</c:if>
-							<c:if test="${goods.picture!='' }">
-					        <img src="/picForBS/goods/${goods.picture}" alt="${goods.name }" />
+							<c:if test="${goods.picturePath!='' }">
+					        <img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${goods.coverPic}" alt="${goods.name }" />
 							</c:if>
 							<div class="showme">
 								<div class="description_featured" style="min-height:110px;">	

@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:forEach items="${sessionScope.cart.items }" var="item">
 					<tr id="tr${item.goods.id}">
 						
-						<td class="image"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" alt="iMac" title="iMac" /></a>
+						<td class="image"><a href="#"><img src="/picForBS/goods/${item.goods.picturePath}/thumbnail/thumb_${item.goods.coverPic}"  /></a>
 						</td>
 						<td class="name"><a href="#">${item.goods.name}</a>
 							<div>

@@ -162,11 +162,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="product-info">
 
 					<div class="left">                		                			
-						<div class="image"><a href="#" title="iMac" ><img src="${pageContext.request.contextPath}/resources/images/product_holder.jpg" title="iMac" alt="iMac" id="image" /></a></div>
+						
+						<c:if test="${goods.picturePath==''}">
+						<div class="image"><a href="#" title="iMac" ><img src="${pageContext.request.contextPath}/resources/images/product_holder.jpg"  id="image" /></a></div>
 						<div class="image-additional">
-							<a href="#" title="iMac"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" title="iMac" alt="iMac" /></a>
-							<a href="#" title="iMac"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" title="iMac" alt="iMac" /></a>
-						</div>                		                        
+						    <a href="#" title="iMac"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
+							<a href="#" title="iMac"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
+						</div>  
+						</c:if>
+						<c:if test="${goods.picturePath!=''}">
+						<div class="image"><a href="#" title="iMac" ><img src="/picForBS/goods/${goods.picturePath}/${goods.coverPic}"  id="image" /></a></div>
+						<div class="image-additional">
+							<a href="#" title="iMac"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${goods.coverPic}" /></a>
+							<a href="#" title="iMac"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${goods.coverPic}" /></a>
+						</div>  
+						</c:if>              		                        
 					</div>
 
 					<div class="right">
