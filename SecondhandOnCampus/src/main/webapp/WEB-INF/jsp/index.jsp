@@ -8,12 +8,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE html>
 <html>
-
 <!-- Head -->
 <head>
-
-	
-
 	<!-- Meta-Tags -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -25,6 +21,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
                    <script type="text/javascript">
                         $(function(){
+                           var account=localStorage.getItem('secondhand.user.account');
+                           var pwd=localStorage.getItem('secondhand.user.pwd');
+                           if(localStorage.getItem('secondhand.user.remember')=='1'){
+                             $("input[name='user_account']").val(account);
+                             $("input[name='pwd']").val(pwd);
+                             $("#brand1").click();
+                             localStorage.setItem('secondhand.user.remember','1');
+                           }
+                           //checkbox 点击事件
+                           $("#brand1").click(function(){
+                             if(localStorage.getItem('secondhand.user.remember')=='1'){
+                                localStorage.setItem("secondhand.user.remember",'0');
+                              }else{
+                                localStorage.setItem("secondhand.user.remember",'1');
+                              }
+                           });
+                           
+                           
+                           
                            /* 异步注册 */
                            $('#registerButton').click(function(){
                                //再次输入密码验证
@@ -57,12 +72,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 }
                                });
                            });
-                           
+
                            
                         });
                    
                    
-                   </script>
+                   function loginClick(){
+                  		 if(localStorage.getItem('secondhand.user.remember')=='1'){ 
+                         	localStorage.setItem("secondhand.user.account",$("input[name='user_account']").val());
+                         	localStorage.setItem("secondhand.user.pwd",$("input[name='pwd']").val());
+                   		 }else{
+                   		    localStorage.removeItem("secondhand.user.account");
+                   		    localStorage.removeItem("secondhand.user.pwd");
+                   		 }
+                   }
+                   
+               </script>
 
 
 </head>
@@ -84,12 +109,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 				<ul class="tick w3layouts agileits">
 					<li>
-						<input type="checkbox" id="brand1" value="">
-						<label for="brand1"><span></span>记住我</label>
+						<input type="checkbox" id="brand1"  >
+						<label for="brand1"><span id="checkedSign"></span>记住我</label>
 					</li>
 				</ul>
 				<div class="send-button w3layouts agileits">
-					<input type="submit"  value="登 录">
+					<input type="submit" onclick="loginClick()"  value="登 录">
 				</div>
 			</form>
 			<div class="social-icons w3layouts agileits">
