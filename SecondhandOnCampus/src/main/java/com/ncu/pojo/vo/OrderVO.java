@@ -8,7 +8,8 @@ import java.util.List;
 
 public class OrderVO {
     private Order order;
-    private List<Orderitem> orderitems=new ArrayList<Orderitem>();
+    private List<OrderitemVO> orderitemVOs=new ArrayList<OrderitemVO>();
+    private String cropName;
 
     public Order getOrder() {
         return order;
@@ -18,11 +19,21 @@ public class OrderVO {
         this.order = order;
     }
 
-    public List<Orderitem> getOrderitems() {
-        return orderitems;
-    }
 
-    public void setOrderitems(List<Orderitem> orderitems) {
-        this.orderitems = orderitems;
-    }
+	public List<OrderitemVO> getOrderitemVOs() {
+		return orderitemVOs;
+	}
+
+	public void setOrderitemVOs(List<OrderitemVO> orderitemVOs) {
+		this.orderitemVOs = orderitemVOs;
+	}
+
+	public String getCropName() {
+		return cropName;
+	}
+
+	public void setCropName(String cropName) {
+		this.cropName = cropName;
+	}
+    
 }

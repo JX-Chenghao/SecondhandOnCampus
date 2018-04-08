@@ -11,11 +11,15 @@ public class Order {
 
     private Double totalPrice;
 
+    private Integer getWay;
+
     private Integer payWay;
 
     private Integer userId;
 
     private Integer cropId;
+
+    private String orderNumber;
 
     public Integer getId() {
         return id;
@@ -49,6 +53,14 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public Integer getGetWay() {
+        return getWay;
+    }
+
+    public void setGetWay(Integer getWay) {
+        this.getWay = getWay;
+    }
+
     public Integer getPayWay() {
         return payWay;
     }
@@ -73,11 +85,20 @@ public class Order {
         this.cropId = cropId;
     }
 
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber == null ? null : orderNumber.trim();
+    }
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", orderDate=" + orderDate + ", orderState="
-				+ orderState + ", totalPrice=" + totalPrice + ", payWay="
-				+ payWay + ", userId=" + userId + ", cropId=" + cropId + "]";
+				+ orderState + ", totalPrice=" + totalPrice + ", getWay="
+				+ getWay + ", payWay=" + payWay + ", userId=" + userId
+				+ ", cropId=" + cropId + ", orderNumber=" + orderNumber + "]";
 	}
     
 }

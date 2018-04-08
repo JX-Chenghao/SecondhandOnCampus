@@ -1,9 +1,12 @@
 package com.ncu.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.ncu.pojo.Orderitem;
 import com.ncu.pojo.OrderitemExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.ncu.pojo.vo.OrderitemVO;
 
 public interface OrderitemMapper {
     int countByExample(OrderitemExample example);
@@ -16,7 +19,7 @@ public interface OrderitemMapper {
 
     int insertSelective(Orderitem record);
 
-    List<Orderitem> selectByExample(OrderitemExample example);
+    List<OrderitemVO> selectByExample(OrderitemExample example);
 
     Orderitem selectByPrimaryKey(Integer id);
 

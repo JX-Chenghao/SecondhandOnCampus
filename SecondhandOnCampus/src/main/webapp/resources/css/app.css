@@ -458,7 +458,9 @@ body {
            margin-left: 100px;
 
 }
-.order-info-allh3{
+.order-info-all h3{
+	       margin-left:100px;
+	       padding-bottom:15px;
            font-size: large;
 }
 .order-info-all .headLine div{
@@ -488,16 +490,18 @@ body {
              font-size: small;
 }
 .order-info .orderItem {
-	margin-top: 5px
+	margin-top: 5px;
+
+            
 }
 .order-info .orderItem div{
 	  width: 150px;
 	  margin-left: 10px;
 	  height:100px;
                float: left;
-               background-color: red;
                text-align: center;
                line-height: 100px;
+              
 
 }
 .order-info .orderItem div:first-child{
@@ -507,21 +511,28 @@ body {
 
 .order-info .way{
 	width:85%;
+
 }
 .order-info .feeToCrop{
-	
+	width:200px;
 	float: right;
 	
 }
 .order-info-all .orderSubmit{
 	width: 100%;
-             position: relative;
-             float: right;
-             text-align: right;
-             left: -120px;
-             top: 20px;
+    position: relative;
+    float: right;
+    text-align: right;
+    left: -120px;
+    top: 20px;
 	
 }
+
+.order-info .orderItem div a img{
+	float : left;
+	margin-top: 8px;
+}
+
 /* order.html */
 .orderForUser{
 	margin-left:60px;

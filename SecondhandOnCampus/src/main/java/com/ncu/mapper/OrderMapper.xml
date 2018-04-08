@@ -6,9 +6,11 @@
     <result column="order_date" property="orderDate" jdbcType="DATE" />
     <result column="order_state" property="orderState" jdbcType="INTEGER" />
     <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
+    <result column="get_way" property="getWay" jdbcType="INTEGER" />
     <result column="pay_way" property="payWay" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="crop_id" property="cropId" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_date, order_state, total_price, pay_way, user_id, crop_id
+    id, order_date, order_state, total_price, get_way, pay_way, user_id, crop_id, order_number
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.OrderExample" >
     select
@@ -102,20 +104,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Order" >
-  <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            select LAST_INSERT_ID()
-    </selectKey>
     insert into order (id, order_date, order_state, 
-      total_price, pay_way, user_id, 
-      crop_id)
+      total_price, get_way, pay_way, 
+      user_id, crop_id, order_number
+      )
     values (#{id,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
-      #{totalPrice,jdbcType=DOUBLE}, #{payWay,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{cropId,jdbcType=INTEGER})
+      #{totalPrice,jdbcType=DOUBLE}, #{getWay,jdbcType=INTEGER}, #{payWay,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Order" >
-  <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            select LAST_INSERT_ID()
-    </selectKey>
     insert into order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -130,6 +128,9 @@
       <if test="totalPrice != null" >
         total_price,
       </if>
+      <if test="getWay != null" >
+        get_way,
+      </if>
       <if test="payWay != null" >
         pay_way,
       </if>
@@ -138,6 +139,9 @@
       </if>
       <if test="cropId != null" >
         crop_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -153,6 +157,9 @@
       <if test="totalPrice != null" >
         #{totalPrice,jdbcType=DOUBLE},
       </if>
+      <if test="getWay != null" >
+        #{getWay,jdbcType=INTEGER},
+      </if>
       <if test="payWay != null" >
         #{payWay,jdbcType=INTEGER},
       </if>
@@ -161,6 +168,9 @@
       </if>
       <if test="cropId != null" >
         #{cropId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -185,6 +195,9 @@
       <if test="record.totalPrice != null" >
         total_price = #{record.totalPrice,jdbcType=DOUBLE},
       </if>
+      <if test="record.getWay != null" >
+        get_way = #{record.getWay,jdbcType=INTEGER},
+      </if>
       <if test="record.payWay != null" >
         pay_way = #{record.payWay,jdbcType=INTEGER},
       </if>
@@ -193,6 +206,9 @@
       </if>
       <if test="record.cropId != null" >
         crop_id = #{record.cropId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNumber != null" >
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -205,9 +221,11 @@
       order_date = #{record.orderDate,jdbcType=DATE},
       order_state = #{record.orderState,jdbcType=INTEGER},
       total_price = #{record.totalPrice,jdbcType=DOUBLE},
+      get_way = #{record.getWay,jdbcType=INTEGER},
       pay_way = #{record.payWay,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      crop_id = #{record.cropId,jdbcType=INTEGER}
+      crop_id = #{record.cropId,jdbcType=INTEGER},
+      order_number = #{record.orderNumber,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -224,6 +242,9 @@
       <if test="totalPrice != null" >
         total_price = #{totalPrice,jdbcType=DOUBLE},
       </if>
+      <if test="getWay != null" >
+        get_way = #{getWay,jdbcType=INTEGER},
+      </if>
       <if test="payWay != null" >
         pay_way = #{payWay,jdbcType=INTEGER},
       </if>
@@ -233,6 +254,9 @@
       <if test="cropId != null" >
         crop_id = #{cropId,jdbcType=INTEGER},
       </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -241,9 +265,11 @@
     set order_date = #{orderDate,jdbcType=DATE},
       order_state = #{orderState,jdbcType=INTEGER},
       total_price = #{totalPrice,jdbcType=DOUBLE},
+      get_way = #{getWay,jdbcType=INTEGER},
       pay_way = #{payWay,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
-      crop_id = #{cropId,jdbcType=INTEGER}
+      crop_id = #{cropId,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

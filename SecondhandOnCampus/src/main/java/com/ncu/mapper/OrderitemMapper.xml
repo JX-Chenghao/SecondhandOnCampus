@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ncu.mapper.OrderitemMapper" >
-  <resultMap id="BaseResultMap" type="com.ncu.pojo.Orderitem" >
+  <resultMap id="BaseResultMap" type="com.ncu.pojo.vo.OrderitemVO" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
-    <result column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="quantity" property="quantity" jdbcType="INTEGER" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="goods_id" property="orderitem.goodsId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderitem.orderId" jdbcType="INTEGER" />
+    <result column="quantity" property="orderitem.quantity" jdbcType="INTEGER" />
+    <result column="price" property="orderitem.price" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

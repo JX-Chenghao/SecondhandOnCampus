@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</table>
 
 		</div>
-		<div style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderView.action">提交订单</a></div>
+		<div style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
 	</form>
 	
   

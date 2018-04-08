@@ -27,6 +27,9 @@ public class CartController {
 		modelAndView.setViewName("cart");
 		return modelAndView;
 	}
+	
+
+	
 
 	@RequestMapping("/add")
 	@ResponseBody
@@ -78,6 +81,9 @@ public class CartController {
 		}
 		return resMap;
 	}
+	
+	
+	
 
 	private Cart getCart(HttpServletRequest request) {
 		Cart cart = (Cart) request.getSession().getAttribute("cart");

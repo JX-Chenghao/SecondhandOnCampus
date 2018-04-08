@@ -9,8 +9,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ncu.mapper.GoodsMapper;
 import com.ncu.mapper.OrderMapper;
 import com.ncu.mapper.OrderitemMapper;
+import com.ncu.mapper.UserMapper;
 import com.ncu.pojo.Cart;
 import com.ncu.pojo.CartItem;
 import com.ncu.pojo.Goods;
@@ -18,7 +20,9 @@ import com.ncu.pojo.Order;
 import com.ncu.pojo.OrderExample;
 import com.ncu.pojo.Orderitem;
 import com.ncu.pojo.OrderitemExample;
+import com.ncu.pojo.User;
 import com.ncu.pojo.vo.OrderVO;
+import com.ncu.pojo.vo.OrderitemVO;
 import com.ncu.service.OrderService;
 
 public class OrderServiceImpl implements OrderService {
@@ -26,13 +30,17 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
     @Autowired
     OrderitemMapper orderitemMapper;
-
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    GoodsMapper goodsMapper;
+    
     @Override
     public boolean save(OrderVO orderVO) {
            int id = orderMapper.insert(orderVO.getOrder());
-           for( Orderitem item : orderVO.getOrderitems()) {
-               item.setOrderId(id);
-               orderitemMapper.insertSelective(item);
+           for( OrderitemVO itemVO : orderVO.getOrderitemVOs()) {
+        	   itemVO.getOrderitem().setOrderId(id);
+               orderitemMapper.insertSelective(itemVO.getOrderitem());
            }
            return true;
     }
@@ -48,10 +56,10 @@ public class OrderServiceImpl implements OrderService {
         for(Order o : orders){
         	
         	example.createCriteria().andOrderIdEqualTo(o.getId());
-        	List<Orderitem> items = orderitemMapper.selectByExample(example);
+        	List<OrderitemVO> items = orderitemMapper.selectByExample(example);
         	example.clear();
         	orderVO.setOrder(o);
-        	orderVO.setOrderitems(items);
+        	orderVO.setOrderitemVOs(items);
         	orderVOs.add(orderVO);
         }
         return orderVOs;
@@ -68,10 +76,10 @@ public class OrderServiceImpl implements OrderService {
         for(Order o : orders){
         	
         	example.createCriteria().andOrderIdEqualTo(o.getId());
-        	List<Orderitem> items = orderitemMapper.selectByExample(example);
+        	List<OrderitemVO> items = orderitemMapper.selectByExample(example);
         	example.clear();
         	orderVO.setOrder(o);
-        	orderVO.setOrderitems(items);
+        	orderVO.setOrderitemVOs(items);
         	orderVOs.add(orderVO);
         }
         return orderVOs;
@@ -105,12 +113,23 @@ public class OrderServiceImpl implements OrderService {
                 //放入订单  设置订单属性
             	orderVO=new OrderVO();
                 Order order =setOrderAttr(item.getGoods().getUserId(),payway,clientUserId);
+                //设置商家名
+                User crop = userMapper.selectByPrimaryKey(order.getCropId());
+            	orderVO.setCropName(crop.getAliasName());
+            	
                 orderVO.setOrder(order);
                 orderMap.put(item.getGoods().getUserId(),orderVO);
             }
             //放入订单项  设置订单项属性
             Orderitem orderitem =setOrderitemAttr(item.getGoods(),item.getQuantity());
-            orderVO.getOrderitems().add(orderitem);
+            OrderitemVO orderitemVO = new OrderitemVO();
+            orderitemVO.setOrderitem(orderitem);
+        	//设置商品名
+        	Goods good = goodsMapper.selectByPrimaryKey(orderitem.getGoodsId());
+        	orderitemVO.setGoodName(good.getName());
+            orderitemVO.setGoodUsedMonth(good.getUsedMonth()+"");
+            
+            orderVO.getOrderitemVOs().add(orderitemVO);
         }
         //结束后 需要设置订单Order的总价
         setOrderTotalPriceAndPutOrderVOToList(orderMap,orderVOList);
@@ -121,8 +140,8 @@ public class OrderServiceImpl implements OrderService {
     private void setOrderTotalPriceAndPutOrderVOToList(Map<Integer, OrderVO> orderMap, List<OrderVO> orderVOList) {
         for(Map.Entry<Integer,OrderVO> entry : orderMap.entrySet()){
             double sum=0;
-            for(Orderitem orderitem   : entry.getValue().getOrderitems()){
-                sum+=orderitem.getPrice();
+            for(OrderitemVO orderitem   : entry.getValue().getOrderitemVOs()){
+                sum+=orderitem.getOrderitem().getPrice();
             }
             entry.getValue().getOrder().setTotalPrice(sum);
             orderVOList.add(entry.getValue());
@@ -139,6 +158,10 @@ public class OrderServiceImpl implements OrderService {
 
     private Order setOrderAttr(Integer cropId, Integer payway, Integer clientUserId) {
         Order order = new Order();
+        /*生成14位订单号!*/    
+        
+        
+        
         order.setCropId(cropId);
         order.setOrderDate(new Date());
         order.setOrderState(0);

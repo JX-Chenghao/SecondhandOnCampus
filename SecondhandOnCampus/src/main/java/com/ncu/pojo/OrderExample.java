@@ -372,6 +372,66 @@ public class OrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andGetWayIsNull() {
+            addCriterion("get_way is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayIsNotNull() {
+            addCriterion("get_way is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayEqualTo(Integer value) {
+            addCriterion("get_way =", value, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayNotEqualTo(Integer value) {
+            addCriterion("get_way <>", value, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayGreaterThan(Integer value) {
+            addCriterion("get_way >", value, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("get_way >=", value, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayLessThan(Integer value) {
+            addCriterion("get_way <", value, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayLessThanOrEqualTo(Integer value) {
+            addCriterion("get_way <=", value, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayIn(List<Integer> values) {
+            addCriterion("get_way in", values, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayNotIn(List<Integer> values) {
+            addCriterion("get_way not in", values, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayBetween(Integer value1, Integer value2) {
+            addCriterion("get_way between", value1, value2, "getWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetWayNotBetween(Integer value1, Integer value2) {
+            addCriterion("get_way not between", value1, value2, "getWay");
+            return (Criteria) this;
+        }
+
         public Criteria andPayWayIsNull() {
             addCriterion("pay_way is null");
             return (Criteria) this;
@@ -549,6 +609,76 @@ public class OrderExample {
 
         public Criteria andCropIdNotBetween(Integer value1, Integer value2) {
             addCriterion("crop_id not between", value1, value2, "cropId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberIsNull() {
+            addCriterion("order_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberIsNotNull() {
+            addCriterion("order_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberEqualTo(String value) {
+            addCriterion("order_number =", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotEqualTo(String value) {
+            addCriterion("order_number <>", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberGreaterThan(String value) {
+            addCriterion("order_number >", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("order_number >=", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLessThan(String value) {
+            addCriterion("order_number <", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLessThanOrEqualTo(String value) {
+            addCriterion("order_number <=", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLike(String value) {
+            addCriterion("order_number like", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotLike(String value) {
+            addCriterion("order_number not like", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberIn(List<String> values) {
+            addCriterion("order_number in", values, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotIn(List<String> values) {
+            addCriterion("order_number not in", values, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberBetween(String value1, String value2) {
+            addCriterion("order_number between", value1, value2, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotBetween(String value1, String value2) {
+            addCriterion("order_number not between", value1, value2, "orderNumber");
             return (Criteria) this;
         }
     }

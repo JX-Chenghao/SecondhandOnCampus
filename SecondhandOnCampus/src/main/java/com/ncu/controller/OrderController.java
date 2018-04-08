@@ -14,6 +14,7 @@ import com.ncu.pojo.Goods;
 import com.ncu.pojo.Orderitem;
 import com.ncu.pojo.User;
 import com.ncu.pojo.vo.OrderVO;
+import com.ncu.pojo.vo.OrderitemVO;
 import com.ncu.service.OrderService;
 
 @Controller
@@ -22,16 +23,18 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 
-	@RequestMapping("/commitOrderView")
-	public ModelAndView cart(Goods goods, HttpServletRequest request) {
+	@RequestMapping("/commitOrderInCart")
+	public ModelAndView commitOrderInCart( HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<OrderVO> orders = orderService.separateCartToManyOrder(getCart(request), 0, getUserID(request));
-		for(OrderVO o : orders){
+		List<OrderVO> orderVOs = orderService.separateCartToManyOrder(getCart(request), 0, getUserID(request));
+		for(OrderVO o : orderVOs){
 			System.out.println(o.getOrder().toString());
-			for(Orderitem i :o.getOrderitems()){
-				System.out.println(i.toString());
+			for(OrderitemVO i :o.getOrderitemVOs()){
+				System.out.println(i.getOrderitem().toString());
 			}
 		}
+		modelAndView.addObject("orderVOs",orderVOs);
+		modelAndView.setViewName("commitOrderCart");
 		return modelAndView;
 	}
 	private Cart getCart(HttpServletRequest request) {

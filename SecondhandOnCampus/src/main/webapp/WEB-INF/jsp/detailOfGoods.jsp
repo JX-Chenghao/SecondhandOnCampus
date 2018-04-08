@@ -164,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="left">                		                			
 						
 						<c:if test="${goods.picturePath==''}">
-						<div class="image"><a href="#" title="iMac" ><img src="${pageContext.request.contextPath}/resources/images/product_holder.jpg"  id="image" /></a></div>
+						<div class="image"><a href="#"  ><img src="${pageContext.request.contextPath}/resources/images/product_holder.jpg"  id="image" /></a></div>
 						<div class="image-additional">
 						    <a href="#" title="iMac"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
 							<a href="#" title="iMac"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
