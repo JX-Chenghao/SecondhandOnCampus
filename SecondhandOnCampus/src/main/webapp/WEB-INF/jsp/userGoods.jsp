@@ -17,7 +17,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 	<script type="text/javascript">
-		
+		  function removeGoods(goodsId){
+               $.ajax({
+                   url :'${pageContext.request.contextPath}/goods/removeGoods.action?id='+goodsId,
+                   type :"get",
+                   dataType:"json",
+                   success :function(data){
+                       if(data.res=="success"){
+                           alert("移除成功");
+                           $("#tr"+goodsId).remove();
+                       }else{
+                           alert("移除失败");
+                       }                  
+                   }
+               });
+               
+           		
+           }
 	             
 	</script>
 </head>
@@ -134,12 +150,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </thead>
         <tbody>
         <c:forEach items="${ownGoodsList}" var="ownGoods">
-          <tr>
+          <tr id="tr${ownGoods.id}">
            <c:if test="${ownGoods.picturePath==''}">
-				<td class="image"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
+				<td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.id}"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
 			</c:if>
 			<c:if test="${ownGoods.picturePath!=''}">
-                <td class="image"><a href="#"><img src="/picForBS/goods/${ownGoods.picturePath}/thumbnail/thumb_${ownGoods.coverPic}"  /></a></td>
+                <td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.id}"><img src="/picForBS/goods/${ownGoods.picturePath}/thumbnail/thumb_${ownGoods.coverPic}"  /></a></td>
            </c:if>
             
             <td class="name"><a href="#">${ownGoods.name}</a>
@@ -158,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <c:if test="${statusType==2 }">
                 <td class="failureText">${ownGoods.failureText}</td>
             </c:if>
-            <td class="remove"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
+            <td class="remove"><a onclick="removeGoods(${ownGoods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
           </tr> 
          </c:forEach>  
         </tbody>

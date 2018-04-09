@@ -103,10 +103,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <c:forEach items="${signGoodsList}" var="signGoods">
           <tr>
             <c:if test="${signGoods.goods.picturePath==''}">
-				<td class="image"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
+				<td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${signGoods.goods.id}"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
 			</c:if>
 			<c:if test="${signGoods.goods.picturePath!=''}">
-                <td class="image"><a href="#"><img src="/picForBS/goods/${signGoods.goods.picturePath}/thumbnail/thumb_${signGoods.goods.coverPic}"  /></a></td>
+                <td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${signGoods.goods.id}"><img src="/picForBS/goods/${signGoods.goods.picturePath}/thumbnail/thumb_${signGoods.goods.coverPic}"  /></a></td>
            </c:if>
             <td class="name"><a href="#">${signGoods.goods.name}</a>
               <div>

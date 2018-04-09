@@ -25,13 +25,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 url:'${pageContext.request.contextPath}/user/message/add.action',
 		                     	type:"post",
 			                    dataType :"json",
+			                    // 输入英文???会出BUG
 			                    data:"goodsId="+goodsId+"&userId="+userId+"&content="+content,
 			                    success:function(data){
 			                      
 			                      	 	if(data.res=="success"){
 			                         	 	 alert("<留言成功！>");
+			                         	 	 $('#contentInput').val("");
 			                         	 	 var innerHTML="<div class='messageDiv'>";
-			                         	 	 innerHTML+="<div class='lineItem'><span>"+aliasName+" :"+"<span>"+content+"<span class='dateTag'>111<span></div>";
+			                         	 	 innerHTML+="<div class='lineItem'><span>"+aliasName+" :"+"<span>"+content+"<span class='dateTag'>"+getNowFormatDate()+"<span></div>";
 			                         	 	 innerHTML+="</div>";
 			                         	 	 $('.review').after(innerHTML);
 			                      		 }else {
@@ -112,6 +114,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                
            		
            }
+       function getNowFormatDate() {
+    		 var date = new Date();
+   			 var seperator1 = "-";
+   			 var seperator2 = ":";
+   			 var month = date.getMonth() + 1;
+   			 var strDate = date.getDate();
+   		     if (month >= 1 && month <= 9) {
+       			 month = "0" + month;
+   		     }
+   	 		 if (strDate >= 0 && strDate <= 9) {
+       		 strDate = "0" + strDate;
+    		 }
+    		var currentdate = date.getFullYear() + "年" + month + "月" + strDate + "日"
+           		 + " " + date.getHours() + seperator2 + date.getMinutes();
+   		  return currentdate;
+	}     
 	</script>
 </head>
 <body>
@@ -218,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div >
 										&nbsp;&nbsp;
 										<a >${fn:length(messagesVO)}&nbsp; 留言</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-										<input id="contentInput" type="text" />&nbsp;<a onclick="addMessage('${goods.id}','${sessionScope.user.id }','${sessionScope.user.aliasName}')">留言</a>
+										<input id="contentInput" type="text" />&nbsp;<a class="addMsg" onclick="addMessage('${goods.id}','${sessionScope.user.id }','${sessionScope.user.aliasName}')">留言</a>
 									</div>
 									</div>
 								<div >

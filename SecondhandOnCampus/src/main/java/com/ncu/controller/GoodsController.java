@@ -2,7 +2,9 @@ package com.ncu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -146,15 +148,15 @@ public class GoodsController {
 	}
 	//删除商品
 	@RequestMapping("/removeGoods")
-	public ModelAndView removeGoods(Goods goods){
-
-		ModelAndView modelAndView=new ModelAndView();
+	@ResponseBody
+	public Map<String, String> removeGoods(Goods goods,HttpServletRequest request){
+		Map<String, String> resMap = new HashMap<String, String>();
 		boolean removeRes=goodsService.removeGoods(goods.getId());
 		if(!removeRes){
-			modelAndView.addObject("failInfo","商品刪除異常！");
+			resMap.put("res", "fail");
 		}
-		modelAndView.setViewName("user");
-		return modelAndView;
+		resMap.put("res", "success");
+		return resMap;
 	}
     //查询此卖家 的其他商品
     @RequestMapping("/queryOtherGoods")

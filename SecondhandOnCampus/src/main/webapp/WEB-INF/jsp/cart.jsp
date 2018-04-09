@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            		
            }
 
-           function changeQuantity(goodsId,oldQuantity){
+           function changeQuantity(goodsId){
                var quantity=$("#tr"+goodsId+" input").val();
                if(isNaN(quantity)){
                    alert("请填入数字！"); 
@@ -52,11 +52,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 alert("移除成功");
                            }else{
                                 alert("修改商品个数成功");
+                                $("#tr"+goodsId+" .oldQuantity").val(quantity);
                            }
                            $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
                        } else if(data.res=="notEnough"){
                            alert("商品库存不足");
-                           $("#tr"+goodsId+" input").val(oldQuantity);
+                           $("#tr"+goodsId+" input").val($("#tr"+goodsId+" .oldQuantity").val());
                        } else{
                            alert("异常");
                        }                
@@ -121,15 +122,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tbody>
 				<c:forEach items="${sessionScope.cart.items }" var="item">
 					<tr id="tr${item.goods.id}">
+						<c:if test="${item.goods.picturePath==''}">
+							<td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.id}"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
+						</c:if>
+						<c:if test="${item.goods.picturePath!=''}">
+                			<td class="image">
+								<a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${item.goods.id}"><img src="/picForBS/goods/${item.goods.picturePath}/thumbnail/thumb_${item.goods.coverPic}"  /></a>
+							</td>
+          			    </c:if>
 						
-						<td class="image"><a href="#"><img src="/picForBS/goods/${item.goods.picturePath}/thumbnail/thumb_${item.goods.coverPic}"  /></a>
-						</td>
 						<td class="name"><a href="#">${item.goods.name}</a>
 							<div>
 							</div>
 						</td>
 						<td class="introduceText">${item.goods.introducedText}</td>
-						<td class="quantity"><input type="text"  value="${item.quantity }" onchange="changeQuantity('${item.goods.id}','${item.quantity}')"  size="3" /></td>
+						<td class="quantity"><input type="text"  value="${item.quantity }" onchange="changeQuantity('${item.goods.id}')"  size="3" /><input type="hidden" class="oldQuantity"></td>
 						<td class="price">￥${item.goods.price}</td>
 						<td class="total">￥${item.goods.price*item.quantity }</td>
 						<td class="remove"><a href="#" onclick="removeCart(${item.goods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove.png"> </a></td>
@@ -140,7 +147,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</table>
 
 		</div>
-		<div style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
+		<c:if test="${sessionScope.cart.items!=null }">
+			<div style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
+	    </c:if>
 	</form>
 	
   

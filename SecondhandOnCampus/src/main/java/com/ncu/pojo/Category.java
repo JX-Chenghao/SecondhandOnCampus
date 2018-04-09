@@ -1,6 +1,9 @@
 package com.ncu.pojo;
 
 public class Category {
+	/*还得添一个字段 来成为多级目
+	 *添加商品处 还要多级联动的select
+	 * 录*/
     private Integer id;
 
     private String name;

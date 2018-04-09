@@ -296,6 +296,7 @@ body {
 .box-product .priced ul li a{	
 	color:#ccc;
 	text-decoration:none;
+	cursor:pointer;
 }
 
 .box-product .priced ul li a:hover{
@@ -1067,6 +1068,11 @@ a.button span {
 	width:100%;
 	border-top:1px solid gray
 }
+.addMsg{
+	cursor:pointer;
+}
+
+
 /*userGoods.jsp*/
 .ownGoods-info table {
 	width: 80%;
@@ -1128,6 +1134,9 @@ a.button span {
 .ownGoods-info tbody span.stock {
 	color: #F00;
 	font-weight: bold;
+}
+.ownGoods-info .remove img{
+	cursor:pointer;
 }
 
 
