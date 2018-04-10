@@ -24,6 +24,7 @@ import com.ncu.pojo.Category;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.PageBean;
 import com.ncu.pojo.User;
+import com.ncu.pojo.vo.CategoryVO;
 import com.ncu.pojo.vo.MessageVO;
 import com.ncu.pojo.vo.SignVO;
 import com.ncu.service.CategoryService;
@@ -57,6 +58,9 @@ public class GoodsController {
     	System.out.println(pageBeanForGoods.toString());
     	modelAndView.addObject("pageBeanForGoods", pageBeanForGoods);
     	modelAndView.setViewName("goods");
+    	List<CategoryVO> categoryVOs = categoryService.findAllCategoryDataWithIntroduce();
+    	modelAndView.addObject("categoryVOs",categoryVOs);
+    	
 		return modelAndView;
 		
     }
@@ -101,9 +105,8 @@ public class GoodsController {
 	@RequestMapping("/addGoodsView")
 	public ModelAndView addGoods(Goods goods, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Category> categories = categoryService.findAllCategoryData();
+		List<Category> categories = categoryService.findAllSecondCategoryData();
 		modelAndView.setViewName("userAddGoods");
-		System.out.println(categories.size());
 		modelAndView.addObject("categories",categories);
 		return modelAndView;
 	}

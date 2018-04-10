@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ncu.pojo.Category" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.ncu.pojo.Category" extends="BaseResultMap" >
     <result column="introduced_text" property="introducedText" jdbcType="LONGVARCHAR" />
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name
+    id, name, parent_id
   </sql>
   <sql id="Blob_Column_List" >
     introduced_text
@@ -121,10 +122,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Category" >
-    insert into category (id, name, introduced_text
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{introducedText,jdbcType=LONGVARCHAR}
-      )
+    insert into category (id, name, parent_id, 
+      introduced_text)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{introducedText,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Category" >
     insert into category
@@ -134,6 +135,9 @@
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
       </if>
       <if test="introducedText != null" >
         introduced_text,
@@ -145,6 +149,9 @@
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
       </if>
       <if test="introducedText != null" >
         #{introducedText,jdbcType=LONGVARCHAR},
@@ -166,6 +173,9 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
       <if test="record.introducedText != null" >
         introduced_text = #{record.introducedText,jdbcType=LONGVARCHAR},
       </if>
@@ -178,6 +188,7 @@
     update category
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
       introduced_text = #{record.introducedText,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -186,7 +197,8 @@
   <update id="updateByExample" parameterType="map" >
     update category
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +209,9 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
       <if test="introducedText != null" >
         introduced_text = #{introducedText,jdbcType=LONGVARCHAR},
       </if>
@@ -206,12 +221,14 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ncu.pojo.Category" >
     update category
     set name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
       introduced_text = #{introducedText,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ncu.pojo.Category" >
     update category
-    set name = #{name,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

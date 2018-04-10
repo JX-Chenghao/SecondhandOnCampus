@@ -81,48 +81,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 </div>
 			<div class="categoryForGoods">
 				<ul>
-						<li ><b>数码电子:</b>
-						<a id="" class="hui" href="#no">不限</a>
-						<a id= "" href="#no" class="hui">< 100万</a>			
-						<a id="sjina_D03_08_03" href="/house/s/b220000x/">20000以下</a>
-						<a id="" href="">200万-300万</a>
-						<a id="" href="">300万-400万</a>
-						<a id="" href="">400万-500万</a>
-						<a id="" href="/house/s/b2100000s/">>500万</a>
-						<a id="" href="/house/s/b29999999999%2C9999999999/">价格待定</a>
-
-						<li > <b>日常生活:</b>
-							<a id="sjina_D03_12_01" class="hui" href="#no">不限</a>
-							<a id="sjina_D03_08_010" href="/house/s/b2100000s/">< 4000元/㎡</a>
-							<a id="sjina_D03_08_010" href="/house/s/b2100000s/">4000-6000元/㎡</a>
-							<a id="sjina_D03_08_010" href="/house/s/b2100000s/">6000-8000元/㎡</a>
-							<a id="sjina_D03_08_010" href="/house/s/b2100000s/">8000-10000元/㎡</a>
-							<a id="sjina_D03_08_02" href="/house/s/b29999999999%2C9999999999/">10000元/㎡</a>
-							<a id="sjina_D03_08_02" href="/house/s/b29999999999%2C9999999999/">> 10000元/㎡</a>
-
-						</li>
-
-						<li>  <b>文学杂志:</b>
-							<a id="sjina_D03_12_01" class="hui" href="#no">不限</a>
-							<a id= "sjina_D03_12_02" data-name="bedrooms" data-id="" href="/house/s/c21/">别墅</a>
-							<a id= "sjina_D03_12_02" data-name="bedrooms" data-id="" href="/house/s/c21/">一居</a>
-							<a id= "sjina_D03_12_03" data-name="bedrooms" data-id="" href="/house/s/c22/">两居</a>
-							<a id= "sjina_D03_12_04" data-name="bedrooms" data-id="" href="/house/s/c23/">三居</a>
-							<a id= "sjina_D03_12_05" data-name="bedrooms" data-id="" href="/house/s/c24/">四居</a>
-							<a id= "sjina_D03_12_06" data-name="bedrooms" data-id="" href="/house/s/c25/">五居</a>
-							<a id= "sjina_D03_12_07" data-name="bedrooms" data-id="" href="/house/s/c26/">五居以上</a> 
-
-						</li>
-						<li >  <b>其他产品:</b>
-							<a id="sjina_D03_12_01" class="hui" href="#no">不限</a>
-							<a id="sjina_D03_08_010" href="/house/s/b2100000s/">< 50m²</a>
-							<a id="sjina_D03_08_02" href="/house/s/b29999999999%2C9999999999/">50m²-80m²</a>
-							<a id="sjina_D03_08_02" href="/house/s/b29999999999%2C9999999999/">80m²-120m²</a>
-							<a id="sjina_D03_08_02" href="/house/s/b29999999999%2C9999999999/">120m²-140m²</a>
-							<a id="sjina_D03_08_02" href="/house/s/b29999999999%2C9999999999/">140m²-160m²</a>
-							<a id="sjina_D03_08_02" href="/house/s/b29999999999%2C9999999999/">> 160m²</a>
-
-						</li>
+						
+						<c:forEach items="${categoryVOs }" var="categoryVO">
+						   <li ><b>${categoryVO.firstCategory.name }:</b>
+						       <a id="" class="hui" href="#no">不限</a>
+						       <c:forEach items="${categoryVO.secondCategories }" var="category">
+						              <a href="#no" class="hui">${category.name }</a>	
+						       	</c:forEach>
+						   </li>
+						
+						</c:forEach>
+					
+					
 
 					</ul>
 
