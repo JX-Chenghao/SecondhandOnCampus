@@ -44,13 +44,20 @@
 	   	 	    $(this).css("border-left","red solid 4px");
 	   	 	  }
 		 });
-		 $("form select").change(function(){
+		 $("form select[name='firstCategory']").change(function(){
 		  	   if($(this).val()!="" && $(this).val()!="0"){
 	 	  	     $(this).css("border","lightgreen solid 2px");
+	 	  	     $("select[id^='second']").css("display","none");
+	 	 	     $("#second"+$(this).val()).toggle();
+	 	 	     $("input[name='categoryId']").val($("#second"+$(this).val()).val());
 	 	 	   }else{
+	 	 	     $("select[id^='second']").css("display","none");
 	 	 	     $(this).css("border","red solid 2px");
 	 	 	   }
 	 	});
+	 	 $("form select[name='secondCategory']").change(function(){
+		  	   $("input[name='categoryId']").val($(this).val());
+	 	 });
 	 	$("form :file").change(function(){
 	  	 	  if($(this).val()!=""){
 	  	    	  $(this).parent().css("border-left","lightgreen solid 4px");
@@ -92,20 +99,17 @@
                     error++;
                  }
              });
-             $("form select").each(function(){
-                //alert($(this).val());
-                 if($(this).val()=="0"){
-                    $(this).css("border","red solid 2px");
-                    error++;
-                 }
-             });
+             if($("form select[name='firstCategory']").val()=="0"){
+                  error++;
+             }
+               
               if(error>0) {
               	alert("请填写完信息！");
               	return false;
+              }else{
+                 $("form[name=addForm]").submit();
               }
-            //提交
-             $("form[name=addForm]").submit();
-				
+     				
    }	
 
 </script>
@@ -220,8 +224,8 @@
 					<li><input type="text" name="usedMonth"  placeholder="已使用月份" required />
 
 						<div class="clear"></div></li>
-					<input type="submit" onclick="sendForm()" value="确认上架"
-						style="margin-left:10px;width:350px">
+					<input type="button" onclick="sendForm()" value="确认上架"
+						style="margin-left:10px;width:350px;height:55px">
 					<div class="right-form">
 
 						<a href="javascript:void(0);" class="btn_addPic"><span><em>+</em>添加图片</span><input
@@ -256,14 +260,25 @@
 
 				</ul>
 						 <div id="uboxstyle"  style="float:left; margin-right:30px;">
-						   <select name="categoryId" class="goodsTypeSelect">
-						        <!--需要去数据库中读出来  -->
-								<option  value="0" selected="selected">商品类型</option>
-						   		<c:forEach items="${categories}" var="category">
-						   			<option  value="${category.id}">${category.name }</option>
-						   		</c:forEach>
+							<select name="firstCategory" class="goodsTypeSelect1">
+								<!--需要去数据库中读出来  -->
+								<option  value="0" selected="selected">商品类型</option>						 
+						 		<c:forEach items="${categories}" var="category">
+						   			<option  value="${category.firstCategory.id}">${category.firstCategory.name }</option>
+						   		 </c:forEach>
 						   </select>
+						   
+						  <c:forEach items="${categories}" var="category">
+						   		 <select name="secondCategory" id="second${category.firstCategory.id}" class="goodsTypeSelect2" >
+						    		 <c:forEach items="${category.secondCategories}" var="secondCategory">
+						   					<option  value="${secondCategory.id}">${secondCategory.name }</option>
+						    		 </c:forEach>
+						   		  </select>
+						 </c:forEach>
+						 
+						 <input type="hidden" name="categoryId">
 						</div>
+
 			</form>
 		</div>
 

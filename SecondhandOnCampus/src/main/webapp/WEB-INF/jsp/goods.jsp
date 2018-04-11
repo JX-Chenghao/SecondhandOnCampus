@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   <li ><b>${categoryVO.firstCategory.name }:</b>
 						       <a id="" class="hui" href="#no">不限</a>
 						       <c:forEach items="${categoryVO.secondCategories }" var="category">
-						              <a href="#no" class="hui">${category.name }</a>	
+						              <a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action?categoryId=${category.id}" class="hui">${category.name }</a>	
 						       	</c:forEach>
 						   </li>
 						

@@ -8,7 +8,7 @@ import com.ncu.pojo.vo.SignVO;
 
 public interface GoodsService {
     /*商品分頁*/
-	PageBean<Goods> getGoodsByPage(int currPage);
+	PageBean<Goods> getGoodsByPage(int currPage,Integer categoryId);
    /*保存商品*/
     boolean saveGoods(Goods goods, int userId, int categoryId);
    /*修改商品*/

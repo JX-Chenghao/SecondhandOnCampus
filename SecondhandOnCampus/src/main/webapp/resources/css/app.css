@@ -1141,7 +1141,7 @@ a.button span {
 
 
 /*userAddGoods.jsp*/
-.goodsTypeSelect{
+.goodsTypeSelect1{
 	width:180px;
 	height:40px;
 	font-size:20px;
@@ -1150,4 +1150,16 @@ a.button span {
 	top:340px;
 	border:2px solid red;
 	border-radius:3px
+}
+
+.goodsTypeSelect2{
+	width:180px;
+	height:40px;
+	font-size:20px;
+	position:absolute;
+	left:928px;
+	top:340px;
+	border:2px solid lightgreen;
+	border-radius:3px;
+	display:none;
 }

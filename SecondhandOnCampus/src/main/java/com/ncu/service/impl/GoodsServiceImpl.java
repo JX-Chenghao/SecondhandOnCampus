@@ -26,7 +26,7 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	
 	@Override
-	public PageBean<Goods> getGoodsByPage(int currPage) {
+	public PageBean<Goods> getGoodsByPage(int currPage,Integer categoryId) {
 		
 		
 		PageBean<Goods> pageBean = new PageBean<Goods>();
@@ -38,6 +38,9 @@ public class GoodsServiceImpl implements GoodsService {
 		final int pageSize=12; 
 		pageBean.setPageSize(pageSize);
 		//总记录数
+		if(categoryId != null){
+	        	ex.createCriteria().andCategoryIdEqualTo(categoryId);
+	    }
 		final int totalCount =goodsMapper.countByExample(ex); 
 		pageBean.setTotalCount(totalCount);
         //总页数
@@ -58,6 +61,8 @@ public class GoodsServiceImpl implements GoodsService {
         ex.setStartRow(offset);
         ex.setPageSize(pageSize);
         ex.setOrderByClause("publish_date desc");
+        
+ 
         final List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
         pageBean.setList(goodsList);
         

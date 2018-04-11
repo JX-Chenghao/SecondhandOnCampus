@@ -45,7 +45,7 @@ public class GoodsController {
     
     //分页展示商品
     @RequestMapping("/showGoodsByPage")
-    public ModelAndView showGoodsByPage(HttpServletRequest request){
+    public ModelAndView showGoodsByPage(HttpServletRequest request,Integer categoryId){
     	
     	ModelAndView modelAndView=new ModelAndView();
     	int currentPage;
@@ -54,7 +54,7 @@ public class GoodsController {
     	else
     		currentPage=1;
     	
-    	PageBean<Goods> pageBeanForGoods = goodsService.getGoodsByPage(currentPage);
+    	PageBean<Goods> pageBeanForGoods = goodsService.getGoodsByPage(currentPage,categoryId);
     	System.out.println(pageBeanForGoods.toString());
     	modelAndView.addObject("pageBeanForGoods", pageBeanForGoods);
     	modelAndView.setViewName("goods");
@@ -105,7 +105,7 @@ public class GoodsController {
 	@RequestMapping("/addGoodsView")
 	public ModelAndView addGoods(Goods goods, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Category> categories = categoryService.findAllSecondCategoryData();
+		List<CategoryVO> categories = categoryService.findAllCategoryDataWithIntroduce();
 		modelAndView.setViewName("userAddGoods");
 		modelAndView.addObject("categories",categories);
 		return modelAndView;

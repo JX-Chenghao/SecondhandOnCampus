@@ -112,14 +112,14 @@
     </bean> 
 
 	<!--拦截器 -->
-   <!-- <mvc:interceptors> -->
+   <mvc:interceptors>
 	<!--多个拦截器,顺序执行 -->
 	<!-- 登陆认证拦截器 -->
-	<!-- <mvc:interceptor>
+	<mvc:interceptor>
 		<mvc:mapping path="/**"/>
 		<bean class="com.ncu.interceptor.LoginInterceptor"></bean>
-	</mvc:interceptor> -->
+	</mvc:interceptor>
 
-  <!-- </mvc:interceptors> -->
+  </mvc:interceptors>
 	
 </beans>  
