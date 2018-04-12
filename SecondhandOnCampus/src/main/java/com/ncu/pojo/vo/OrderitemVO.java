@@ -31,6 +31,12 @@ public class OrderitemVO {
 		this.goodUsedMonth = goodUsedMonth;
 	}
 
+	@Override
+	public String toString() {
+		return "OrderitemVO [orderitem=" + orderitem + ", goodName=" + goodName
+				+ ", goodUsedMonth=" + goodUsedMonth + "]";
+	}
+
 
 
 }

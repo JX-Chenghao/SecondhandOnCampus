@@ -1,5 +1,6 @@
 package com.ncu.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -35,12 +36,16 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     GoodsMapper goodsMapper;
     
+
+    
     @Override
     public boolean save(OrderVO orderVO) {
-           int id = orderMapper.insert(orderVO.getOrder());
+    	   System.out.println(orderVO.getOrder().toString());
+            orderMapper.insertSelective(orderVO.getOrder());
            for( OrderitemVO itemVO : orderVO.getOrderitemVOs()) {
-        	   itemVO.getOrderitem().setOrderId(id);
+        	   itemVO.getOrderitem().setOrderId(orderVO.getOrder().getId());
                orderitemMapper.insertSelective(itemVO.getOrderitem());
+               System.out.println(itemVO.toString());
            }
            return true;
     }
@@ -158,10 +163,6 @@ public class OrderServiceImpl implements OrderService {
 
     private Order setOrderAttr(Integer cropId, Integer payway, Integer clientUserId) {
         Order order = new Order();
-        /*生成14位订单号!*/    
-        
-        
-        
         order.setCropId(cropId);
         order.setOrderDate(new Date());
         order.setOrderState(0);
@@ -170,5 +171,6 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+	
 
 }

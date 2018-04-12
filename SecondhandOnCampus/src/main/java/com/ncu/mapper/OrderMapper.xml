@@ -104,29 +104,32 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Order" >
-    insert into order (id, order_date, order_state, 
-      total_price, get_way, pay_way, 
-      user_id, crop_id, order_number
-      )
-    values (#{id,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
+     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    INSERT INTO `order` (order_date,order_state,total_price,get_way,pay_way,user_id,crop_id)
+    VALUES (#{orderDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
       #{totalPrice,jdbcType=DOUBLE}, #{getWay,jdbcType=INTEGER}, #{payWay,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}
+      #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Order" >
-    insert into order
+       <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+   INSERT INTO `order`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
       <if test="orderDate != null" >
         order_date,
-      </if>
+        </if>
       <if test="orderState != null" >
         order_state,
-      </if>
+        </if>
       <if test="totalPrice != null" >
-        total_price,
+         total_price,
       </if>
       <if test="getWay != null" >
         get_way,

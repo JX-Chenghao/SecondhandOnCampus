@@ -35,5 +35,11 @@ public class OrderVO {
 	public void setCropName(String cropName) {
 		this.cropName = cropName;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderVO [order=" + order + ", orderitemVOs=" + orderitemVOs
+				+ ", cropName=" + cropName + "]";
+	}
     
 }

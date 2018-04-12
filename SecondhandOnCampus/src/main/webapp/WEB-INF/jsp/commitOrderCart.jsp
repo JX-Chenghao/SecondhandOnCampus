@@ -13,20 +13,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/app.css" />
 <link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css" all /> 
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>校园二手交易网站</title>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
      <script type="text/javascript">
      $(function(){
      	 $(".order-info select").change(function(){
-		  	   if($(this).val()=="sh"){
+		  	   if($(this).val()=="1"){
 		  	       var price=$(this).parent().next().find(".orderTotalPrice").html();
 		  	       $(this).parent().next().find(".orderTotalPrice").html(parseFloat(price)+2.5);;
 	 	 	   }
 	 	});
+	 	 $(":radio").change(function(){
+                           var way=$(this).val();
+                           if(way==0){
+                                         $("#payWayInfo0").show();
+                                         $("#payWayInfo1").hide();
+                                        $("button[name='addOrder']").removeAttr("disabled");
+                           }else{
+                                   	  $("#payWayInfo0").hide();
+                                     $("#payWayInfo1").show();
+                                       $("button[name='addOrder']").attr("disabled","disabled");
+                            }
+        });	
+      
      
      });
+ 	function addOrderBtn(){
+ 	      $("form[name='addForm']").submit();
  	
+ 	}
    
       
      </script>
@@ -75,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>已使用月份</div>
 			<div>小计</div>
 		</div>
-
+<form name="addForm" action="${pageContext.request.contextPath}/order/addOrders.action">
 		 		<c:forEach items="${orderVOs}" var="orderVO">
 		 				   <div  class="order-info">
 							           <div class="crop">卖家：${orderVO.cropName }</div>
@@ -91,8 +110,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                        
                                        <div>
                                        	<div class="way">运送方式
-                                       		<select> 
-                                       			<option value="zq">校内货物点自取</option><option value="sh">送货上门(2.5元)</option>
+                                       		<select name="o_${orderVO.order.cropId}"> 
+                                       			<option value="0">校内货物点自取</option><option value="1">送货上门(2.5元)</option>
                                        		</select>
                                        	</div>
                                        	<div class="feeToCrop">卖家合计(含运费)￥<span class="orderTotalPrice">${orderVO.order.totalPrice }</span></div>
@@ -100,10 +119,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 		 		</c:forEach>
 		
+		<div class="orderSubmit">总计 ：￥317.8<a  data-toggle="modal" data-target="#dialog">提交</a></div>
+		   <!-- 评论    模态框（Modal） -->
+   <div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					选择付款方式
+				</h4>
+			</div>
+			
+			 <label style="font-size:small"> <input class="oneWay" type="radio" style="width:25px;height:20px;" name="payWay" id="optionsRadios1"  value="0" checked> 货到付款 </label>
+                     		 <label style="font-size:small">
+                     		  <input class="twoWay" type="radio" style="width:25px;height:20px;" name="payWay" id="optionsRadios2" value="1" />在线付款 </label><br/>
+			 </form>
+			
+			  <div id="payWayInfo0" class="alert alert-info" contenteditable="true">
+               			  
+                 			<h4>提示!</h4>
+                			  <strong>注意!</strong> 若取货方式不为送货上门而是，校园取货点自取，请带好相应订单价钱，支持手机支付，否则无法取走！
+                		</div>
+                		 <div id="payWayInfo1" class="alert alert-info" contenteditable="true" style="display:none" >  
+                 			<h4>请扫二维码付款（暂不支持）!</h4>
+
+                			  <img src="images/2wm.png" style="margin-left:100px;">
+			</div>
+
+			<div class="modal-footer" >	  
+				<button  class="btn btn-default"  data-dismiss="modal" >退回</button>
+				<button  class="btn btn-primary" name="addOrder" onclick="addOrderBtn()">提交</button>
+			</div>
+	
+		  </div><!-- /.modal-content -->
+	   </div><!-- /.modal -->
 		
-		
-		
-		<div class="orderSubmit">总计 ：￥317.8<a href="#">提交</a></div>
 	</div>
   
 </body>
