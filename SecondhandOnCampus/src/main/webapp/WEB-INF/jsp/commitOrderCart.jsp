@@ -13,9 +13,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/app.css" />
 <link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css" all /> 
-<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <title>校园二手交易网站</title>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 		 		</c:forEach>
 		
-		<div class="orderSubmit">总计 ：￥317.8<a  data-toggle="modal" data-target="#dialog">提交</a></div>
+		<div class="orderSubmit">总计 ：￥317.8<a  data-toggle="modal" data-target="#dialog" style="cursor:pointer">提交</a></div>
 		   <!-- 评论    模态框（Modal） -->
    <div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -146,12 +146,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 		 <div id="payWayInfo1" class="alert alert-info" contenteditable="true" style="display:none" >  
                  			<h4>请扫二维码付款（暂不支持）!</h4>
 
-                			  <img src="images/2wm.png" style="margin-left:100px;">
+                			  <img src="${pageContext.request.contextPath}/resources/images/2wm.png" style="margin-left:100px;">
 			</div>
 
 			<div class="modal-footer" >	  
 				<button  class="btn btn-default"  data-dismiss="modal" >退回</button>
-				<button  class="btn btn-primary" name="addOrder" onclick="addOrderBtn()">提交</button>
+				<button  class="btn btn-primary" name="addOrder" onclick="addOrderBtn()" >提交</button>
 			</div>
 	
 		  </div><!-- /.modal-content -->

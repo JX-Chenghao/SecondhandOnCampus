@@ -26,7 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        if(data.res=="success"){
                            alert("移除成功");
                            $("#tr"+goodsId).remove();
-                           
+                           if($("tr[id^='tr']").length==0){
+                             $(".submitOrderBtn").hide();
+                           }
                        }                  
                    }
                });
@@ -48,8 +50,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    success :function(data){
                        if(data.res=="success"){
                            if(quantity<=0){
-                              $("#tr"+goodsId).remove();
-                                alert("移除成功");
+                               $("#tr"+goodsId).remove();
+                                  alert("移除成功");
+                                  if($("tr[id^='tr']").length==0){
+                             		$(".submitOrderBtn").hide();
+                          		  }
                            }else{
                                 alert("修改商品个数成功");
                                 $("#tr"+goodsId+" .oldQuantity").val(quantity);
@@ -148,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div>
 		<c:if test="${sessionScope.cart.items!=null }">
-			<div style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
+			<div class="submitOrderBtn" style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
 	    </c:if>
 	</form>
 	

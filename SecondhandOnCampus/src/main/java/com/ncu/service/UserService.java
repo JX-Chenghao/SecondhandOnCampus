@@ -35,4 +35,5 @@ public interface UserService {
 	 * @param id       userId
 	 */
 	String saveHeadImg(MultipartFile pic_file, String store_path,String id);
+	User findUserById(Integer userID);
 }

@@ -137,5 +137,10 @@ public class UserServiceImpl implements UserService {
 		return saveFileName;
 		
 	}
+
+	@Override
+	public User findUserById(Integer userID) {
+		return userMapper.selectByPrimaryKey(userID);
+	}
 	
 }

@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="submit" onclick="loginClick()"  value="登 录">
 				</div>
 			</form>
-			<div class="social-icons w3layouts agileits">
+<!-- 			<div class="social-icons w3layouts agileits">
 				<p>- 其他方式登录 -</p>
 				<ul>
 					<li class="qq"><a href="#">
@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span class="text w3layouts agileits">微博</span></a></li>
 					<div class="clear"> </div>
 				</ul>
-			</div>
+			</div> -->
 			<div class="clear"></div>
 		</div>
 		<div class="register w3layouts agileits">

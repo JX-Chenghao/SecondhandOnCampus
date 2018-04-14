@@ -103,6 +103,8 @@ public class UserController {
     		boolean res =userService.updateUserInfo(request.getParameter("realName"),request.getParameter("sex"),request.getParameter("email"), ((User)request.getSession().getAttribute("user")).getId());
     		if(res){
     			resMap.put("updateRes", "success");	
+    			User user=userService.findUserById(getUserID(request));
+        		request.getSession().setAttribute("user", user);
     		}else{
     			resMap.put("updateRes", "fail");	
     		}
@@ -120,6 +122,8 @@ public class UserController {
 			boolean res = userService.updateTradeInfo(request.getParameter("alipayNumber"), request.getParameter("shippingAddress"),((User) request.getSession().getAttribute("user")).getId());
 			if (res) {
 				resMap.put("updateRes", "success");
+				User user=userService.findUserById(getUserID(request));
+	    		request.getSession().setAttribute("user", user);
 			} else {
 				resMap.put("updateRes", "fail");
 			}
@@ -221,7 +225,13 @@ public class UserController {
 		return true;
 	}
 	
-	
+	private Integer getUserID(HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+		   return user.getId();
+		}
+		return null;
+	}	
   
 }
 
