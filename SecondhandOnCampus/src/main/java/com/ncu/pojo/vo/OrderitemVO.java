@@ -6,6 +6,25 @@ public class OrderitemVO {
 	private Orderitem orderitem;
 	private String goodName;
 	private String goodUsedMonth;
+	private String goodPicPath;
+	private String goodCoverPic;
+	
+
+	public String getGoodPicPath() {
+		return goodPicPath;
+	}
+
+	public void setGoodPicPath(String goodPicPath) {
+		this.goodPicPath = goodPicPath;
+	}
+
+	public String getGoodCoverPic() {
+		return goodCoverPic;
+	}
+
+	public void setGoodCoverPic(String goodCoverPic) {
+		this.goodCoverPic = goodCoverPic;
+	}
 
 	public Orderitem getOrderitem() {
 		return orderitem;

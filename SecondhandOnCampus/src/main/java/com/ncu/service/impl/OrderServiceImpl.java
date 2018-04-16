@@ -57,9 +57,9 @@ public class OrderServiceImpl implements OrderService {
         ex.createCriteria().andCropIdEqualTo(cropId);
         List<Order> orders = orderMapper.selectByExample(ex);
         OrderitemExample example = new OrderitemExample();
-        OrderVO orderVO=new OrderVO();
+        OrderVO orderVO=null;
         for(Order o : orders){
-        	
+        	orderVO=new OrderVO();
         	example.createCriteria().andOrderIdEqualTo(o.getId());
         	List<OrderitemVO> items = orderitemMapper.selectByExample(example);
         	example.clear();
@@ -77,11 +77,16 @@ public class OrderServiceImpl implements OrderService {
         ex.createCriteria().andUserIdEqualTo(clientId);
         List<Order> orders = orderMapper.selectByExample(ex);
         OrderitemExample example = new OrderitemExample();
-        OrderVO orderVO=new OrderVO();
+        OrderVO orderVO=null;
         for(Order o : orders){
-        	
+        	orderVO=new OrderVO();
         	example.createCriteria().andOrderIdEqualTo(o.getId());
         	List<OrderitemVO> items = orderitemMapper.selectByExample(example);
+        	for(OrderitemVO itemVO:items){
+        		Goods good = goodsMapper.selectByPrimaryKey(itemVO.getOrderitem().getGoodsId());
+        		itemVO.setGoodPicPath(good.getPicturePath());
+        		itemVO.setGoodCoverPic(good.getCoverPic());
+        	}
         	example.clear();
         	orderVO.setOrder(o);
         	orderVO.setOrderitemVOs(items);

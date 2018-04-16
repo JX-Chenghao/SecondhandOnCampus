@@ -535,65 +535,60 @@ body {
 }
 
 /* order.html */
-.orderForUser{
-	margin-left:60px;
-}
-.orderForUser .headLine{
-             width: 1000px;
-             height: 50px;
-             position: relative;
-             left: -50px;
-  }
-.orderForUser .headLine ul li{
-	color:#fff;
-	list-style:none;
-	float:left;
-	font-size:25px;
-	padding-top:15px;
-	padding-right: 10px;
-	padding-left: 10px;
-             border-right: solid 1px red; 
-}
-.orderForUser .headLine ul li a{
-	text-decoration: none;
+/* order.html */
 
-}
+
 .orderForUser .orderInfo {
-              height: 200px;
               width: 1000px;
-              border: solid 1px red;
               margin-top: 20px;
 }
 .orderForUser .orderInfo .first {
+	float: left; 
              width: 1000px;
              height: 50px;
              line-height: 50px;
 }
 .orderForUser .orderInfo .info >div{
-            float: left; 
+	 height: 150px;
+             float: left;             
+             margin-bottom: 1px;
+             border-top: 1px solid black;
+              border-bottom: 1px solid black;
+ 
  }
 .orderForUser .orderInfo .info .img{
              width: 600px;
              height: 150px;
-	background-color: green;
+               border-left: 1px solid black;
+	/* background-color: green; */
+}
+.orderForUser .orderInfo .info .img img{
+             margin-top: 10px;
+             margin-left: 20px;
 }
 .orderForUser .orderInfo .info .totalPrice{
              width: 100px;
              height: 150px;
-	background-color: red;
+	/* background-color: red; */
+	 line-height: 150px;
+	 text-align: center;
 }
 .orderForUser .orderInfo .info .state{
              width: 100px;
              height: 150px;
-             background-color: blue;
-
+             /* background-color: blue; */
+             line-height: 150px;
+	 text-align: center;
 }
 .orderForUser .orderInfo .info .evaluate{
              width: 200px;
              height: 150px;
-             background-color: yellow;
-
+             /* background-color: yellow; */
+	 line-height: 150px;
+	 text-align: center;
+	     border-right: 1px solid black;
 }
+
 /* user.html */
 .user-info{
 	width: 650px;

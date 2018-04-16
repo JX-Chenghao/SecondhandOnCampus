@@ -79,7 +79,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,7 +90,7 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -178,13 +178,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.ncu.pojo.OrderExample" resultType="java.lang.Integer" >
-    select count(*) from order
+    select count(*) from `order`
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update order
+    update `order`
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -219,7 +219,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update order
+    update `order`
     set id = #{record.id,jdbcType=INTEGER},
       order_date = #{record.orderDate,jdbcType=DATE},
       order_state = #{record.orderState,jdbcType=INTEGER},
@@ -234,7 +234,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.ncu.pojo.Order" >
-    update order
+    update `order`
     <set >
       <if test="orderDate != null" >
         order_date = #{orderDate,jdbcType=DATE},
@@ -264,7 +264,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ncu.pojo.Order" >
-    update order
+    update `order`
     set order_date = #{orderDate,jdbcType=DATE},
       order_state = #{orderState,jdbcType=INTEGER},
       total_price = #{totalPrice,jdbcType=DOUBLE},

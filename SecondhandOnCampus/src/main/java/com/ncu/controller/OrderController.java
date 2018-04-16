@@ -43,7 +43,16 @@ public class OrderController {
 		modelAndView.setViewName("commitOrderCart");
 		return modelAndView;
 	}
+	@RequestMapping("/showOrder")
+	public ModelAndView cart(Goods goods, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("order");
+		List<OrderVO> orderVOs = orderService.findOrderByClientId(getUserID(request));
+		modelAndView.addObject("orderVOs", orderVOs);
+		return modelAndView;
+	}
 	
+
 	
 	@RequestMapping("/addOrders")
 	public ModelAndView addOrders( HttpServletRequest request,Integer payWay) {
