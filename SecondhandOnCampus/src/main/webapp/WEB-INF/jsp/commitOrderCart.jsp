@@ -32,11 +32,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                            if(way==0){
                                          $("#payWayInfo0").show();
                                          $("#payWayInfo1").hide();
-                                        $("button[name='addOrder']").removeAttr("disabled");
+                                        $("#addOrder").removeAttr("disabled");
                            }else{
-                                   	  $("#payWayInfo0").hide();
-                                     $("#payWayInfo1").show();
-                                       $("button[name='addOrder']").attr("disabled","disabled");
+                                   	   $("#payWayInfo0").hide();
+                                       $("#payWayInfo1").show();
+                                       $("#addOrder").attr("disabled","disabled");
                             }
         });	
       
@@ -50,14 +50,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
      </script>
 </head>
-<body>
+<body style="background-color:#edece8">
 	<div class="menu">
 	          <div class="logo"></div>
 		<ul>
 		<li><a href="main.html" class="home">首页</a></li>
 		<li ><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
 		<li ><a href="${pageContext.request.contextPath}/cart/showCart.action" class="cart">购物车</a></li>
-		<li ><a href="order.html" class="orderInfo">订单信息</a></li>
+		<li ><a href="${pageContext.request.contextPath}/order/showOrder.action" class="orderInfo">订单信息</a></li>
 		<li ><a href="${pageContext.request.contextPath}/user/user.action" class="userInfo">个人中心</a></li>
 		
 		<c:if test="${sessionScope.user==null}">
@@ -100,7 +100,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							           <div class="crop">卖家：${orderVO.cropName }</div>
 							         <c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">  
            	                            <div class="orderItem">
-                                       	<div ><a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>${orderitemVO.goodName }</div>
+                                       	<div >
+                                   <c:if test="${orderitemVO.goodPicPath==''}">
+												<a href="#"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
+									</c:if>
+									<c:if test="${orderitemVO.goodPicPath!=''}">
+												<a href="#"><img src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}" width="80px"/></a>
+									</c:if>
+                                       ${orderitemVO.goodName }</div>
 											<div>${orderitemVO.orderitem.price/orderitemVO.orderitem.quantity }</div>
 											<div>${orderitemVO.orderitem.quantity }</div>
 											<div>${orderitemVO.goodUsedMonth }个月</div>
@@ -151,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<div class="modal-footer" >	  
 				<button  class="btn btn-default"  data-dismiss="modal" >退回</button>
-				<button  class="btn btn-primary" name="addOrder" onclick="addOrderBtn()" >提交</button>
+				<button  class="btn btn-primary" id="addOrder" onclick="addOrderBtn()" >提交</button>
 			</div>
 	
 		  </div><!-- /.modal-content -->

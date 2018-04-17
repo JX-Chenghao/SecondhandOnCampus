@@ -33,10 +33,12 @@ public class OrderController {
 		ModelAndView modelAndView = new ModelAndView();
 		List<OrderVO> orderVOs = orderService.separateCartToManyOrder(getCart(request), 0, getUserID(request));
 		for(OrderVO o : orderVOs){
+			o.getOrder().setOrderNumber(creatOrderNum());
 			System.out.println(o.getOrder().toString());
 			for(OrderitemVO i :o.getOrderitemVOs()){
 				System.out.println(i.getOrderitem().toString());
 			}
+			
 		}
 		modelAndView.addObject("orderVOs",orderVOs);
 		request.getSession().setAttribute("orderVOs", orderVOs);
@@ -44,23 +46,31 @@ public class OrderController {
 		return modelAndView;
 	}
 	@RequestMapping("/showOrder")
-	public ModelAndView cart(Goods goods, HttpServletRequest request) {
+	public ModelAndView showOrder(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("order");
-		List<OrderVO> orderVOs = orderService.findOrderByClientId(getUserID(request));
+		List<OrderVO> orderVOs = orderService.findOrderByClientId(getUserID(request),null);
+		List<OrderVO> orderVOs0 = orderService.findOrderByClientId(getUserID(request),0);
+		List<OrderVO> orderVOs1 = orderService.findOrderByClientId(getUserID(request),1);
+		List<OrderVO> orderVOs2 = orderService.findOrderByClientId(getUserID(request),2);
+		
 		modelAndView.addObject("orderVOs", orderVOs);
+		modelAndView.addObject("orderVOs0", orderVOs0);
+		modelAndView.addObject("orderVOs1", orderVOs1);
+		modelAndView.addObject("orderVOs2", orderVOs2);
+		System.out.println(orderVOs.size()+"-"+orderVOs1.size()+"-"+orderVOs2.size()+"-");
 		return modelAndView;
 	}
 	
 
 	
 	@RequestMapping("/addOrders")
-	public ModelAndView addOrders( HttpServletRequest request,Integer payWay) {
-		ModelAndView modelAndView = new ModelAndView();
+	public String addOrders( HttpServletRequest request,Integer payWay) {
 		List<OrderVO> orderVOs=getOrderVOs(request) ;
 		for(OrderVO orderVO:orderVOs){
 			orderVO.getOrder().setPayWay(payWay);
-			orderVO.getOrder().setOrderNumber(creatOrderNum(orderNumBase));
+			orderVO.getOrder().setOrderState(0);//持久带数据库就是 代发货状态0
+			
 			orderVO.getOrder().setGetWay(Integer.parseInt(request.getParameter("o_"+orderVO.getOrder().getCropId())));
 			if(orderVO.getOrder().getGetWay().equals(1)){
 				orderVO.getOrder().setTotalPrice(orderVO.getOrder().getTotalPrice()+2.5);
@@ -69,8 +79,9 @@ public class OrderController {
 			orderService.save(orderVO);//注意！！！！浪费了2个小时！！！order不能做mysql表名，数据inser into order插不进去.改成 inser into 'order'成功
 			
 		}
-		modelAndView.setViewName("order");
-		return modelAndView;
+		request.getSession().setAttribute("orderVOs", null);
+		request.getSession().setAttribute("cart", null);
+		return "redirect:/order/showOrder.action";
 	}
 	private List<OrderVO>  getOrderVOs(HttpServletRequest request) {
 		List<OrderVO> orderVOs =(List<OrderVO>) request.getSession().getAttribute("orderVOs");
@@ -95,7 +106,7 @@ public class OrderController {
 		return null;
 	}
 	
-	private String creatOrderNum(Integer orderNumBase) {
+	private String creatOrderNum() {
 		String finalOrderNum = "";  
 		try {  
             synchronized (orderNumBase) {  

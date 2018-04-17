@@ -85,79 +85,218 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </div>  
 	</div>  
 	<br/><br/>
-    <div class="container" style="width:83%;margin-left:100px">
+    <div class="container" style="width:85%;margin-left:100px;margin-top:-50px">
             <div class="orderForUser">
                          <ul class="nav nav-tabs" >
                    		 <li class="active"><a href="#panel-1" data-toggle="tab" contenteditable="true" style="cursor:pointer;color:gray">所有订单</a></li>
-                    		 <li class=""><a href="#panel-2" data-toggle="tab" contenteditable="true" style="cursor:pointer;color:gray">代付款</a></li>
-                    		 <li class=""><a href="#panel-3" data-toggle="tab" contenteditable="true" style="cursor:pointer;color:gray">代发货</a></li>
+                    		 <li class="" style="cursor:pointer;"><a href="#panel-2" data-toggle="tab" contenteditable="true" style="cursor:pointer;color:gray">代付款</a></li>
+                    		 <li class="" style="cursor:pointer;"><a href="#panel-3" data-toggle="tab" contenteditable="true" style="cursor:pointer;color:gray">代发货</a></li>
                     		 <li class="" style="cursor:pointer;"><a href="#panel-4" data-toggle="tab" contenteditable="true" style="cursor:pointer;color:gray">代收货</a></li>
+                    		 <li class="" style="cursor:pointer;"><a href="#panel-5" data-toggle="tab" contenteditable="true" style="cursor:pointer;color:gray">已完成</a></li>
                          </ul>
                          <div class="tab-content">
-                    		
-                    		<div class="tab-pane active" id="panel-1" >
-                     <c:forEach items="${orderVOs}" var="orderVO">
-                     	<div class="orderInfo">
-                          	<div class="first">
-                        		 <f:formatDate  value="${orderVO.order.orderDate}" pattern="yyyy/MM/dd"/>
-                          		 &nbsp;  订单号：${orderVO.order.orderNumber }
-                          	</div>
-                          <c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">  
-                          	<div class="info">
-                          	   <c:if test="${orderitemVO.goodPicPath==''}">
-                          	      <div class="img"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  width="120px"></div>
-                          	   </c:if>
-                          	   <c:if test="${orderitemVO.goodPicPath!=''}">
-                          	      <div class="img"><img src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"  width="120px"></div>
-                          	   </c:if>
-                          		
-                          		<div class="totalPrice">${orderitemVO.orderitem.price }</div>
-                          		<div class="state">交易成功</div>
-                          		<div class="evaluate">还未评价，去评价</div>
-                          	</div>
-                          </c:forEach>
-                         </div>
+
+				<div class="tab-pane active" id="panel-1">
+					<c:forEach items="${orderVOs}" var="orderVO">
+						<div class="orderInfo">
+							<div class="first">
+								<f:formatDate value="${orderVO.order.orderDate}"
+									pattern="yyyy/MM/dd" />
+								&nbsp; 订单号：${orderVO.order.orderNumber }
+									<span class="totalPrice">总价：￥${orderVO.order.totalPrice }</span>
+							</div>
+							<c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">
+								<div class="info">
+									<c:if test="${orderitemVO.goodPicPath==''}">
+										<div class="img">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderitemVO.goodPicPath!=''}">
+										<div class="img">
+											<img
+												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderVO.order.getWay==0}">
+										<div class="getWay">校园自取</div>
+									</c:if>
+                                    <c:if test="${orderVO.order.getWay==1}">
+										<div class="getWay">送货上门</div>
+									</c:if>	
+									<div class="totalPrice">￥${orderitemVO.orderitem.price }</div>
+									<c:if test="${orderVO.order.orderState==0}">
+									  <div class="state">待发货</div>
+									  <div class="evaluate">-</div>
+									</c:if>
+									<c:if test="${orderVO.order.orderState==1}">
+									  <div class="state">待收货</div>
+									  <div class="evaluate">-</div>
+									</c:if>
+									<c:if test="${orderVO.order.orderState==2}">
+									  <div class="state">交易成功</div>
+									  <div class="evaluate">还未评价，去评价</div>
+									</c:if>
+									
+									
+								</div>
+							</c:forEach>
+						</div>
 					</c:forEach>
-                   	 </div>
-                  	<div class="tab-pane" id="panel-2" >
-                    		     <div class="orderInfo">
-                          		  <div class="first">
-                          		    2017/1/15    订单号：123456789
-                          		</div>
-                          		  <div class="info">
-                          			    <div class="img"></div>
-                          			    <div class="totalPrice"></div>
-                          			    <div class="state"></div>
-                           			   <div class="evaluate"></div>
-                          		  </div>
-                          	</div>
-                    	</div>
+				</div>
+				<div class="tab-pane" id="panel-2" >
+                    		<c:forEach items="${sessionScope.orderVOs}" var="orderVO">
+								<div class="orderInfo">
+									<div class="first">
+									<f:formatDate value="${orderVO.order.orderDate}"
+									pattern="yyyy/MM/dd" />
+								&nbsp; 订单号：${orderVO.order.orderNumber }
+								</div>
+								<c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">
+								<div class="info">
+									<c:if test="${orderitemVO.goodPicPath==''}">
+										<div class="img">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderitemVO.goodPicPath!=''}">
+										<div class="img">
+											<img
+												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
+												width="120px">
+										</div>
+									</c:if>
+										<div class="getWay">---</div>
+									<div class="totalPrice">${orderitemVO.orderitem.price }</div>
+									<div class="state">代付款</div>
+									<div class="evaluate"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">去付款<a></a></div>
+								</div>
+								</c:forEach>
+							</div>
+						</c:forEach>
+                    </div>
                   	<div class="tab-pane" id="panel-3" >
-                    		     <div class="orderInfo">
-                          		  <div class="first">
-                          		    2017/1/15    订单号：123456789
-                          		</div>
-                          		  <div class="info">
-                          			    <div class="img"></div>
-                          			    <div class="totalPrice"></div>
-                          			    <div class="state"></div>
-                           			   <div class="evaluate"></div>
-                          		  </div>
-                          	</div>
-                    	</div>
+                    	<c:forEach items="${orderVOs0}" var="orderVO">
+							<div class="orderInfo">
+							<div class="first">
+								<f:formatDate value="${orderVO.order.orderDate}"
+									pattern="yyyy/MM/dd" />
+								&nbsp; 订单号：${orderVO.order.orderNumber } <span class="totalPrice">总价：￥${orderVO.order.totalPrice }</span>
+							</div>
+							<c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">
+								<div class="info">
+									<c:if test="${orderitemVO.goodPicPath==''}">
+										<div class="img">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderitemVO.goodPicPath!=''}">
+										<div class="img">
+											<img
+												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderVO.order.getWay==0}">
+										<div class="getWay">校园自取</div>
+									</c:if>
+                                    <c:if test="${orderVO.order.getWay==1}">
+										<div class="getWay">送货上门</div>
+									</c:if>	
+									<div class="totalPrice">${orderitemVO.orderitem.price }</div>
+									<div class="state">待发货</div>
+									<div class="evaluate">-</div>
+								</div>
+							</c:forEach>
+							</div>
+						</c:forEach>
+                    </div>
                   	<div class="tab-pane" id="panel-4" >
-                    		     <div class="orderInfo">
-                          		  <div class="first">
-                          		    2017/1/15    订单号：123456789
-                          		</div>
-                          		  <div class="info">
-                          			    <div class="img"></div>
-                          			    <div class="totalPrice"></div>
-                          			    <div class="state"></div>
-                           			   <div class="evaluate"></div>
-                          		  </div>
-                          	</div>
-                    	</div>                    	                    	
+                    	<c:forEach items="${orderVOs1}" var="orderVO">
+						<div class="orderInfo">
+							<div class="first">
+								<f:formatDate value="${orderVO.order.orderDate}"
+									pattern="yyyy/MM/dd" />
+								&nbsp; 订单号：${orderVO.order.orderNumber }  <span class="totalPrice">总价：￥${orderVO.order.totalPrice }</span>
+							</div>
+							<c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">
+								<div class="info">
+									<c:if test="${orderitemVO.goodPicPath==''}">
+										<div class="img">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderitemVO.goodPicPath!=''}">
+										<div class="img">
+											<img
+												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderVO.order.getWay==0}">
+										<div class="getWay">校园自取</div>
+									</c:if>
+                                    <c:if test="${orderVO.order.getWay==1}">
+										<div class="getWay">送货上门</div>
+									</c:if>	
+									<div class="totalPrice">${orderitemVO.orderitem.price }</div>
+									<div class="state">待收货</div>
+									<div class="evaluate">-</div>
+								</div>
+							</c:forEach>
+						</div>
+						</c:forEach>
+                    </div> 
+                   <div class="tab-pane" id="panel-5" >
+                    	<c:forEach items="${orderVOs2}" var="orderVO">
+						<div class="orderInfo">
+							<div class="first">
+								<f:formatDate value="${orderVO.order.orderDate}"
+									pattern="yyyy/MM/dd" />
+								&nbsp; 订单号：${orderVO.order.orderNumber }   <span class="totalPrice">总价：￥${orderVO.order.totalPrice }</span>
+							</div>
+							<c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">
+								<div class="info">
+									<c:if test="${orderitemVO.goodPicPath==''}">
+										<div class="img">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderitemVO.goodPicPath!=''}">
+										<div class="img">
+											<img
+												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
+												width="120px">
+										</div>
+									</c:if>
+									<c:if test="${orderVO.order.getWay==0}">
+										<div class="getWay">校园自取</div>
+									</c:if>
+									<c:if test="${orderVO.order.getWay==1}">
+										<div class="getWay">送货上门</div>
+									</c:if>	
+									<div class="totalPrice">${orderitemVO.orderitem.price }</div>
+									<div class="state">交易成功</div>
+									<div class="evaluate">还未评价，去评价</div>
+								</div>
+							</c:forEach>
+						</div>
+						</c:forEach>
+                    </div> 
+                    
+                    
+                                       	                    	
                   </div>
             </div>
 

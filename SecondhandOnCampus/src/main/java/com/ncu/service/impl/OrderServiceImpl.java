@@ -40,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
     
     @Override
     public boolean save(OrderVO orderVO) {
-    	   System.out.println(orderVO.getOrder().toString());
             orderMapper.insertSelective(orderVO.getOrder());
            for( OrderitemVO itemVO : orderVO.getOrderitemVOs()) {
         	   itemVO.getOrderitem().setOrderId(orderVO.getOrder().getId());
@@ -51,10 +50,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderVO> findOrderByCropId(Integer cropId) {
+    public List<OrderVO> findOrderByCropId(Integer cropId,Integer orderStatus) {
     	List<OrderVO> orderVOs=new ArrayList<OrderVO>();
         OrderExample ex=new OrderExample();
-        ex.createCriteria().andCropIdEqualTo(cropId);
+        ex.createCriteria().andCropIdEqualTo(cropId).andOrderStateEqualTo(orderStatus);
         List<Order> orders = orderMapper.selectByExample(ex);
         OrderitemExample example = new OrderitemExample();
         OrderVO orderVO=null;
@@ -71,10 +70,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderVO> findOrderByClientId(Integer clientId) {
+    public List<OrderVO> findOrderByClientId(Integer clientId,Integer orderStatus) {
     	List<OrderVO> orderVOs=new ArrayList<OrderVO>();
         OrderExample ex=new OrderExample();
-        ex.createCriteria().andUserIdEqualTo(clientId);
+        if(orderStatus != null){
+        	ex.createCriteria().andUserIdEqualTo(clientId).andOrderStateEqualTo(orderStatus);
+        }else{
+        	ex.createCriteria().andUserIdEqualTo(clientId);
+        }
+        ex.setOrderByClause("order_date desc");
         List<Order> orders = orderMapper.selectByExample(ex);
         OrderitemExample example = new OrderitemExample();
         OrderVO orderVO=null;
@@ -138,6 +142,8 @@ public class OrderServiceImpl implements OrderService {
         	Goods good = goodsMapper.selectByPrimaryKey(orderitem.getGoodsId());
         	orderitemVO.setGoodName(good.getName());
             orderitemVO.setGoodUsedMonth(good.getUsedMonth()+"");
+            orderitemVO.setGoodCoverPic(good.getCoverPic());
+            orderitemVO.setGoodPicPath(good.getPicturePath());
             
             orderVO.getOrderitemVOs().add(orderitemVO);
         }
@@ -170,7 +176,6 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setCropId(cropId);
         order.setOrderDate(new Date());
-        order.setOrderState(0);
         order.setPayWay(payway);
         order.setUserId(clientUserId);
         return order;
