@@ -800,12 +800,15 @@ body {
 }
 .product-info .image img {display: block; width: 450px;height: 600px}
 .product-info .image-additional {
-	width: 257px;
-	margin-left: -15px;
+	width: 450px;
+	margin-right: 15px;
 	padding-top: 2px;
 	clear: both;
 	overflow: hidden;
 
+}
+.product-info .image-additional a{
+	cursor : pointer
 }
 .product-info .image-additional img {display: block;width:80px;}
 

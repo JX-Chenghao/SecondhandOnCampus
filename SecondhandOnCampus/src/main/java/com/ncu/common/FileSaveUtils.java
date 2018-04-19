@@ -27,6 +27,10 @@ public class FileSaveUtils {
 		return null;
 	}
 
+	public static String getSavePath(){
+		return "D:\\upfilesForBS\\goods\\";
+	}
+	
 	public static String saveThumbnailFile(File file, String store_path,
 			String newFileName) {
 		newFileName="thumb_"+newFileName;

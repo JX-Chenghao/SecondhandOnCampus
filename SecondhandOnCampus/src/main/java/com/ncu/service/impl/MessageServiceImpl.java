@@ -1,19 +1,16 @@
 package com.ncu.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ncu.mapper.EvaluateMapper;
 import com.ncu.mapper.MessageMapper;
 import com.ncu.mapper.UserMapper;
-import com.ncu.pojo.Evaluate;
 import com.ncu.pojo.Message;
 import com.ncu.pojo.MessageExample;
-import com.ncu.pojo.MessageExample.Criteria;
 import com.ncu.pojo.vo.MessageVO;
-import com.ncu.service.EvaluateService;
 import com.ncu.service.MessageService;
 
 public class MessageServiceImpl implements MessageService {
@@ -25,6 +22,7 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public void saveMessage(Message message) {
+		  message.setMessageDate(new Date());
           messageMapper.insertSelective(message);		
 	}
 

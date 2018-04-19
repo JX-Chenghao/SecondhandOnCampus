@@ -26,7 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                     	type:"post",
 			                    dataType :"json",
 			                    // 输入英文???会出BUG
-			                    data:"goodsId="+goodsId+"&userId="+userId+"&content="+content,
+			                    data:{
+			                    goodsId : goodsId,
+			                    userId :userId,
+			                    content:content
+			                    },
 			                    success:function(data){
 			                      
 			                      	 	if(data.res=="success"){
@@ -88,12 +92,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         });
 		  
 		}
-		function findOtherGoods(userId,excludeGoodsId){
+		function findOtherGoods(cropId,excludeGoodsId){
 		   $("#messageBlock").remove();
 		   $("#evaluateBlock").remove();
 		   $("#tab-info").removeClass("selected");
 		   $("#tab-evaluate").removeClass("selected");
 		   $("#tab-related").addClass("selected");
+		   $.ajax({
+                                url:'${pageContext.request.contextPath}/goods/findOtherGoodsByCropId.action',
+		                     	type:"post",
+			                    dataType :"json",
+			                    data:{
+			                    cropId :cropId,
+			                    excludeGoodsId:excludeGoodsId
+			                    },
+			                    success:function(data){
+			                            var goodsHTML="<div id='evaluateBlock' class='evaluate'>";
+			                      	 	for(var i=0;i <data.length;i++){
+			                      	 		goodsHTML+="<a href='${pageContext.request.contextPath}/goods/detailOfGoods.action?id="+data[i].id+"'><div class='lineItemGood'>";
+			                      	 		if(data[i].picturePath!=""){
+			                      	 	     goodsHTML+="<img src='/picForBS/goods/" +data[i].picturePath+"/thumbnail/thumb_"+data[i].coverPic+"' width='80px'/>";
+			                      	 	    }else{
+			                      	 	     goodsHTML+="<img src='${pageContext.request.contextPath}/resources/images/thumber.jpg'/>";
+			                      	 	    }
+			                      	 	    goodsHTML+=data[i].name;
+			                      	 	    goodsHTML+="</div></a><br/>";
+			                      	 	}
+			                      	 	goodsHTML+="</div>";
+			                       		$("#goodsIntroduce").after(goodsHTML);
+                                }
+                        });		   
+		   
+		   
 		  
 		}
 		  function addCart(goodsId){
@@ -130,6 +160,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            		 + " " + date.getHours() + seperator2 + date.getMinutes();
    		  return currentdate;
 	}     
+	
+	   function showBigPic( picName){
+	       $(".image img").attr("src",picName);
+	   }
 	</script>
 </head>
 <body>
@@ -184,15 +218,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:if test="${goods.picturePath==''}">
 						<div class="image"><a href="#"  ><img src="${pageContext.request.contextPath}/resources/images/product_holder.jpg"  id="image" /></a></div>
 						<div class="image-additional">
-						    <a href="#" ><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
-							<a href="#" ><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
+						    <a ><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
+							<a  ><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
+							<a  ><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
+							<a  ><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg" /></a>
 						</div>  
 						</c:if>
 						<c:if test="${goods.picturePath!=''}">
-						<div class="image"><a href="#" title="iMac" ><img src="/picForBS/goods/${goods.picturePath}/${goods.coverPic}"  id="image" /></a></div>
+						<div class="image"><a href="#" ><img src="/picForBS/goods/${goods.picturePath}/${goods.coverPic}"  id="image" /></a></div>
 						<div class="image-additional">
-							<a href="#" title="iMac"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${goods.coverPic}" /></a>
-							<a href="#" title="iMac"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${goods.coverPic}" /></a>
+							<a  onclick="showBigPic('/picForBS/goods/${goods.picturePath}/${ files[0]}')" title="${goods.name }"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${ files[0]}" /></a>
+							<a  onclick="showBigPic('/picForBS/goods/${goods.picturePath}/${ files[1]}')" title="${goods.name }"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${ files[1]}" /></a>
+							<a  onclick="showBigPic('/picForBS/goods/${goods.picturePath}/${ files[2]}')" title="${goods.name }"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${ files[2]}" /></a>
+							<a  onclick="showBigPic('/picForBS/goods/${goods.picturePath}/${ files[3]}')" title="${goods.name }"><img src="/picForBS/goods/${goods.picturePath}/thumbnail/thumb_${ files[3]}" /></a>
 						</div>  
 						</c:if>              		                        
 					</div>
@@ -200,8 +238,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="right">
 						<div id="tabs" class="tabs">
 							<a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${goods.id}" id="tab-info" class="selected"><img alt="Information" src="${pageContext.request.contextPath}/resources/images/Info.png" style="margin-top:6px;" /><div></div></a>
-							<a id="tab-evaluate" onclick="findEvaluate(${goods.userId })">商家评价</a>
-							<a id="tab-related" onclick="findOtherGoods(${goods.userId },${goods.id})" >商家其他商品 </a>
+							<a id="tab-evaluate" onclick="findEvaluate('${goods.userId }')">商家评价</a>
+							<a id="tab-related" onclick="findOtherGoods('${goods.userId }','${goods.id}')" >商家其他商品 </a>
 						</div>
 
 						<div id="tab-information" class="tab-content">		
