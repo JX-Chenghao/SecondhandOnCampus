@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="menu">
 	          <div class="logo"></div>
 		<ul>
-		<li><a href="main.html" class="home">首页</a></li>
+		<li><a href="${pageContext.request.contextPath}/goods/showMainGoods.action" class="home">首页</a></li>
 		<li ><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
 		<li ><a href="${pageContext.request.contextPath}/cart/showCart.action" class="cart">购物车</a></li>
 		<li class="active"><a href="#" class="orderInfo">订单信息</a></li>
@@ -109,18 +109,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="info">
 									<c:if test="${orderitemVO.goodPicPath==''}">
 										<div class="img">
+											<a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
 												width="120px">
+											</a>
 										</div>
+										
 									</c:if>
 									<c:if test="${orderitemVO.goodPicPath!=''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
 												width="120px">
+											</a>
 										</div>
 									</c:if>
+									<div class="goodName">${ orderitemVO.goodName}</div>
 									<c:if test="${orderVO.order.getWay==0}">
 										<div class="getWay">校园自取</div>
 									</c:if>
@@ -159,18 +165,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="info">
 									<c:if test="${orderitemVO.goodPicPath==''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
 												width="120px">
+											</a>
 										</div>
 									</c:if>
 									<c:if test="${orderitemVO.goodPicPath!=''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
 												width="120px">
+												</a>
 										</div>
 									</c:if>
+									<div class="goodName">${ orderitemVO.goodName}</div>
 										<div class="getWay">---</div>
 									<div class="totalPrice">${orderitemVO.orderitem.price }</div>
 									<div class="state">代付款</div>
@@ -192,18 +203,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="info">
 									<c:if test="${orderitemVO.goodPicPath==''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
 												width="120px">
+												</a>
 										</div>
 									</c:if>
 									<c:if test="${orderitemVO.goodPicPath!=''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
 												width="120px">
+												</a>
 										</div>
 									</c:if>
+									<div class="goodName">${ orderitemVO.goodName}</div>
 									<c:if test="${orderVO.order.getWay==0}">
 										<div class="getWay">校园自取</div>
 									</c:if>
@@ -230,18 +246,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="info">
 									<c:if test="${orderitemVO.goodPicPath==''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
 												width="120px">
+												</a>
 										</div>
 									</c:if>
 									<c:if test="${orderitemVO.goodPicPath!=''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
 												width="120px">
+												</a>
 										</div>
 									</c:if>
+									
+									<div class="goodName">${ orderitemVO.goodName}</div>
 									<c:if test="${orderVO.order.getWay==0}">
 										<div class="getWay">校园自取</div>
 									</c:if>
@@ -268,18 +290,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="info">
 									<c:if test="${orderitemVO.goodPicPath==''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
 												width="120px">
+												</a>
 										</div>
 									</c:if>
 									<c:if test="${orderitemVO.goodPicPath!=''}">
 										<div class="img">
+										    <a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
 											<img
 												src="/picForBS/goods/${orderitemVO.goodPicPath}/thumbnail/thumb_${orderitemVO.goodCoverPic}"
 												width="120px">
+												</a>
 										</div>
 									</c:if>
+									<div class="goodName">${ orderitemVO.goodName}</div>
 									<c:if test="${orderVO.order.getWay==0}">
 										<div class="getWay">校园自取</div>
 									</c:if>

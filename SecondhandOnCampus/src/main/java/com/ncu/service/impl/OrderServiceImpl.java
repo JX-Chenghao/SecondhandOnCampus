@@ -61,10 +61,17 @@ public class OrderServiceImpl implements OrderService {
         	orderVO=new OrderVO();
         	example.createCriteria().andOrderIdEqualTo(o.getId());
         	List<OrderitemVO> items = orderitemMapper.selectByExample(example);
+        	for(OrderitemVO itemVO:items){
+        		Goods good = goodsMapper.selectByPrimaryKey(itemVO.getOrderitem().getGoodsId());
+        		itemVO.setGoodPicPath(good.getPicturePath());
+        		itemVO.setGoodCoverPic(good.getCoverPic());
+        		itemVO.setGoodName(good.getName());
+        	}
         	example.clear();
         	orderVO.setOrder(o);
         	orderVO.setOrderitemVOs(items);
         	orderVOs.add(orderVO);
+        	
         }
         return orderVOs;
     }
@@ -90,6 +97,7 @@ public class OrderServiceImpl implements OrderService {
         		Goods good = goodsMapper.selectByPrimaryKey(itemVO.getOrderitem().getGoodsId());
         		itemVO.setGoodPicPath(good.getPicturePath());
         		itemVO.setGoodCoverPic(good.getCoverPic());
+        		itemVO.setGoodName(good.getName());
         	}
         	example.clear();
         	orderVO.setOrder(o);

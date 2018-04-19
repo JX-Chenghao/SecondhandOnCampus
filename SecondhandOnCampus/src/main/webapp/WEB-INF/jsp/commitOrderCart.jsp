@@ -24,8 +24,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	 $(".order-info select").change(function(){
 		  	   if($(this).val()=="1"){
 		  	       var price=$(this).parent().next().find(".orderTotalPrice").html();
-		  	       $(this).parent().next().find(".orderTotalPrice").html(parseFloat(price)+2.5);;
+		  	       $(this).parent().next().find(".orderTotalPrice").html(parseFloat(price)+2.5);
+		  	       
+	 	 	   }else{
+	 	 	       var price=$(this).parent().next().find(".orderTotalPrice").html();
+		  	       $(this).parent().next().find(".orderTotalPrice").html(parseFloat(price)-2.5);
 	 	 	   }
+	 	 	   countAllFee();
 	 	});
 	 	 $(":radio").change(function(){
                            var way=$(this).val();
@@ -39,14 +44,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                        $("#addOrder").attr("disabled","disabled");
                             }
         });	
-      
+        
+       countAllFee();
      
      });
  	function addOrderBtn(){
  	      $("form[name='addForm']").submit();
  	
  	}
-   
+    function countAllFee(){
+        var allFee=0;
+        $(".orderTotalPrice").each(function(e){
+              allFee+=parseFloat($(this).html());
+        });
+        $(".allFee").html(allFee);
+    }
       
      </script>
 </head>
@@ -54,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="menu">
 	          <div class="logo"></div>
 		<ul>
-		<li><a href="main.html" class="home">首页</a></li>
+		<li><a href="${pageContext.request.contextPath}/goods/showMainGoods.action" class="home">首页</a></li>
 		<li ><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
 		<li ><a href="${pageContext.request.contextPath}/cart/showCart.action" class="cart">购物车</a></li>
 		<li ><a href="${pageContext.request.contextPath}/order/showOrder.action" class="orderInfo">订单信息</a></li>
@@ -126,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 		 		</c:forEach>
 		
-		<div class="orderSubmit">总计 ：￥317.8<a  data-toggle="modal" data-target="#dialog" style="cursor:pointer">提交</a></div>
+		        <div class="orderSubmit">总计 ：￥<span class="allFee"></span><a  data-toggle="modal" data-target="#dialog" style="cursor:pointer">提交</a></div>
 		   <!-- 评论    模态框（Modal） -->
    <div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">

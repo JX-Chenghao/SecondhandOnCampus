@@ -34,20 +34,27 @@ public class UserController {
         modelAndview.setViewName("index");
         return modelAndview; 
     }
+    
+    //登录失败跳转页面
+    @RequestMapping("/loginFail")  
+    public ModelAndView loginFail()throws Exception{ 
+    	ModelAndView modelAndview=new ModelAndView();
+    	modelAndview.setViewName("index");
+    	modelAndview.addObject("failureInfo","用户名或密码错误！");
+    	return modelAndview; 
+    }
     //登录
     @RequestMapping("/login")  
-    public ModelAndView login(@RequestParam String user_account,@RequestParam String pwd,HttpServletRequest request)throws Exception{ 
+    public String login(@RequestParam String user_account,@RequestParam String pwd,HttpServletRequest request)throws Exception{ 
     	ModelAndView modelAndview=new ModelAndView();
     	User user = userService.loginValidate(user_account, pwd);
     	if(user!=null){
     		request.getSession().setAttribute("user", user);
-            modelAndview.setViewName("user");
-           
+    		return "redirect:/goods/showMainGoods.action"; 
     	}else{
-    		modelAndview.setViewName("index");
+    		return "redirect:/user/loginFail.action"; 
     	}
-    	 return modelAndview; 
-
+    	
     }
     //退出登录
     @RequestMapping("/loginout")  

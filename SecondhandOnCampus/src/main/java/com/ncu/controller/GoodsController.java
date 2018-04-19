@@ -43,6 +43,23 @@ public class GoodsController {
     CategoryService categoryService;
     
     
+    
+    //首页展示10条最新发布通过商品
+    
+    @RequestMapping("/showMainGoods")
+    public ModelAndView showGoodsByPage(HttpServletRequest request){
+    	
+    	ModelAndView modelAndView=new ModelAndView();
+    	
+    	PageBean<Goods> pageBeanForGoods = goodsService.getGoodsByPage(1,null);
+    	List<Goods> goodsList = pageBeanForGoods.getList().subList(0, 10);
+    	modelAndView.setViewName("main");
+    	modelAndView.addObject("goodsList",goodsList);
+		return modelAndView;
+		
+    }
+    
+    
     //分页展示商品
     @RequestMapping("/showGoodsByPage")
     public ModelAndView showGoodsByPage(HttpServletRequest request,Integer categoryId){
