@@ -61,7 +61,15 @@ public class OrderController {
 		System.out.println(orderVOs.size()+"-"+orderVOs1.size()+"-"+orderVOs2.size()+"-");
 		return modelAndView;
 	}
-	
+	@RequestMapping("/showOrderForCrop")
+	public ModelAndView showOrderForCrop(HttpServletRequest request,Integer orderStatus) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("userOrderforCrop");
+		List<OrderVO> orderVOs = orderService.findOrderByCropId(getUserID(request),orderStatus);
+		modelAndView.addObject("orderStatus",orderStatus);
+		modelAndView.addObject("orderVOs", orderVOs);
+		return modelAndView;
+	}
 
 	
 	@RequestMapping("/addOrders")

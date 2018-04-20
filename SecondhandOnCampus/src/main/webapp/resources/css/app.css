@@ -1080,10 +1080,112 @@ a.button span {
 	width:100%;
 	border-top:1px solid gray
 }
+.lineforGoods{
+	width:550px;
+	height:80px;
+}
+.lineItemGood{
+	width:100%;
+	height:80px;
+}
+.lineItemGood div{
+	float :left ;
+	width:100px;
+	height:80px;
+	line-height: 80px;
+	text-align: center;
+}
+.lineforGoods a{
+   text-decoration: none; 
+   display:block; 
+   color:black
+   
+}
+.lineforGoods a:hover{
+	background-color:lightblue
+}
+.lineItemGood  .goodsimg{
+	width:150px;
+}
+.lineItemGood  .goodcontent{
+	width:200px;
+}
+
+
+
 .addMsg{
 	cursor:pointer;
 }
 
+/*userCropOrder.html  */
+
+
+.cropOrder .image img{
+	width:80px;
+}
+.cropOrder table {
+	width: 80%;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+
+}
+.cropOrder td {    	
+	background-color: #F4F4F4;
+    	border: 1px solid #BBBBBB;
+	box-shadow: 1px 1px 1px #FFFFFF inset;	
+	padding:3px;
+	padding: 7px;
+}
+.cropOrder .image{
+	width:250px;
+}
+.cropOrder td a{
+	color:#444;
+	line-height:19px;
+	text-decoration:none;
+	font-weight:bold;
+	text-shadow: 0 1px #fff;
+	padding:3px;
+} 
+
+
+.cropOrder thead td {
+	color: #4D4D4D;
+	font-weight: bold;
+	background-color: #e1dfdf;
+    	border: 1px solid #BBBBBB;
+	box-shadow: 1px 1px 1px #FFFFFF inset;
+}
+.cropOrder thead .remove, .cropOrder thead .image {
+	text-align: center;
+}
+.cropOrder thead .name, .cropOrder thead .model {
+	text-align: left;
+}
+.cropOrder thead .quantity, .cropOrder thead .price, .cropOrder thead .total {
+	text-align: right;
+}
+.cropOrder tbody td {
+	vertical-align: top;
+	border-bottom: 1px solid #DDDDDD;
+}
+.cropOrder tbody .remove {
+	vertical-align: middle;
+}
+.cropOrder tbody .remove,.cropOrder tbody .image {
+	text-align: center;
+}
+.cropOrder tbody .name,.cropOrder tbody .model {
+	text-align: left;
+}
+.cropOrder  tbody .quantity, .cropOrder tbody .price,.cropOrder tbody .total {
+	text-align: right;
+}
+.cropOrder tbody span.stock {
+	color: #F00;
+	font-weight: bold;
+}
 
 /*userGoods.jsp*/
 .ownGoods-info table {

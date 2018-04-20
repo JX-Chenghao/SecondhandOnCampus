@@ -107,15 +107,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    excludeGoodsId:excludeGoodsId
 			                    },
 			                    success:function(data){
-			                            var goodsHTML="<div id='evaluateBlock' class='evaluate'>";
+			                            var goodsHTML="<div id='goodsBlock' class='lineforGoods'>";
 			                      	 	for(var i=0;i <data.length;i++){
 			                      	 		goodsHTML+="<a href='${pageContext.request.contextPath}/goods/detailOfGoods.action?id="+data[i].id+"'><div class='lineItemGood'>";
 			                      	 		if(data[i].picturePath!=""){
-			                      	 	     goodsHTML+="<img src='/picForBS/goods/" +data[i].picturePath+"/thumbnail/thumb_"+data[i].coverPic+"' width='80px'/>";
+			                      	 	     goodsHTML+="<div class='goodsimg'><img src='/picForBS/goods/" +data[i].picturePath+"/thumbnail/thumb_"+data[i].coverPic+"' width='80px'/></div>";
 			                      	 	    }else{
-			                      	 	     goodsHTML+="<img src='${pageContext.request.contextPath}/resources/images/thumber.jpg'/>";
+			                      	 	     goodsHTML+="<div class='goodsimg'><img src='${pageContext.request.contextPath}/resources/images/thumber.jpg'/></div>";
 			                      	 	    }
-			                      	 	    goodsHTML+=data[i].name;
+			                      	 	    goodsHTML+="<div class='goodname'>"+data[i].name+"</div>";
+			                      	 	    goodsHTML+="<div class='goodprice'>"+data[i].price+"</div>";
+			                      	 	    var contentStr=data[i].introducedText+"";
+			                      	 	    if(contentStr.length >= 10){
+			                      	 	     goodsHTML+="<div class='goodcontent'>"+contentStr.substring(0,10)+"&nbsp;...</div>";
+			                      	 	    }else{
+			                      	 	     goodsHTML+="<div class='goodcontent'>"+contentStr+"</div>";
+			                      	 	    }
+			                      	 	   
 			                      	 	    goodsHTML+="</div></a><br/>";
 			                      	 	}
 			                      	 	goodsHTML+="</div>";
@@ -127,10 +135,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  
 		}
 		  function addCart(goodsId){
+		       var quantity=$("#goodsQuantity").val();
+		       if(isNaN(quantity)){
+		          alert("请填写数字！");
+		          return false;
+		       }
+		       if(quantity==0){
+		         alert("数量至少为1！");
+		          return false;
+		       }
                $.ajax({
                    url :'${pageContext.request.contextPath}/cart/add.action?id='+goodsId,
                    type :"get",
                    dataType:"json",
+                   data :{"quantity" :quantity}
+                   ,
                    success :function(data){
                        if(data.res=="success"){
                            alert("添加到购物车成功");
@@ -257,9 +276,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<br>
 							<div class="cart">
-								<div>数量:<input class="quantity" type="text" name="quantity" size="2" value="1" />
+								<div>数量:<input id="goodsQuantity" class="quantity" type="text" name="quantity" size="2" value="1" />
 									<input type="hidden" name="product_id"  value="41" />
-									&nbsp;<a id="button-cart" class="button" onclick="addCart(${goods.id }) " href="#"><span>添加到购物车</span></a>
+									&nbsp;<a id="button-cart" class="button" onclick="addCart(${goods.id}) " href="#"><span>添加到购物车</span></a>
 								</div>
 								<div>
 									<span>&nbsp;&nbsp;- OR -&nbsp;&nbsp;</span>

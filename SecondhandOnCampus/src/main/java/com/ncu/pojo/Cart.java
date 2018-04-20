@@ -7,15 +7,22 @@ import java.util.Map;
 public class Cart{
 	private Map<Integer, CartItem> cart = new HashMap<Integer, CartItem>();
 
-	public boolean add(Goods goods){
+	public boolean add(Goods goods,Integer quantity){
 		CartItem item = cart.get(goods.getId());
 		if(item!=null && (item.getQuantity() == goods.getQuantity())){
+			return false;
+		}
+		if(item!=null && quantity!=null && (item.getQuantity()+quantity > goods.getQuantity())){
 			return false;
 		}
 		if(item == null){
 			cart.put(goods.getId(), new CartItem(goods));
 		}else{
-			item.setQuantity(item.getQuantity() + 1);
+			if(quantity!=null){ 
+				item.setQuantity(item.getQuantity() + quantity);
+			}else{
+				item.setQuantity(item.getQuantity() + 1);
+			}
 		}
 		return true;
 	}

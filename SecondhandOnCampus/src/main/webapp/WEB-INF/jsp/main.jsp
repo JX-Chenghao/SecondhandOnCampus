@@ -23,7 +23,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
     	$(function() {
 			$('#da-slider').cslider();
+			
 		});
+		function addCart(goodsId){
+               $.ajax({
+                   url :'${pageContext.request.contextPath}/cart/add.action?id='+goodsId,
+                   type :"get",
+                   dataType:"json",
+                   success :function(data){
+                       if(data.res=="success"){
+                           alert("添加到购物车成功");
+                           $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
+                       }  else if( data.res=="fail") {
+                           alert("添加到购物车失败，添加数量大于物品转让的个数");
+                       }               
+                   }
+               });
+               
+           		
+           }
 	</script>
 </head>
 <body>

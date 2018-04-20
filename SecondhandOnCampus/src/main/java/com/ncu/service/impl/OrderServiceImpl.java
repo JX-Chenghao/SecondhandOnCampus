@@ -54,26 +54,9 @@ public class OrderServiceImpl implements OrderService {
     	List<OrderVO> orderVOs=new ArrayList<OrderVO>();
         OrderExample ex=new OrderExample();
         ex.createCriteria().andCropIdEqualTo(cropId).andOrderStateEqualTo(orderStatus);
-        List<Order> orders = orderMapper.selectByExample(ex);
-        OrderitemExample example = new OrderitemExample();
-        OrderVO orderVO=null;
-        for(Order o : orders){
-        	orderVO=new OrderVO();
-        	example.createCriteria().andOrderIdEqualTo(o.getId());
-        	List<OrderitemVO> items = orderitemMapper.selectByExample(example);
-        	for(OrderitemVO itemVO:items){
-        		Goods good = goodsMapper.selectByPrimaryKey(itemVO.getOrderitem().getGoodsId());
-        		itemVO.setGoodPicPath(good.getPicturePath());
-        		itemVO.setGoodCoverPic(good.getCoverPic());
-        		itemVO.setGoodName(good.getName());
-        	}
-        	example.clear();
-        	orderVO.setOrder(o);
-        	orderVO.setOrderitemVOs(items);
-        	orderVOs.add(orderVO);
-        	
-        }
-        return orderVOs;
+        ex.setOrderByClause("order_date desc");
+        
+        return findOrder(orderVOs, ex);
     }
 
     @Override
@@ -86,7 +69,11 @@ public class OrderServiceImpl implements OrderService {
         	ex.createCriteria().andUserIdEqualTo(clientId);
         }
         ex.setOrderByClause("order_date desc");
-        List<Order> orders = orderMapper.selectByExample(ex);
+        return findOrder(orderVOs, ex);
+    }
+ 
+	private List<OrderVO> findOrder(List<OrderVO> orderVOs, OrderExample ex) {
+		List<Order> orders = orderMapper.selectByExample(ex);
         OrderitemExample example = new OrderitemExample();
         OrderVO orderVO=null;
         for(Order o : orders){
@@ -105,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
         	orderVOs.add(orderVO);
         }
         return orderVOs;
-    }
+	}
 
     @Override
     public boolean updateOrderStatus(int orderId,int status) {

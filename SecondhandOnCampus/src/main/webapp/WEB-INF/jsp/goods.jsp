@@ -134,14 +134,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="pages">
                     <div> 共显示 ${pageBeanForGoods.list.size()} 条数据  （第${pageBeanForGoods.currPage}/${pageBeanForGoods.totalPage}页）</div>
                     <div >
-                    		<c:if test="${pageBeanForGoods.currPage==1}">
+                    		<c:if test="${pageBeanForGoods.currPage==1 && pageBeanForGoods.currPage!=pageBeanForGoods.totalPage}">
                       				 <a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
                     		</c:if>
                     		<c:if test="${pageBeanForGoods.currPage!=1 && pageBeanForGoods.currPage!=pageBeanForGoods.totalPage}">
                                  	<a  class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
                       				 <a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
                    		 	</c:if>
-                   			 <c:if test="${pageBeanForGoods.currPage==pageBeanForGoods.totalPage }">
+                   			 <c:if test="${pageBeanForGoods.currPage!=1 && pageBeanForGoods.currPage==pageBeanForGoods.totalPage }">
                    			 		<a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
                    			 </c:if>
                     

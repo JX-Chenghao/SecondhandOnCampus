@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div class="linktree">
         		<a href="#">主页</a>
-        		&raquo; <a href="#">个人中心</a>&raquo; <a href="#">我的收藏</a>
+        		&raquo; <a href="#">个人中心</a>&raquo; <a href="#">商品管理</a>
 	</div>
 	<div style="width:1000px;margin:0 auto;">
     		<div id="cart">
@@ -122,7 +122,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </c:if>
                     <a   href="${pageContext.request.contextPath}/goods/addGoodsView.action" style="text-decoration: none; color: #333;font-size:16px;">
                         <dl id="dt_6" class="catalog">上架商品</dl>
-                   </a>   
+                   </a>
+                   <a
+						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=0"
+						style="text-decoration: none; color: #333;font-size:16px;">
+						<dl id="dt_6" class="catalog" >商店未发货订单
+						</dl> </a>
+					<a
+						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=1"
+						style="text-decoration: none; color: #333;font-size:16px;">
+						<dl id="dt_6" class="catalog">商店已发货订单
+						</dl> </a>
+					<a
+						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=2"
+						style="text-decoration: none; color: #333;font-size:16px;">
+						<dl id="dt_6" class="catalog">商店已完成订单
+						</dl> </a>   
                                                    
             </dt>
         </div>

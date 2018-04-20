@@ -27,17 +27,18 @@ public class CartController {
 		modelAndView.setViewName("cart");
 		return modelAndView;
 	}
-	
-
-	
 
 	@RequestMapping("/add")
 	@ResponseBody
-	public Map<String, String> add(Goods goods, HttpServletRequest request) {
+	public Map<String, String> add(Goods goods, Integer quantity,HttpServletRequest request) {
 		Map<String, String> resMap = new HashMap<String, String>();
 		goods = goodsService.findGoodsById(goods.getId());
 		Cart cart = getCart(request);
-		boolean res = cart.add(goods);
+		if(quantity!=null && goods.getQuantity()<quantity){
+			resMap.put("res", "fail");
+			return resMap;
+		}
+		boolean res = cart.add(goods,quantity);
 		if(res){
 			resMap.put("res", "success");
 			resMap.put("totalPrice", cart.getTotal() + "");
@@ -68,22 +69,19 @@ public class CartController {
 		Cart cart = getCart(request);
 		if (quantity != null) {
 			Integer num = goodsService.findGoodsQuantityById(goods.getId());
-			if(num>=quantity){
-			  cart.changeQuantity(goods.getId(),quantity);
-			  resMap.put("res", "success");
-			  resMap.put("totalPrice", cart.getTotal() + "");
-			  resMap.put("items", cart.getItems().size() + "");
-			}else{
-			  resMap.put("res", "notEnough");
+			if (num >= quantity) {
+				cart.changeQuantity(goods.getId(), quantity);
+				resMap.put("res", "success");
+				resMap.put("totalPrice", cart.getTotal() + "");
+				resMap.put("items", cart.getItems().size() + "");
+			} else {
+				resMap.put("res", "notEnough");
 			}
 		} else {
 			resMap.put("res", "fail");
 		}
 		return resMap;
 	}
-	
-	
-	
 
 	private Cart getCart(HttpServletRequest request) {
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
