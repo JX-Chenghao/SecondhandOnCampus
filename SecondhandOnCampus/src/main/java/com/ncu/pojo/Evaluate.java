@@ -15,6 +15,8 @@ public class Evaluate {
 
     private Date evaluateDate;
 
+    private Integer orderId;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class Evaluate {
 
     public void setEvaluateDate(Date evaluateDate) {
         this.evaluateDate = evaluateDate;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 }

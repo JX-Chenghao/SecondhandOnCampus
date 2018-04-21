@@ -199,7 +199,14 @@
 						  已发货
 						</c:if>
 						<c:if test="${orderStatus==2 }">
-						 交易完成
+						 交易完成<br/>
+						 评价：
+						 <c:if test="${orderVO.evaluateContent==nul }">
+						       用户尚未评价
+						 </c:if>
+						 <c:if test="${orderVO.evaluateContent!=nul }">
+						      ${ orderVO.evaluateContent}
+						 </c:if>
 						</c:if>
 						</td>
 					 </tr>

@@ -12,9 +12,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/app.css" />
 <link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/slider.css" all /> 
+<link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/resources/css/ch_dialog.css" all /> 
 <title>校园二手交易网站</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script type="text/javascript">
+	    $(function(){
+	        //商家回复留言按钮，弹出对话框
+	        $(".replyMsg").click(function(){
+	            $(".replyInput").toggle();
+	        });
+	        //回复确认按钮
+	        $(".replyBtn").click(function(){
+	            var msgId=$(this).next().val();
+	            var replyContent=$(this).prev().val();
+	            $.ajax({
+                                url:'${pageContext.request.contextPath}/user/message/reply.action',
+		                     	type:"post",
+			                    dataType :"json",
+			                    data:{
+			                    parentMessage : msgId,
+			                    content: replyContent
+			                    },
+			                    success:function(data){
+			                      	 	if(data.res=="success"){
+			                         	 	 alert("<回复成功！>");
+			                         	 	 
+			                      		 }else {
+			                       		     alert("<异常>");
+			                      		 }
+			                       
+                                }
+                        });
+	        });
+	    });
 		function addMessage(goodsId,userId, aliasName){
 					var content=$('#contentInput').val();
 					if(content==""){
@@ -82,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                      	 		evaluateHTML+="<div class='lineItemEvaluate'>匿名买家：";
 			                      	 	    evaluateHTML+= data[i].content;
 			                      	 	    evaluateHTML+= "<span class='dateTag'>"
-			                      	 	    evaluateHTML+=data[i].evaluateDate;
+			                      	 	    evaluateHTML+= fmtDate(data[i].evaluateDate);
 			                      	 	    evaluateHTML+= "</span>";
 			                      	 	    evaluateHTML+="</div><br/>";
 			                      	 	}
@@ -92,6 +123,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         });
 		  
 		}
+	function fmtDate(inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        return y + '-' + m + '-' + d + ' ' ;
+    } 
 		function findOtherGoods(cropId,excludeGoodsId){
 		   $("#messageBlock").remove();
 		   $("#evaluateBlock").remove();
@@ -165,8 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            }
        function getNowFormatDate() {
     		 var date = new Date();
-   			 var seperator1 = "-";
-   			 var seperator2 = ":";
+   			 var seperator = ":";
    			 var month = date.getMonth() + 1;
    			 var strDate = date.getDate();
    		     if (month >= 1 && month <= 9) {
@@ -176,23 +215,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        		 strDate = "0" + strDate;
     		 }
     		var currentdate = date.getFullYear() + "年" + month + "月" + strDate + "日"
-           		 + " " + date.getHours() + seperator2 + date.getMinutes();
+           		 + " " + date.getHours() + seperator + date.getMinutes();
    		  return currentdate;
 	}     
 	
 	   function showBigPic( picName){
 	       $(".image img").attr("src",picName);
 	   }
+	   
+	   
+	
 	</script>
 </head>
-<body>
+<body  style="background-color:#edece8">
 	<div class="menu">
 	    <div class="logo"></div>
 		<ul>
 		<li><a href="${pageContext.request.contextPath}/goods/showMainGoods.action" class="home">首页</a></li>
 		<li class="active"><a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action" class="goods" >商品</a></li>
 		<li ><a href="${pageContext.request.contextPath}/cart/showCart.action" class="cart">购物车</a></li>
-		<li><a href="order.html" class="orderInfo">订单信息</a></li>
+		<li><a href="${pageContext.request.contextPath}/order/showOrder.action" class="orderInfo">订单信息</a></li>
 		<li><a href="${pageContext.request.contextPath}/user/user.action" class="userInfo">个人中心</a></li>
 	
 		<c:if test="${sessionScope.user==null}">
@@ -301,9 +343,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<c:forEach items="${ messagesVO}" var="messageVO">
 								  	 <div class="messageDiv">
 								   	 	<div class="lineItem"><span>${messageVO.userAliasname } :</span>${ messageVO.message.content} <span class="dateTag"><f:formatDate value="${messageVO.message.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> </span></div>
-								    	<c:if test="${messageVO.replyStatus==true }">
+								    	<c:if test="${messageVO.replyStatus==0 && sessionScope.user.id==goods.userId }">
+								    		<div class="lineItem" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="replyMsg" >>>>&nbsp;&nbsp;回复它</a><div class="replyInput" style="display:none;" ><input  type="text" name="replyContent" />&nbsp;<a class="replyBtn">确认</a><input  type="hidden" name="messageId" value="${ messageVO.message.id}"/></div></div>
+								    	</c:if>
+								    	<c:if test="${messageVO.replyStatus==1 }">
 								    		<div class="lineItem">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;商家回复： ${messageVO.replyMessage.content} <span class="dateTag"><f:formatDate value="${messageVO.replyMessage.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> </span></div>
 								    	</c:if>
+								    	
 								  	 </div>
 									</c:forEach>
 								</div>
@@ -315,9 +361,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>            
             
-            
-            
+        
 	</div>
+
+
+
+
 
 
 </body>

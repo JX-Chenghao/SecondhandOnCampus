@@ -58,7 +58,6 @@ public class OrderController {
 		modelAndView.addObject("orderVOs0", orderVOs0);
 		modelAndView.addObject("orderVOs1", orderVOs1);
 		modelAndView.addObject("orderVOs2", orderVOs2);
-		System.out.println(orderVOs.size()+"-"+orderVOs1.size()+"-"+orderVOs2.size()+"-");
 		return modelAndView;
 	}
 	@RequestMapping("/showOrderForCrop")

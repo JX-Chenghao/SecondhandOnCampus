@@ -134,8 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 			<td class="image">
 								<a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${item.goods.id}"><img src="/picForBS/goods/${item.goods.picturePath}/thumbnail/thumb_${item.goods.coverPic}"  /></a>
 							</td>
-          			    </c:if>
-						
+          			    </c:if>					
 						<td class="name"><a href="#">${item.goods.name}</a>
 							<div>
 							</div>
@@ -153,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div>
 		<c:if test="${sessionScope.cart.items!=null }">
-			<div class="submitOrderBtn" style="float:right"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
+			<div class="submitOrderBtn" style="float:right;margin-right:100px;"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
 	    </c:if>
 	</form>
 	

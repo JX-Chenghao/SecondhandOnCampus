@@ -10,7 +10,8 @@ public class OrderVO {
     private Order order;
     private List<OrderitemVO> orderitemVOs=new ArrayList<OrderitemVO>();
     private String cropName;
-
+    private String evaluateContent;
+    
     public Order getOrder() {
         return order;
     }
@@ -18,7 +19,15 @@ public class OrderVO {
     public void setOrder(Order order) {
         this.order = order;
     }
+    
 
+	public String getEvaluateContent() {
+		return evaluateContent;
+	}
+
+	public void setEvaluateContent(String evaluateContent) {
+		this.evaluateContent = evaluateContent;
+	}
 
 	public List<OrderitemVO> getOrderitemVOs() {
 		return orderitemVOs;

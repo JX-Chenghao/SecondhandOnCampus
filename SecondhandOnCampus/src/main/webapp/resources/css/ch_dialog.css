@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+*{margin:0;padding:0;}
+#replyDialog{width:450px;height:300px;border:1px solid #999;margin:50px auto;display:none;z-index:22;position:absolute;left:500px;top:200px;background:#FFF}
+#replyDialog .close{width:26px;height:26px;background:red;float:right;margin:3px 3px auto auto}
+#replyDialog h3{color:#999;font-size:22px;font-family:"微软雅黑";text-align:center}
+#replyDialog .box{width:280px;height:200px;margin:20px auto ;}
+#replyDialog .box p{height:30px;line-height:30px;color:#333;font-size:15px;font-family:"微软雅黑";font-weight:200}
+
+#replyDialog .box p .txt{width:276px;height:30px;border:1px solid #666;}
+#replyDialog .box p .denglu{width:276px;height:40px;font-size:18px;background-color:#000;color:#FFF;border:none;font-family:"微软雅黑"}
+
+.yun{width:1100px;height:100%;background:
+#000;position:absolute;top:0px;left:0px;filter:Alpha(opacity=60);-moz-opacity:0.6;opacity:0.6;display:none;}

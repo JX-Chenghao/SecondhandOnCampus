@@ -10,12 +10,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ncu.mapper.EvaluateMapper;
 import com.ncu.mapper.GoodsMapper;
 import com.ncu.mapper.OrderMapper;
 import com.ncu.mapper.OrderitemMapper;
 import com.ncu.mapper.UserMapper;
 import com.ncu.pojo.Cart;
 import com.ncu.pojo.CartItem;
+import com.ncu.pojo.Evaluate;
+import com.ncu.pojo.EvaluateExample;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.Order;
 import com.ncu.pojo.OrderExample;
@@ -35,6 +38,8 @@ public class OrderServiceImpl implements OrderService {
     UserMapper userMapper;
     @Autowired
     GoodsMapper goodsMapper;
+    @Autowired
+    EvaluateMapper evaluateMapper;
     
 
     
@@ -87,6 +92,12 @@ public class OrderServiceImpl implements OrderService {
         		itemVO.setGoodName(good.getName());
         	}
         	example.clear();
+        	EvaluateExample ex1 = new EvaluateExample();
+        	ex1.createCriteria().andOrderIdEqualTo(o.getId());
+        	List<Evaluate> evaluate = evaluateMapper.selectByExample(ex1);
+        	if(evaluate.size()>0){
+        	  orderVO.setEvaluateContent(evaluate.get(0).getContent());
+        	}
         	orderVO.setOrder(o);
         	orderVO.setOrderitemVOs(items);
         	orderVOs.add(orderVO);

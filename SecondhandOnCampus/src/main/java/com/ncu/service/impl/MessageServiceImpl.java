@@ -57,7 +57,9 @@ public class MessageServiceImpl implements MessageService {
 			List<Message> replyMessages = messageMapper.selectByExample(ex);
 			if(replyMessages.size()>0){
 			   messageVO.setReplyMessage(replyMessages.get(0));
-			   messageVO.setReplyStatus(true);
+			   messageVO.setReplyStatus(1);
+			}else{
+				 messageVO.setReplyStatus(0);
 			}
 			messageVO.setMessage(m);
 			messageVOs.add(messageVO);

@@ -3,6 +3,8 @@ package com.ncu.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ncu.pojo.Evaluate;
 import com.ncu.pojo.Message;
+import com.ncu.pojo.User;
 import com.ncu.service.EvaluateService;
 import com.ncu.service.MessageService;
 
@@ -32,13 +35,13 @@ public class MessageController {
     //商家回复留言
     @RequestMapping("/reply")
     @ResponseBody
-    public Map<String,String> reply(Message message,Integer messageId) throws Exception {
+    public Map<String,String> reply(Message message,HttpServletRequest request) throws Exception {
     	Map<String, String> resMap=new HashMap<String, String>();
     	//设置父留言 即回复的是哪一条留言
-    	message.setParentMessage(messageId);
+    	message.setUserId(getUserID(request));
         messageService.saveMessage(message);
         //更改父留言的状态
-        messageService.editMessageStatus(messageId);
+        messageService.editMessageStatus(message.getParentMessage());
         resMap.put("res", "success");
         return resMap;
     }
@@ -50,4 +53,11 @@ public class MessageController {
         modelAndView.setViewName("X");
         return modelAndView;
     }
+	private Integer getUserID(HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+			return user.getId();
+		}
+		return null;
 	}
+}

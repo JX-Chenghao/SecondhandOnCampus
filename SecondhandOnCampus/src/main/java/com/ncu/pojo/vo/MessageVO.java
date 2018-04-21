@@ -6,8 +6,14 @@ public class MessageVO {
      Message message;
      String  userAliasname;
      Message replyMessage;
-     boolean replyStatus=false;
+     Integer replyStatus=0;
      
+	public Integer getReplyStatus() {
+		return replyStatus;
+	}
+	public void setReplyStatus(Integer replyStatus) {
+		this.replyStatus = replyStatus;
+	}
 	public String getUserAliasname() {
 		return userAliasname;
 	}
@@ -26,11 +32,7 @@ public class MessageVO {
 	public void setReplyMessage(Message replyMessage) {
 		this.replyMessage = replyMessage;
 	}
-	public boolean isReplyStatus() {
-		return replyStatus;
-	}
-	public void setReplyStatus(boolean replyStatus) {
-		this.replyStatus = replyStatus;
-	}
-     
+
+
+	
 }

@@ -1,8 +1,11 @@
 package com.ncu.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ncu.pojo.Evaluate;
 import com.ncu.pojo.Message;
+import com.ncu.pojo.User;
 import com.ncu.service.EvaluateService;
 import com.ncu.service.MessageService;
 
@@ -25,9 +29,12 @@ public class EvaluateController {
     //添加评价
     @RequestMapping("/add")
     @ResponseBody
-    public Map<String,String> add(Evaluate evaluate) throws Exception {
+    public Map<String,String> add(Evaluate evaluate,HttpServletRequest request) throws Exception {
     	Map<String, String> resMap=new HashMap<String, String>();
-        evaluateService.saveEvaluate(evaluate);
+    	evaluate.setUserId(getUserID(request));
+    	evaluate.setEvaluateDate(new Date());
+        evaluateService.saveEvaluate(evaluate);  
+        System.out.println("sss2");
         resMap.put("res", "success");
         return resMap;
     }
@@ -49,4 +56,11 @@ public class EvaluateController {
         return modelAndView;
     }
 
+	private Integer getUserID(HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+			return user.getId();
+		}
+		return null;
+	}
 }
