@@ -157,6 +157,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <c:if test="${statusType!=2 }">
                 <td class="status">审核状态</td>
             </c:if>
+            <c:if test="${statusType==1 }">
+                <td>留言</td>
+            </c:if>
             <c:if test="${statusType==2 }">
                 <td class="status">未通过原因</td>
             </c:if>
@@ -165,21 +168,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </thead>
         <tbody>
         <c:forEach items="${ownGoodsList}" var="ownGoods">
-          <tr id="tr${ownGoods.id}">
-           <c:if test="${ownGoods.picturePath==''}">
-				<td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.id}"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
+          <tr id="tr${ownGoods.goods.id}">
+           <c:if test="${ownGoods.goods.picturePath==''}">
+				<td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
 			</c:if>
-			<c:if test="${ownGoods.picturePath!=''}">
-                <td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.id}"><img src="/picForBS/goods/${ownGoods.picturePath}/thumbnail/thumb_${ownGoods.coverPic}"  /></a></td>
+			<c:if test="${ownGoods.goods.picturePath!=''}">
+                <td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}"><img src="/picForBS/goods/${ownGoods.goods.picturePath}/thumbnail/thumb_${ownGoods.goods.coverPic}"  /></a></td>
            </c:if>
             
-            <td class="name"><a href="#">${ownGoods.name}</a>
+            <td class="name"><a href="#">${ownGoods.goods.name}</a>
               <div>
               </div>
             </td>
-            <td class="introduce">${ownGoods.introducedText}</td>
-            <td class="quantity">${ownGoods.quantity}</td>
-            <td class="price">￥${ownGoods.price}</td>
+            <td class="introduce">${ownGoods.goods.introducedText}</td>
+            <td class="quantity">${ownGoods.goods.quantity}</td>
+            <td class="price">￥${ownGoods.goods.price}</td>
             <c:if test="${statusType==0 }">
                 <td >正在审核中</td>
             </c:if>
@@ -187,9 +190,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <td >成功上架</td>
             </c:if>
             <c:if test="${statusType==2 }">
-                <td class="failureText">${ownGoods.failureText}</td>
+                <td class="failureText">${ownGoods.goods.failureText}</td>
             </c:if>
-            <td class="remove"><a onclick="removeGoods(${ownGoods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
+            <c:if test="${statusType==1 }">
+            <td >
+                <c:if test="${ownGoods.newMsg==false }">暂无新消息</c:if>
+            	<c:if test="${ownGoods.newMsg==true }"><${ownGoods.msgNum}>新消息<br/><a  style="font-size:12px;color:gray;" href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}">>>>去回复</a></c:if>
+			</td>
+			</c:if>
+            <td class="remove"><a onclick="removeGoods(${ownGoods.goods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
           </tr> 
          </c:forEach>  
         </tbody>

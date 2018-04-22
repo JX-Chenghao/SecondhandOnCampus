@@ -8,12 +8,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ncu.mapper.GoodsMapper;
+import com.ncu.mapper.MessageMapper;
 import com.ncu.mapper.SignMapper;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.GoodsExample;
+import com.ncu.pojo.Message;
+import com.ncu.pojo.MessageExample;
 import com.ncu.pojo.PageBean;
 import com.ncu.pojo.Sign;
 import com.ncu.pojo.SignExample;
+import com.ncu.pojo.vo.GoodsVO;
 import com.ncu.pojo.vo.SignVO;
 import com.ncu.service.GoodsService;
 
@@ -23,6 +27,8 @@ public class GoodsServiceImpl implements GoodsService {
 	GoodsMapper goodsMapper;
 	@Autowired
 	SignMapper signMapper;
+	@Autowired
+	MessageMapper messageMapper;
 	
 	
 	@Override
@@ -126,7 +132,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<Goods> listGoodsForUser(Integer userId, Integer auditState) {
+	public List<GoodsVO> listGoodsForUser(Integer userId, Integer auditState) {
 		GoodsExample ex=new GoodsExample();
 		if(auditState != null){
 			//查詢所有自身還未審核商品0
@@ -136,7 +142,29 @@ public class GoodsServiceImpl implements GoodsService {
 		}else{
 			ex.createCriteria().andUserIdEqualTo(userId);
 		}
-
+		List<GoodsVO> goodsListRes = new ArrayList<GoodsVO>();
+		List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
+		GoodsVO goodsVO;
+		for(Goods g :goodsList){
+			goodsVO=new GoodsVO();goodsVO.setGoods(g);
+			if(auditState.equals(1)){
+				MessageExample msgex=new MessageExample();
+				msgex.createCriteria().andGoodsIdEqualTo(g.getId()).andStatusEqualTo(0);
+				List<Message> m = messageMapper.selectByExample(msgex);
+				if(m.size()>0){
+					goodsVO.setNewMsg(true);
+					goodsVO.setMsgNum(m.size());
+				}
+			}
+			goodsListRes.add(goodsVO);
+		}
+		return goodsListRes;
+	}
+	@Override
+	public List<Goods> listGoodsForUser(Integer userId) {
+		GoodsExample ex=new GoodsExample();
+		//已通过
+		ex.createCriteria().andAuditStateEqualTo(1).andUserIdEqualTo(userId);
 		List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
 		return goodsList;
 	}
@@ -145,12 +173,8 @@ public class GoodsServiceImpl implements GoodsService {
 	public List<Goods> findOtherGoodsOfUser(Integer userId,
 			Integer excludeGoodsId) {
 		//已通過商品
-		List<Goods> goodsList = listGoodsForUser(userId, 1);
-		for(Goods g:goodsList){
-			if(g.getId().equals(excludeGoodsId)){
-				
-			}
-		}
+		List<Goods> goodsList = listGoodsForUser(userId);
+
 		Iterator<Goods> iterator = goodsList.iterator();
 		while(iterator.hasNext()){
 			Goods g=iterator.next();

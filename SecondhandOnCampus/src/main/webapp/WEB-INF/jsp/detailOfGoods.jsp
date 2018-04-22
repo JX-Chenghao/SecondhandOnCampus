@@ -334,8 +334,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="review">
 									<div >
 										&nbsp;&nbsp;
-										<a >${fn:length(messagesVO)}&nbsp; 留言</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-										<input id="contentInput" type="text" />&nbsp;<a class="addMsg" onclick="addMessage('${goods.id}','${sessionScope.user.id }','${sessionScope.user.aliasName}')">留言</a>
+										<a >${fn:length(messagesVO)}&nbsp; 留言</a><c:if test="${goods.userId!=sessionScope.user.id }">&nbsp;&nbsp;|&nbsp;&nbsp;
+										
+											<input id="contentInput" type="text" />&nbsp;<a class="addMsg" onclick="addMessage('${goods.id}','${sessionScope.user.id }','${sessionScope.user.aliasName}')">留言</a>
+										</c:if>
 									</div>
 									</div>
 								<div >

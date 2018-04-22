@@ -10,8 +10,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.coobird.thumbnailator.Thumbnails;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ncu.common.FileSaveUtils;
-import com.ncu.pojo.Category;
-import com.ncu.pojo.Evaluate;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.PageBean;
 import com.ncu.pojo.User;
 import com.ncu.pojo.vo.CategoryVO;
+import com.ncu.pojo.vo.GoodsVO;
 import com.ncu.pojo.vo.MessageVO;
 import com.ncu.pojo.vo.SignVO;
 import com.ncu.service.CategoryService;
@@ -103,7 +100,7 @@ public class GoodsController {
 	public ModelAndView showGoodsForUser(Integer userId, Integer auditState) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		List<Goods> goodsList = goodsService.listGoodsForUser(userId,
+		List<GoodsVO> goodsList = goodsService.listGoodsForUser(userId,
 				auditState);
 		modelAndView.addObject("ownGoodsList", goodsList);
 		modelAndView.addObject("statusType", auditState);
