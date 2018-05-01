@@ -21,6 +21,8 @@ public class Order {
 
     private String orderNumber;
 
+    private String shippingAddr;
+
     public Integer getId() {
         return id;
     }
@@ -93,12 +95,11 @@ public class Order {
         this.orderNumber = orderNumber == null ? null : orderNumber.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", orderDate=" + orderDate + ", orderState="
-				+ orderState + ", totalPrice=" + totalPrice + ", getWay="
-				+ getWay + ", payWay=" + payWay + ", userId=" + userId
-				+ ", cropId=" + cropId + ", orderNumber=" + orderNumber + "]";
-	}
-    
+    public String getShippingAddr() {
+        return shippingAddr;
+    }
+
+    public void setShippingAddr(String shippingAddr) {
+        this.shippingAddr = shippingAddr == null ? null : shippingAddr.trim();
+    }
 }

@@ -226,6 +226,10 @@
 										<div class="state">待收货</div>
 										<div class="evaluate">-</div>
 									</c:if>
+									<c:if test="${orderVO.order.orderState==-1}">
+										<div class="state">失败订单</div>
+										<div class="evaluate"><a href="${pageContext.request.contextPath}/order/delete.action?id=${orderVO.order.id}">删除它</a></div>
+									</c:if>
 									<c:if test="${orderVO.order.orderState==2}">
 										<div class="state">交易成功</div>
 										<div class="evaluate">

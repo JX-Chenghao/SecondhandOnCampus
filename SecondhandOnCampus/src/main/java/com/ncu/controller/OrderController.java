@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ncu.common.StringUtil;
 import com.ncu.pojo.Cart;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.Orderitem;
@@ -69,23 +70,28 @@ public class OrderController {
 		modelAndView.addObject("orderVOs", orderVOs);
 		return modelAndView;
 	}
-
+	@RequestMapping("/delete")
+	public String delete(Integer id) {
+		orderService.deleteOrderById(id);
+		return "redirect:/order/showOrder.action";
+	}
 	
 	@RequestMapping("/addOrders")
-	public String addOrders( HttpServletRequest request,Integer payWay) {
+	public String addOrders( HttpServletRequest request,Integer payWay,String shippingAddr) {
 		List<OrderVO> orderVOs=getOrderVOs(request) ;
 		for(OrderVO orderVO:orderVOs){
 			orderVO.getOrder().setPayWay(payWay);
+			orderVO.getOrder().setShippingAddr(StringUtil.messyCodetoChineseStr(shippingAddr)); 
 			orderVO.getOrder().setOrderState(0);//持久带数据库就是 代发货状态0
 			
 			orderVO.getOrder().setGetWay(Integer.parseInt(request.getParameter("o_"+orderVO.getOrder().getCropId())));
 			if(orderVO.getOrder().getGetWay().equals(1)){
 				orderVO.getOrder().setTotalPrice(orderVO.getOrder().getTotalPrice()+2.5);
-			}
+			}	
 			//MySQL 5.7的关键字和保留字：order
 			orderService.save(orderVO);//注意！！！！浪费了2个小时！！！order不能做mysql表名，数据inser into order插不进去.改成 inser into 'order'成功
-			
 		}
+		
 		request.getSession().setAttribute("orderVOs", null);
 		request.getSession().setAttribute("cart", null);
 		return "redirect:/order/showOrder.action";

@@ -11,6 +11,7 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="crop_id" property="cropId" jdbcType="INTEGER" />
     <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="shipping_addr" property="shippingAddr" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_date, order_state, total_price, get_way, pay_way, user_id, crop_id, order_number
+    id, order_date, order_state, total_price, get_way, pay_way, user_id, crop_id, order_number, 
+    shipping_addr
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.OrderExample" >
     select
@@ -94,42 +96,45 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from order
+    delete from `order`
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.ncu.pojo.OrderExample" >
-    delete from order
+    delete from `order`
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.ncu.pojo.Order" >
-     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-    INSERT INTO `order` (order_date,order_state,total_price,get_way,pay_way,user_id,crop_id)
-    VALUES (#{orderDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
+    insert into `order` (id, order_date, order_state, 
+      total_price, get_way, pay_way, 
+      user_id, crop_id, order_number, 
+      shipping_addr)
+    values (#{id,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
       #{totalPrice,jdbcType=DOUBLE}, #{getWay,jdbcType=INTEGER}, #{payWay,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}
-      )
+      #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{shippingAddr,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ncu.pojo.Order" >
-       <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-   INSERT INTO `order`
+    insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
       <if test="orderDate != null" >
         order_date,
-        </if>
+      </if>
       <if test="orderState != null" >
         order_state,
-        </if>
+      </if>
       <if test="totalPrice != null" >
-         total_price,
+        total_price,
       </if>
       <if test="getWay != null" >
         get_way,
@@ -145,6 +150,9 @@
       </if>
       <if test="orderNumber != null" >
         order_number,
+      </if>
+      <if test="shippingAddr != null" >
+        shipping_addr,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -174,6 +182,9 @@
       </if>
       <if test="orderNumber != null" >
         #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingAddr != null" >
+        #{shippingAddr,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -213,6 +224,9 @@
       <if test="record.orderNumber != null" >
         order_number = #{record.orderNumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.shippingAddr != null" >
+        shipping_addr = #{record.shippingAddr,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -228,7 +242,8 @@
       pay_way = #{record.payWay,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       crop_id = #{record.cropId,jdbcType=INTEGER},
-      order_number = #{record.orderNumber,jdbcType=VARCHAR}
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      shipping_addr = #{record.shippingAddr,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -260,6 +275,9 @@
       <if test="orderNumber != null" >
         order_number = #{orderNumber,jdbcType=VARCHAR},
       </if>
+      <if test="shippingAddr != null" >
+        shipping_addr = #{shippingAddr,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -272,7 +290,8 @@
       pay_way = #{payWay,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       crop_id = #{cropId,jdbcType=INTEGER},
-      order_number = #{orderNumber,jdbcType=VARCHAR}
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      shipping_addr = #{shippingAddr,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

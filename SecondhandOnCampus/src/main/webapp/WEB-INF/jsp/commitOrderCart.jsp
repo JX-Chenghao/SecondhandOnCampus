@@ -205,12 +205,16 @@
 					style="font-size:small"> <input class="twoWay" type="radio"
 					style="width:25px;height:20px;" name="payWay" id="optionsRadios2"
 					value="1" />在线付款 </label><br />
-	</form>
-
+	
+    请确认你的收货地址：<br/>
+    <textarea  name="shippingAddr" style="width:450px;margin-left:50px;">${sessionScope.user.shippingAddress}</textarea>
+    </form>
 	<div id="payWayInfo0" class="alert alert-info" contenteditable="true">
-
+		
 		<h4>提示!</h4>
-		<strong>注意!</strong> 若取货方式不为送货上门而是，校园取货点自取，请带好相应订单价钱，支持手机支付，否则无法取走！
+		<strong>注意!</strong>
+		
+		 若取货方式不为送货上门而是，校园取货点自取，请带好相应订单价钱，支持手机支付，否则无法取走！
 	</div>
 	<div id="payWayInfo1" class="alert alert-info" contenteditable="true"
 		style="display:none">
