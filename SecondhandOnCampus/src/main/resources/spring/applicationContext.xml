@@ -52,6 +52,7 @@
   <bean id="messageService" class="com.ncu.service.impl.MessageServiceImpl"></bean>
   <bean id="orderService" class="com.ncu.service.impl.OrderServiceImpl"></bean>
   <bean id="categoryService" class="com.ncu.service.impl.CategoryServiceImpl"></bean>
+  <bean id="adminService" class="com.ncu.service.impl.AdminServiceImpl"></bean>
   <!--事务管理  -->
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <property name="dataSource" ref="dataSource"></property>

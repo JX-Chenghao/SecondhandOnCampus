@@ -1,5 +1,7 @@
 package com.ncu.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -36,4 +38,6 @@ public interface UserService {
 	 */
 	String saveHeadImg(MultipartFile pic_file, String store_path,String id);
 	User findUserById(Integer userID);
+	int findUserCount();
+	List<User> findAllUser();
 }

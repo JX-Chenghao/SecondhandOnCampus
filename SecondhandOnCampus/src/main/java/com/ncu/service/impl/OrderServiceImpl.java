@@ -230,4 +230,9 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.deleteByPrimaryKey(id);
 	}
 
+	@Override
+	public int findOrderCount() {
+		return orderMapper.countByExample(null);
+	}
+
 }

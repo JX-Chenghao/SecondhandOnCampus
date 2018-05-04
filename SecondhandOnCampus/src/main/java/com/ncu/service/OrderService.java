@@ -12,4 +12,5 @@ public interface OrderService {
      boolean updateOrderStatus(int orderId,int status);
      List<OrderVO> separateCartToManyOrder(Cart cart,Integer payway,Integer clientUserId);
 	 void deleteOrderById(Integer id);
+	int findOrderCount();
 }

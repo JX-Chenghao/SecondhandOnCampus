@@ -142,5 +142,15 @@ public class UserServiceImpl implements UserService {
 	public User findUserById(Integer userID) {
 		return userMapper.selectByPrimaryKey(userID);
 	}
+
+	@Override
+	public int findUserCount() {
+		return userMapper.countByExample(null);
+	}
+
+	@Override
+	public List<User> findAllUser() {
+		return userMapper.selectByExample(null);
+	}
 	
 }

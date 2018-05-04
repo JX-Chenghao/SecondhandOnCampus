@@ -30,4 +30,6 @@ public interface GoodsService {
 	Goods findGoodsById(Integer id);
 	/*找到商品的个数*/
 	Integer findGoodsQuantityById(Integer id);
+	int findGoodsCount(int status);
+	List<GoodsVO> findGoodsForAuditing();
 }

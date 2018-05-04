@@ -6,7 +6,14 @@ public class GoodsVO {
      private Goods goods;
      private boolean newMsg;
      private int   msgNum;
+     private String[] fileName;
      
+	public String[] getFileName() {
+		return fileName;
+	}
+	public void setFileName(String[] fileName) {
+		this.fileName = fileName;
+	}
 	public int getMsgNum() {
 		return msgNum;
 	}
