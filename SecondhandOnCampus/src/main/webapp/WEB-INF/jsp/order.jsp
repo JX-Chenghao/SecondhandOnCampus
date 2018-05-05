@@ -189,6 +189,22 @@
 								&nbsp; 订单号：${orderVO.order.orderNumber } <span
 									class="totalPrice">总价：￥${orderVO.order.totalPrice }</span>
 							</div>
+							<c:if test="${fn:length(orderVO.orderitemVOs)==0}">
+							    <div class="info">
+							          <div class="img">
+											<a
+												href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${orderitemVO.orderitem.goodsId}">
+												<img
+												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
+												width="120px"> </a>
+										</div>
+										<div class="goodName">----</div>
+										<div class="getWay">----</div>
+										<div class="totalPrice">----</div>
+										<div class="state">失败订单</div>
+										<div class="evaluate"><a href="${pageContext.request.contextPath}/order/delete.action?id=${orderVO.order.id}">删除它</a></div>
+							   </div>
+							</c:if>
 							<c:forEach items="${orderVO.orderitemVOs}" var="orderitemVO">
 								<div class="info">
 									<c:if test="${orderitemVO.goodPicPath==''}">
@@ -199,7 +215,7 @@
 												src="${pageContext.request.contextPath}/resources/images/thumber.jpg"
 												width="120px"> </a>
 										</div>
-
+										
 									</c:if>
 									<c:if test="${orderitemVO.goodPicPath!=''}">
 										<div class="img">

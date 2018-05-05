@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 			g.setId(itemVO.getOrderitem().getGoodsId());
 			synchronized (g) {
 				g = goodsMapper.selectByPrimaryKey(g.getId());
-				if (g.getQuantity() > itemVO.getOrderitem().getQuantity()) {
+				if (g.getQuantity() >= itemVO.getOrderitem().getQuantity()) {
 					g.setQuantity(g.getQuantity()
 							- itemVO.getOrderitem().getQuantity());
 

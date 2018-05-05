@@ -1,4 +1,4 @@
-#Tue May 01 10:08:56 CST 2018
+#Sat May 05 13:38:54 CST 2018
 eclipse.preferences.version=1
 validator.Checked=src/main
-validator.Unchecked=
+validator.Unchecked=src/main/webapp

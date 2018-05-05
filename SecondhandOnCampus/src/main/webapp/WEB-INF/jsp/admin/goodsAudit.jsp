@@ -445,7 +445,7 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 										<h4 class="modal-title" id="myModalLabel2">
-											<i class="icon-road2"></i> Basic Modal
+											<i class="icon-road2"></i> 商品审核
 										</h4>
 									</div>
 									<div class="modal-body">
@@ -523,9 +523,8 @@
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn grey btn-outline-secondary"
-												data-dismiss="modal">Close</button>
-											<button  type="button" class="btn btn-outline-primary submitFormBtn">Save
-												changes</button>
+												data-dismiss="modal">返回</button>
+											<button  type="button" class="btn btn-outline-primary submitFormBtn">确认</button>
 										</div>
 										
 									</div>

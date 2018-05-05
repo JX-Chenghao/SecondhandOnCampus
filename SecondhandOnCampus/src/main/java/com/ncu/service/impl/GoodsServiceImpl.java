@@ -67,7 +67,7 @@ public class GoodsServiceImpl implements GoodsService {
 		ex.setStartRow(offset);
 		ex.setPageSize(pageSize);
 		ex.setOrderByClause("publish_date desc");
-
+		ex.createCriteria().andQuantityGreaterThan(0);
 		final List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
 		pageBean.setList(goodsList);
 
