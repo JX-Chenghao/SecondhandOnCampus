@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.ncu.pojo.Order" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_date" property="orderDate" jdbcType="DATE" />
+     <result column="send_date" property="sendDate" jdbcType="DATE" />
+      <result column="over_date" property="overDate" jdbcType="DATE" />
     <result column="order_state" property="orderState" jdbcType="INTEGER" />
     <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
     <result column="get_way" property="getWay" jdbcType="INTEGER" />
@@ -72,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_date, order_state, total_price, get_way, pay_way, user_id, crop_id, order_number, 
+    id, order_date,send_date, over_date,order_state, total_price, get_way, pay_way, user_id, crop_id, order_number, 
     shipping_addr
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ncu.pojo.OrderExample" >
@@ -109,11 +111,11 @@
    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-    insert into `order` (id, order_date, order_state, 
+    insert into `order` (id, order_date, send_date,over_date,order_state, 
       total_price, get_way, pay_way, 
       user_id, crop_id, order_number, 
       shipping_addr)
-    values (#{id,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{sendDate,jdbcType=DATE}, #{overDate,jdbcType=DATE}, #{orderState,jdbcType=INTEGER}, 
       #{totalPrice,jdbcType=DOUBLE}, #{getWay,jdbcType=INTEGER}, #{payWay,jdbcType=INTEGER}, 
       #{userId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, 
       #{shippingAddr,jdbcType=VARCHAR})
@@ -129,6 +131,12 @@
       </if>
       <if test="orderDate != null" >
         order_date,
+      </if>
+      <if test="sendDate != null" >
+        send_date,
+      </if>
+      <if test="overDate != null" >
+        over_date,
       </if>
       <if test="orderState != null" >
         order_state,
@@ -203,6 +211,12 @@
       <if test="record.orderDate != null" >
         order_date = #{record.orderDate,jdbcType=DATE},
       </if>
+      <if test="record.sendDate != null" >
+        send_date = #{record.sendDate,jdbcType=DATE},
+      </if>
+      <if test="record.overDate != null" >
+        over_date = #{record.overDate,jdbcType=DATE},
+      </if>
       <if test="record.orderState != null" >
         order_state = #{record.orderState,jdbcType=INTEGER},
       </if>
@@ -236,6 +250,8 @@
     update `order`
     set id = #{record.id,jdbcType=INTEGER},
       order_date = #{record.orderDate,jdbcType=DATE},
+      send_date = #{record.sendDate,jdbcType=DATE},
+      over_date = #{record.overDate,jdbcType=DATE},
       order_state = #{record.orderState,jdbcType=INTEGER},
       total_price = #{record.totalPrice,jdbcType=DOUBLE},
       get_way = #{record.getWay,jdbcType=INTEGER},
@@ -253,6 +269,12 @@
     <set >
       <if test="orderDate != null" >
         order_date = #{orderDate,jdbcType=DATE},
+      </if>
+      <if test="sendDate != null" >
+        send_date = #{sendDate,jdbcType=DATE},
+      </if>
+      <if test="overDate != null" >
+        over_date = #{overDate,jdbcType=DATE},
       </if>
       <if test="orderState != null" >
         order_state = #{orderState,jdbcType=INTEGER},
@@ -284,6 +306,8 @@
   <update id="updateByPrimaryKey" parameterType="com.ncu.pojo.Order" >
     update `order`
     set order_date = #{orderDate,jdbcType=DATE},
+      send_date = #{sendDate,jdbcType=DATE},
+      over_date = #{overDate,jdbcType=DATE},
       order_state = #{orderState,jdbcType=INTEGER},
       total_price = #{totalPrice,jdbcType=DOUBLE},
       get_way = #{getWay,jdbcType=INTEGER},

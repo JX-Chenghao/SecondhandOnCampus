@@ -46,8 +46,8 @@ public class GoodsController {
 	public ModelAndView showGoodsByPage(HttpServletRequest request) {
 
 		ModelAndView modelAndView = new ModelAndView();
-
-		PageBean<Goods> pageBeanForGoods = goodsService.getGoodsByPage(1, null);
+        Integer temp=null;
+		PageBean<Goods> pageBeanForGoods = goodsService.getGoodsByPage(1, temp);
 		List<Goods> goodsList = pageBeanForGoods.getList().subList(0, 10);
 		modelAndView.setViewName("main");
 		modelAndView.addObject("goodsList", goodsList);
@@ -79,7 +79,29 @@ public class GoodsController {
 		return modelAndView;
 
 	}
+	// 模糊查询展示商品
+	@RequestMapping("/showLikeGoodsByPage")
+	public ModelAndView showLikeGoodsByPage(HttpServletRequest request,String likeStr) {
 
+		ModelAndView modelAndView = new ModelAndView();
+		int currentPage;
+		if (request.getParameter("currentPage") != null)
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		else
+			currentPage = 1;
+
+		PageBean<Goods> pageBeanForGoods = goodsService.getGoodsByPage(
+				currentPage, likeStr);
+		System.out.println(pageBeanForGoods.toString());
+		modelAndView.addObject("pageBeanForGoods", pageBeanForGoods);
+		modelAndView.setViewName("goods");
+		List<CategoryVO> categoryVOs = categoryService
+				.findAllCategoryDataWithIntroduce();
+		modelAndView.addObject("categoryVOs", categoryVOs);
+
+		return modelAndView;
+
+	}
 	// 查詢自身收藏商品
 	@RequestMapping("/showCollection")
 	public ModelAndView showGoodsForUser(Integer userId) {

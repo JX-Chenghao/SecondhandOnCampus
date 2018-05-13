@@ -60,6 +60,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 			if (url.indexOf("showGoodsByPage") >= 0) {
 				return true;
 			}
+			if (url.indexOf("showLikeGoodsByPage") >= 0) {
+				return true;
+			}
 			if (url.indexOf("showCart") >= 0) {
 				return true;
 			}

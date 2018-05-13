@@ -75,18 +75,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="text_box_left">
 			      商品浏览
 			      <div class="find">
-			             <input type="text" placeholder="请输入所需商品信息"/>
-			             <a href="#"><img src="${pageContext.request.contextPath}/resources/images/find.png"/></a>
+			           <form id="subform" action="${pageContext.request.contextPath}/goods/showLikeGoodsByPage.action" method="post">
+			           <a style="cursor:pointer" onclick="document.getElementById('subform').submit();"><img src="${pageContext.request.contextPath}/resources/images/find.png"/></a>
+			             <input type="text" name="likeStr" placeholder="请输入所需商品信息"/>
+			           </form>
+			             
 			      </div>
 			 </div>
 			<div class="categoryForGoods">
-				<ul>
+				<ul >
 						
 						<c:forEach items="${categoryVOs }" var="categoryVO">
-						   <li ><b>${categoryVO.firstCategory.name }:</b>
-						       <a id="" class="hui" href="#no">不限</a>
+						   <li style="margin-left:90px"><b>${categoryVO.firstCategory.name }:</b>
 						       <c:forEach items="${categoryVO.secondCategories }" var="category">
-						              <a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action?categoryId=${category.id}" class="hui">${category.name }</a>	
+						              <a href="${pageContext.request.contextPath}/goods/showGoodsByPage.action?categoryId=${category.id}" class="hui" style="margin-left:8px">${category.name }</a>	
 						       	</c:forEach>
 						   </li>
 						

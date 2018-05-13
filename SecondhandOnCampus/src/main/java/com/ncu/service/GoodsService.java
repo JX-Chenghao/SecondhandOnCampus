@@ -32,4 +32,5 @@ public interface GoodsService {
 	Integer findGoodsQuantityById(Integer id);
 	int findGoodsCount(int status);
 	List<GoodsVO> findGoodsForAuditing();
+	PageBean<Goods> getGoodsByPage(int currPage, String likeStr);
 }

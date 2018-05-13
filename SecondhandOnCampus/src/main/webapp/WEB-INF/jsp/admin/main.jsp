@@ -180,18 +180,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               </li>        
             </ul>
           </li>
-          <li class=" nav-item"><a href="#"><i class="icon-grid2"></i><span data-i18n="nav.components.main" class="menu-title">Components</span></a>
-            <ul class="menu-content">
-              <li><a href="component-alerts.html" data-i18n="nav.components.component_alerts" class="menu-item">Alerts</a>
-              </li>
-              <li><a href="component-buttons-basic.html" data-i18n="nav.components.components_buttons.component_buttons_basic" class="menu-item">Basic Buttons</a>
-              </li>
-              <li><a href="component-list-group.html" data-i18n="nav.components.component_list_group" class="menu-item">List Group</a>
-              </li>
-              <li><a href="component-modals.html" data-i18n="nav.components.component_modals" class="menu-item">Modals</a>
-              </li>         
-            </ul>
-          </li>
+		  <li class=" nav-item">
+				   <a href="#"><i class="icon-grid2"></i><span
+						data-i18n="nav.components.main" class="menu-title">订单管理</span>
+				    </a>
+					<ul class="menu-content">
+						<li><a href="${pageContext.request.contextPath}/admin/updateOrderView.action?status=0"
+							data-i18n="nav.components.component_alerts" class="menu-item">发货</a>
+						</li>
+						<li><a href="${pageContext.request.contextPath}/admin/updateOrderView.action?status=1"
+							data-i18n="nav.components.component_alerts" class="menu-item">收货</a>
+						</li>
+					</ul>
+		  </li>
  
           <li class=" nav-item"><a href="table-basic.html"><i class="icon-table2"></i><span data-i18n="nav.bootstrap_tables.table_basic" class="menu-title">Basic Tables</span></a>
           </li>

@@ -7,6 +7,10 @@ public class Order {
 
     private Date orderDate;
 
+    private Date sendDate;
+
+    private Date overDate;
+
     private Integer orderState;
 
     private Double totalPrice;
@@ -37,6 +41,22 @@ public class Order {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public Date getSendDate() {
+        return sendDate;
+    }
+
+    public void setSendDate(Date sendDate) {
+        this.sendDate = sendDate;
+    }
+
+    public Date getOverDate() {
+        return overDate;
+    }
+
+    public void setOverDate(Date overDate) {
+        this.overDate = overDate;
     }
 
     public Integer getOrderState() {
@@ -102,4 +122,15 @@ public class Order {
     public void setShippingAddr(String shippingAddr) {
         this.shippingAddr = shippingAddr == null ? null : shippingAddr.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", orderDate=" + orderDate + ", sendDate="
+				+ sendDate + ", overDate=" + overDate + ", orderState="
+				+ orderState + ", totalPrice=" + totalPrice + ", getWay="
+				+ getWay + ", payWay=" + payWay + ", userId=" + userId
+				+ ", cropId=" + cropId + ", orderNumber=" + orderNumber
+				+ ", shippingAddr=" + shippingAddr + "]";
+	}
+    
 }

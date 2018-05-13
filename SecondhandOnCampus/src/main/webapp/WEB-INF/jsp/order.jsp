@@ -163,15 +163,15 @@
 				</li>
 				<li class="" style="cursor:pointer;"><a href="#panel-2"
 					data-toggle="tab" contenteditable="true"
-					style="cursor:pointer;color:gray">代付款</a>
+					style="cursor:pointer;color:gray">待付款</a>
 				</li>
 				<li class="" style="cursor:pointer;"><a href="#panel-3"
 					data-toggle="tab" contenteditable="true"
-					style="cursor:pointer;color:gray">代发货</a>
+					style="cursor:pointer;color:gray">待发货</a>
 				</li>
 				<li class="" style="cursor:pointer;"><a href="#panel-4"
 					data-toggle="tab" contenteditable="true"
-					style="cursor:pointer;color:gray">代收货</a>
+					style="cursor:pointer;color:gray">待收货</a>
 				</li>
 				<li class="" style="cursor:pointer;"><a href="#panel-5"
 					data-toggle="tab" contenteditable="true"
@@ -297,7 +297,7 @@
 									<div class="goodName">${ orderitemVO.goodName}</div>
 									<div class="getWay">---</div>
 									<div class="totalPrice">${orderitemVO.orderitem.price }</div>
-									<div class="state">代付款</div>
+									<div class="state">待付款</div>
 									<div class="evaluate">
 										<a
 											href="${pageContext.request.contextPath}/order/commitOrderInCart.action">去付款<a></a>

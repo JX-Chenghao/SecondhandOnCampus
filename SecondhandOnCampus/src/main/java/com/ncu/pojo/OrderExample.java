@@ -252,6 +252,126 @@ public class OrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andSendDateIsNull() {
+            addCriterion("send_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateIsNotNull() {
+            addCriterion("send_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateEqualTo(Date value) {
+            addCriterionForJDBCDate("send_date =", value, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateNotEqualTo(Date value) {
+            addCriterionForJDBCDate("send_date <>", value, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateGreaterThan(Date value) {
+            addCriterionForJDBCDate("send_date >", value, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("send_date >=", value, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateLessThan(Date value) {
+            addCriterionForJDBCDate("send_date <", value, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("send_date <=", value, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateIn(List<Date> values) {
+            addCriterionForJDBCDate("send_date in", values, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateNotIn(List<Date> values) {
+            addCriterionForJDBCDate("send_date not in", values, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("send_date between", value1, value2, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendDateNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("send_date not between", value1, value2, "sendDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateIsNull() {
+            addCriterion("over_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateIsNotNull() {
+            addCriterion("over_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateEqualTo(Date value) {
+            addCriterionForJDBCDate("over_date =", value, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateNotEqualTo(Date value) {
+            addCriterionForJDBCDate("over_date <>", value, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateGreaterThan(Date value) {
+            addCriterionForJDBCDate("over_date >", value, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("over_date >=", value, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateLessThan(Date value) {
+            addCriterionForJDBCDate("over_date <", value, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("over_date <=", value, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateIn(List<Date> values) {
+            addCriterionForJDBCDate("over_date in", values, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateNotIn(List<Date> values) {
+            addCriterionForJDBCDate("over_date not in", values, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("over_date between", value1, value2, "overDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverDateNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("over_date not between", value1, value2, "overDate");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderStateIsNull() {
             addCriterion("order_state is null");
             return (Criteria) this;
@@ -679,6 +799,76 @@ public class OrderExample {
 
         public Criteria andOrderNumberNotBetween(String value1, String value2) {
             addCriterion("order_number not between", value1, value2, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrIsNull() {
+            addCriterion("shipping_addr is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrIsNotNull() {
+            addCriterion("shipping_addr is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrEqualTo(String value) {
+            addCriterion("shipping_addr =", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrNotEqualTo(String value) {
+            addCriterion("shipping_addr <>", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrGreaterThan(String value) {
+            addCriterion("shipping_addr >", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrGreaterThanOrEqualTo(String value) {
+            addCriterion("shipping_addr >=", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrLessThan(String value) {
+            addCriterion("shipping_addr <", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrLessThanOrEqualTo(String value) {
+            addCriterion("shipping_addr <=", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrLike(String value) {
+            addCriterion("shipping_addr like", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrNotLike(String value) {
+            addCriterion("shipping_addr not like", value, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrIn(List<String> values) {
+            addCriterion("shipping_addr in", values, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrNotIn(List<String> values) {
+            addCriterion("shipping_addr not in", values, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrBetween(String value1, String value2) {
+            addCriterion("shipping_addr between", value1, value2, "shippingAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippingAddrNotBetween(String value1, String value2) {
+            addCriterion("shipping_addr not between", value1, value2, "shippingAddr");
             return (Criteria) this;
         }
     }

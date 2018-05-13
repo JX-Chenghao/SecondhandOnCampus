@@ -22,6 +22,7 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public void saveMessage(Message message) {
+		  message.setStatus(0);
 		  message.setMessageDate(new Date());
           messageMapper.insertSelective(message);		
 	}

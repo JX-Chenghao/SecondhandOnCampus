@@ -233,4 +233,42 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsVOs;
 	}
 
+	@Override
+	public PageBean<Goods> getGoodsByPage(int currPage, String likeStr) {
+		PageBean<Goods> pageBean = new PageBean<Goods>();
+
+		GoodsExample ex = new GoodsExample();
+		// 当前页
+		pageBean.setCurrPage(currPage);
+		// 每页记录数
+		final int pageSize = 12;
+		pageBean.setPageSize(pageSize);
+		// 总记录数
+		ex.createCriteria().andNameLike("%"+likeStr+"%");
+		final int totalCount = goodsMapper.countByExample(ex);
+		pageBean.setTotalCount(totalCount);
+		// 总页数
+		final int totalPage = PageBean.countTatalPage(pageSize, totalCount);
+		pageBean.setTotalPage(totalPage);
+
+		/* 查询数据库 */
+
+		// 当前页开始记录
+		final int offset = PageBean.countOffset(pageSize, currPage);
+		// 每页记录数
+		final int length = pageSize;
+		// 当前页 此函数 若传入0 则当作1（即首次进入页面时）
+		final int currentPage = PageBean.countCurrentPage(currPage);
+
+		// 记录集合
+		ex.setStartRow(offset);
+		ex.setPageSize(pageSize);
+		ex.setOrderByClause("publish_date desc");
+		ex.createCriteria().andQuantityGreaterThan(0);
+		final List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
+		pageBean.setList(goodsList);
+
+		return pageBean;
+	}
+
 }

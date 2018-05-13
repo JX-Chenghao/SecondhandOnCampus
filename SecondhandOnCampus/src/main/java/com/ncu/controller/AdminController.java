@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ncu.common.StringUtil;
 import com.ncu.pojo.Admin;
 import com.ncu.pojo.Goods;
+import com.ncu.pojo.Order;
 import com.ncu.pojo.User;
 import com.ncu.pojo.vo.GoodsVO;
+import com.ncu.pojo.vo.OrderVO;
 import com.ncu.service.AdminService;
 import com.ncu.service.GoodsService;
 import com.ncu.service.OrderService;
@@ -123,14 +125,43 @@ public class AdminController {
 		 System.out.println(g);
 		return "redirect:/admin/auditGoodsView.action";
 	}
+	//  修改订单页
+	@RequestMapping("/updateOrderView")
+	public ModelAndView updateOrderView(HttpServletRequest request,Integer status) throws Exception {
+		ModelAndView modelAndview = new ModelAndView();
+		List<OrderVO> orders=null;
+		if(status.equals(0)){
+			orders=orderService.findOrderByNotSendGoods();
+		}else if(status.equals(1)){
+			orders=orderService.findOrderByNotGetGoods();
+		}
+		modelAndview.addObject("status", status);
+		modelAndview.addObject("orders", orders);
+		modelAndview.setViewName("admin/updateOrderStatus");
+		
+		return modelAndview;
+	}
 
+	
+	// 根据订单号找到订单
+	@RequestMapping("/findOrder")
+	@ResponseBody
+	public OrderVO findOrder(Integer orderId) throws Exception {
+		OrderVO orderVO = orderService.findOrderById(orderId);
+		return orderVO;
+	}
+	
+	
+	
 	// 修改订单状态
 	@RequestMapping("/updateOrderStatus")
 	@ResponseBody
 	public Map<String, String> updateOrderStatus(Integer orderId,
 			Integer orderStatus) throws Exception {
 		Map<String, String> resMap = new HashMap<String, String>();
+
 		boolean res = orderService.updateOrderStatus(orderId, orderStatus);
+		
 		if (res) {
 			resMap.put("res", "success");
 		} else {

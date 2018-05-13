@@ -1,7 +1,9 @@
 package com.ncu.service.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -83,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
 		ex.createCriteria().andCropIdEqualTo(cropId)
 				.andOrderStateEqualTo(orderStatus);
 		ex.setOrderByClause("order_date desc");
-
+    
 		return findOrder(orderVOs, ex);
 	}
 
@@ -124,6 +126,7 @@ public class OrderServiceImpl implements OrderService {
 			if (evaluate.size() > 0) {
 				orderVO.setEvaluateContent(evaluate.get(0).getContent());
 			}
+	        System.out.println(o.toString());
 			orderVO.setOrder(o);
 			orderVO.setOrderitemVOs(items);
 			orderVOs.add(orderVO);
@@ -136,6 +139,9 @@ public class OrderServiceImpl implements OrderService {
 		OrderExample ex = new OrderExample();
 		ex.createCriteria().andOrderStateEqualTo(status);
 		Order order = new Order();
+		if(status==1){
+			order.setSendDate(new Date());
+		}
 		order.setId(orderId);
 		orderMapper.updateByExampleSelective(order, ex);
 		return true;
@@ -149,7 +155,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 		Collection<CartItem> items = cart.getItems();
 		List<OrderVO> orderVOList = new ArrayList<OrderVO>();
-
 		OrderVO orderVO = new OrderVO();
 		Map<Integer, OrderVO> orderMap = new HashMap<Integer, OrderVO>();
 		// 购物车取出商品项
@@ -165,7 +170,6 @@ public class OrderServiceImpl implements OrderService {
 				// 设置商家名
 				User crop = userMapper.selectByPrimaryKey(order.getCropId());
 				orderVO.setCropName(crop.getAliasName());
-
 				orderVO.setOrder(order);
 				orderMap.put(item.getGoods().getUserId(), orderVO);
 			}
@@ -235,4 +239,78 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.countByExample(null);
 	}
 
+	@Override
+	public List<OrderVO> findOrderByNotSendGoods() {
+		OrderExample ex = new OrderExample();
+		ex.createCriteria().andOrderStateEqualTo(0);
+		return fillOrderVOForAdmin(ex);
+	}
+
+
+
+	@Override
+	public List<OrderVO> findOrderByNotGetGoods() {
+		OrderExample ex = new OrderExample();
+		ex.createCriteria().andOrderStateEqualTo(1);
+		return fillOrderVOForAdmin(ex);
+	}
+	private List<OrderVO> fillOrderVOForAdmin(OrderExample ex) {
+		List<Order> orders = orderMapper.selectByExample(ex);
+		List<OrderVO> orderVos=new ArrayList<OrderVO>();
+		 OrderVO orderVo;
+		for(Order o : orders){
+			orderVo=new OrderVO();
+			orderVo.setOrder(o);
+			User crop = userMapper.selectByPrimaryKey(o.getCropId());
+			User client = userMapper.selectByPrimaryKey(o.getUserId());
+			orderVo.setCropName(crop.getAliasName());
+			orderVo.setCropPhone(crop.getPhoneNumber());
+			orderVo.setClientName(client.getAliasName());
+			orderVo.setClientPhone(client.getPhoneNumber());
+			if(o.getSendDate()!=null){
+				try {
+					orderVo.setOverdueDays(daysBetween(o.getSendDate(),new Date()));
+					System.out.println(orderVo.getOverdueDays());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			orderVos.add(orderVo);
+		}
+		return orderVos;
+	}
+
+	@Override
+	public OrderVO findOrderById(Integer orderId) {
+		OrderVO orderVO=new OrderVO();
+		Order order = orderMapper.selectByPrimaryKey(orderId);
+		orderVO.setOrder(order);
+		User crop = userMapper.selectByPrimaryKey(order.getCropId());
+		User client = userMapper.selectByPrimaryKey(order.getUserId());
+		orderVO.setCropName(crop.getAliasName());
+		orderVO.setCropPhone(crop.getPhoneNumber());
+		orderVO.setClientName(client.getAliasName());
+		orderVO.setClientPhone(client.getPhoneNumber());
+		if(order.getSendDate()!=null){
+			try {
+				orderVO.setOverdueDays(daysBetween(order.getSendDate(),new Date()));
+				System.out.println(orderVO.getOverdueDays()+"天");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return orderVO;
+	}
+	
+	public static Integer daysBetween(Date fdate,Date adate) throws ParseException    
+    {    
+        Calendar cal = Calendar.getInstance();    
+        cal.setTime(fdate);    
+        long time1 = cal.getTimeInMillis();                 
+        cal.setTime(adate);    
+        long time2 = cal.getTimeInMillis();         
+        long between_days=(time2-time1)/(1000*3600*24);  
+            
+       return Integer.parseInt(String.valueOf(between_days));           
+    }    
 }

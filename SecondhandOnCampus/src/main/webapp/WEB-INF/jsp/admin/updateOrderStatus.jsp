@@ -84,7 +84,8 @@
 				<ul class="nav navbar-nav">
 					<li class="nav-item mobile-menu hidden-md-up float-xs-left"><a
 						class="nav-link nav-menu-main menu-toggle hidden-xs"><i
-							class="icon-menu5 font-large-1"></i> </a></li>
+							class="icon-menu5 font-large-1"></i> </a>
+					</li>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/admin/main.action"
 						class="navbar-brand nav-link"><img alt="branding logo"
@@ -96,7 +97,8 @@
 					<li class="nav-item hidden-md-up float-xs-right"><a
 						data-toggle="collapse" data-target="#navbar-mobile"
 						class="nav-link open-navbar-container"><i
-							class="icon-ellipsis pe-2x icon-icon-rotate-right-right"></i> </a></li>
+							class="icon-ellipsis pe-2x icon-icon-rotate-right-right"></i> </a>
+					</li>
 				</ul>
 			</div>
 			<div class="navbar-container content container-fluid">
@@ -165,13 +167,14 @@
 												<small> <time datetime="2015-06-11T18:29:20+08:00"
 														class="media-meta text-muted">Last month</time> </small>
 											</div>
-										</div> </a></li>
+										</div> </a>
+								</li>
 								<li class="dropdown-menu-footer"><a
 									href="javascript:void(0)"
 									class="dropdown-item text-muted text-xs-center">Read all
-										notifications</a></li>
-							</ul>
-						</li>
+										notifications</a>
+								</li>
+							</ul></li>
 						<li class="dropdown dropdown-notification nav-item"><a
 							href="#" data-toggle="dropdown" class="nav-link nav-link-label"><i
 								class="ficon icon-mail6"></i><span
@@ -183,8 +186,7 @@
 										<span class="grey darken-2">Messages</span><span
 											class="notification-tag tag tag-default tag-info float-xs-right m-0">4
 											New</span>
-									</h6>
-								</li>
+									</h6></li>
 								<li class="list-group scrollable-container"><a
 									href="javascript:void(0)" class="list-group-item">
 										<div class="media">
@@ -242,13 +244,14 @@
 												<small> <time datetime="2015-06-11T18:29:20+08:00"
 														class="media-meta text-muted">last month</time> </small>
 											</div>
-										</div> </a></li>
+										</div> </a>
+								</li>
 								<li class="dropdown-menu-footer"><a
 									href="javascript:void(0)"
 									class="dropdown-item text-muted text-xs-center">Read all
-										messages</a></li>
-							</ul>
-						</li>
+										messages</a>
+								</li>
+							</ul></li>
 						<li class="dropdown dropdown-user nav-item"><a href="#"
 							data-toggle="dropdown"
 							class="dropdown-toggle nav-link dropdown-user-link"><span
@@ -266,8 +269,7 @@
 								<div class="dropdown-divider"></div>
 								<a href="#" class="dropdown-item"><i class="icon-power3"></i>
 									Logout</a>
-							</div>
-						</li>
+							</div></li>
 					</ul>
 				</div>
 			</div>
@@ -297,22 +299,18 @@
 
 						<li><a href="unlock-user.html"
 							data-i18n="nav.login_register_pages.unlock_user"
-							class="menu-item">Unlock User</a>
-						</li>
-					</ul>
-				</li>
+							class="menu-item">Unlock User</a></li>
+					</ul></li>
 				<li class=" nav-item"><a href="#"><i class="icon-compass3"></i><span
 						data-i18n="nav.content.main" class="menu-title">商品管理</span> </a>
 					<ul class="menu-content">
-						<li><a href="${pageContext.request.contextPath}/admin/auditGoodsView.action"
-							data-i18n="nav.content.content_grid" class="menu-item">审核</a>
-						</li>
-					</ul>
-				</li>
-				<li class=" nav-item">
-				     <a href="#"><i class="icon-grid2"></i><span
+						<li><a
+							href="${pageContext.request.contextPath}/admin/auditGoodsView.action"
+							data-i18n="nav.content.content_grid" class="menu-item">审核</a></li>
+					</ul></li>
+				<li class=" nav-item"><a href="#"><i class="icon-grid2"></i><span
 						data-i18n="nav.components.main" class="menu-title">订单管理</span>
-				     </a>
+				</a>
 					<ul class="menu-content">
 						<li><a href="${pageContext.request.contextPath}/admin/updateOrderView.action?status=0"
 							data-i18n="nav.components.component_alerts" class="menu-item">发货</a>
@@ -320,14 +318,12 @@
 						<li><a href="${pageContext.request.contextPath}/admin/updateOrderView.action?status=1"
 							data-i18n="nav.components.component_alerts" class="menu-item">收货</a>
 						</li>
-					</ul>
-				</li>
+					</ul></li>
 
 				<li class=" nav-item"><a href="table-basic.html"><i
 						class="icon-table2"></i><span
 						data-i18n="nav.bootstrap_tables.table_basic" class="menu-title">Basic
-							Tables</span> </a>
-				</li>
+							Tables</span> </a></li>
 
 
 			</ul>
@@ -346,7 +342,7 @@
 		<div class="content-wrapper">
 			<div class="content-header row">
 				<div class="content-header-left col-md-6 col-xs-12 mb-1">
-					<h2 class="content-header-title">商品审核</h2>
+					<h2 class="content-header-title">订单</h2>
 				</div>
 				<div
 					class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-xs-12">
@@ -355,9 +351,8 @@
 							<li class="breadcrumb-item"><a
 								href="${pageContext.request.contextPath}/admin/main.action">admin</a>
 							</li>
-							<li class="breadcrumb-item"><a href="#">goods</a>
-							</li>
-							<li class="breadcrumb-item active">audit</li>
+							<li class="breadcrumb-item"><a href="#">order</a></li>
+							<li class="breadcrumb-item active">update</li>
 						</ol>
 					</div>
 				</div>
@@ -371,51 +366,71 @@
 						<div class="card">
 
 							<div class="card-body">
-
+								<div class="card-block">
+									<p class="m-0">
+										更改订单 <span class="float-xs-right" style="margin-right:20px;">
+											<input type="text" placeholder="OrderNumber Search"
+											class="menu-search form-control round" /> </span><i
+											class="icon-arrow-right2"
+											style="position:relative;float:right;top:8px;right:-195px"></i>
+									</p>
+								</div>
 								<div class="table-responsive">
 									<table class="table table-hover mb-0">
 										<thead>
+										<c:if test="${status==0 }">
 											<tr>
-								<!--                              <th>订单编号</th>
-                                <th>订单日期</th>
-                                <th>取货方式</th>
-                                <th>订单价钱</th>
-                                <th>送货地址</th> -->
-												<th>商品名</th>
-												<th>商品数量</th>
-												<th>已使用月份</th>
-												<th>商品价格</th>
-												<th>商品介绍</th>
-												<th>审核</th>
+												<th>订单编号</th>
+												<th>商家</th>
+												<th>订单价格</th>
+												<th>订单状态</th>
+												<th>取货方式</th>
+												<th>客户</th>
+												<th>更改状态</th>
 											</tr>
+										</c:if>
+										<c:if test="${status==1 }">
+											<tr>
+												<th>订单编号</th>
+												<th>商家</th>
+												<th>订单价格</th>
+												<th>订单状态</th>
+												<th>取货方式</th>
+												<th>客户</th>
+												<th>已超期</th>
+												<th>更改状态</th>
+											</tr>
+										</c:if>
 										</thead>
 										<tbody>
-											<c:forEach items="${goodsList }" var="goodsVo">
-												<tr>
-													<td class="text-truncate">${goodsVo.goods.name }</td>
-													<td class="text-truncate">${goodsVo.goods.quantity }</td>
-													<td class="text-truncate">${goodsVo.goods.usedMonth }</td>
-													<td class="text-truncate">${goodsVo.goods.price }</td>
-													<td class="text-truncate"><c:if
-															test="${fn:length(goodsVo.goods.introducedText)>8 }">
-                                  	 ${fn:substring(goodsVo.goods.introducedText,0,8) }...
-                                	</c:if> <c:if
-															test="${fn:length(goodsVo.goods.introducedText)<=8 }">
-                                  	 ${goodsVo.goods.introducedText }
-                                	</c:if>
-													</td>
-													<td class="valign-middle"><span
-														class="avatar avatar-xs"><img class="auditImgBtn"
-															src="${pageContext.request.contextPath}/resources/app-assets/images/icons/thumbs-up.jpg"
-															data-toggle="modal" data-target="#iconModal" /><input
-															type="hidden" value="${goodsVo.goods.id }" /><input
-															type="hidden" value="${goodsVo.goods.picturePath }" /><input
-															type="hidden" value="${goodsVo.fileName[0]},${goodsVo.fileName[1]},${goodsVo.fileName[2]},${goodsVo.fileName[3]}" /><input
-															type="hidden" value="${goodsVo.goods.introducedText }" /><input
-															type="hidden" value="${goodsVo.goods.name }" /> </span>
-													</td>
-												</tr>
-											</c:forEach>
+											<tr>
+												<td class="text-truncate">18041211112335</td>
+												<td class="text-truncate">
+													<!-- <span class="avatar avatar-xs"><img src="../../app-assets/images/portrait/small/avatar-s-4.png" alt="avatar"></span>  -->
+													<span>Sarah W.</span></td>
+												<td class="text-truncate">￥12</td>
+												<td class="text-truncate"><select id="projectinput5"
+													name="interested" class="form-control"
+													style="width:100px;height:25px;color:red">
+														<option value="none" selected="">待发货</option>
+														<option value="none">已发货</option>
+														<option value="design">已收货</option>
+												</select></td>
+												<td class="text-truncate">校园自取</td>
+												<td class="text-truncate">ChengHao</td>
+												<c:if test="${status==1 }">
+												 <td class="text-truncate">10-3天</td>
+												</c:if>
+												<td style="height:20px">
+													<div class="btn-group btn-group-sm" role="group"
+														aria-label="Basic example">
+
+														<button type="button" class="btn btn-secondary"
+															disabled="">更改</button>
+
+													</div></td>
+											</tr>
+
 
 										</tbody>
 									</table>
@@ -492,24 +507,27 @@
 												<p class="card-text" style="width:280px;">
 													介绍：<br />No introduction.
 												</p>
-											<form action="${pageContext.request.contextPath}/admin/auditGoods.action">
-											<input type="hidden" id="goodsId" name="goodsId">
-											<div class="input-group">
-												<label class="display-inline-block custom-control custom-radio ml-1">
-													<input type="radio" name="auditStatus" class="custom-control-input radio1" value="1" >
-													<span class="custom-control-indicator"></span>
-													<span class="custom-control-description ml-0">审核通过</span>
-												</label>
-												<label class="display-inline-block custom-control custom-radio">
-													<input type="radio" name="auditStatus" checked="" class="custom-control-input radio2" value="2" >
-													<span class="custom-control-indicator"></span>
-													<span class="custom-control-description ml-0">审核不通过</span>
-												</label>
-											</div>
-											<input class="submitFormInput" type="submit" style="display:none" />
-												<p>请输入不通过原因：</p>
-												
-												  <textarea  name="failureText" style="width:280px;"></textarea>
+												<form
+													action="${pageContext.request.contextPath}/admin/auditGoods.action">
+													<input type="hidden" id="goodsId" name="goodsId">
+													<div class="input-group">
+														<label
+															class="display-inline-block custom-control custom-radio ml-1">
+															<input type="radio" name="auditStatus"
+															class="custom-control-input radio1" value="1"> <span
+															class="custom-control-indicator"></span> <span
+															class="custom-control-description ml-0">审核通过</span> </label> <label
+															class="display-inline-block custom-control custom-radio">
+															<input type="radio" name="auditStatus" checked=""
+															class="custom-control-input radio2" value="2"> <span
+															class="custom-control-indicator"></span> <span
+															class="custom-control-description ml-0">审核不通过</span> </label>
+													</div>
+													<input class="submitFormInput" type="submit"
+														style="display:none" />
+													<p>请输入不通过原因：</p>
+
+													<textarea name="failureText" style="width:280px;"></textarea>
 												</form>
 											</div>
 
@@ -518,9 +536,10 @@
 										<div class="modal-footer">
 											<button type="button" class="btn grey btn-outline-secondary"
 												data-dismiss="modal">返回</button>
-											<button  type="button" class="btn btn-outline-primary submitFormBtn">确认</button>
+											<button type="button"
+												class="btn btn-outline-primary submitFormBtn">确认</button>
 										</div>
-										
+
 									</div>
 								</div>
 							</div>
@@ -576,43 +595,15 @@
 
 
 		<script type="text/javascript">
-			$(function() {
-				$(".auditImgBtn").click(function() {
-					var goodsId = $(this).next().val();
-					var goodsPic = $(this).next().next().val();
-					var pic = $(this).next().next().next().val();
-					var content = $(this).next().next().next().next().val();
-					var name = $(this).next().next().next().next().next().val();
-					var picArray =pic.split(",");
-					
-					if(goodsPic==null || goodsPic==""){
-					  $("#slide1").attr("src","${pageContext.request.contextPath}/resources/images/thumber.jpg");
-					  $("#slide2").attr("src","${pageContext.request.contextPath}/resources/images/thumber.jpg");
-					  $("#slide3").attr("src","${pageContext.request.contextPath}/resources/images/thumber.jpg");
-					  $("#slide4").attr("src","${pageContext.request.contextPath}/resources/images/thumber.jpg");
-					}else{
-					  $("#slide1").attr("src","/picForBS/goods/"+goodsPic+"/"+picArray[0]);
-					  $("#slide2").attr("src","/picForBS/goods/"+goodsPic+"/"+picArray[1]);
-					  $("#slide3").attr("src","/picForBS/goods/"+goodsPic+"/"+picArray[2]);
-					  $("#slide4").attr("src","/picForBS/goods/"+goodsPic+"/"+picArray[3]);
-					}
-					 $("#goodsId").attr("value",goodsId);
-					if(content!="")
-					  $(".card-text").html("商品："+name+"<br />介绍："+content);
-				});
-				
-				$(".submitFormBtn").click(function(){
-				  if($('input:checked').val()=="2"){
-				     var failureText=$("textarea").val();
-				     if(failureText==""){
-				       alert("请填写不通过原因！");
-				       return false;
-				     }
-				  }
-				  $(".submitFormInput").click();
-				});
-
-			});
+			 $(function(){
+             	$("button").click(function(){
+             		alert("订单18041211112335 已成功 发货！");
+             	});
+             	$("select").change(function(){
+                                     $(this).attr("style" ,"width:100px;height:25px;color:green");
+                                     $("button").removeAttr("disabled");
+             	});
+             });
 		</script>
 		<!-- END ROBUST JS-->
 		<!-- BEGIN PAGE LEVEL JS-->

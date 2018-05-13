@@ -3,6 +3,7 @@ package com.ncu.service;
 import java.util.List;
 
 import com.ncu.pojo.Cart;
+import com.ncu.pojo.Order;
 import com.ncu.pojo.vo.OrderVO;
 
 public interface OrderService {
@@ -13,4 +14,7 @@ public interface OrderService {
      List<OrderVO> separateCartToManyOrder(Cart cart,Integer payway,Integer clientUserId);
 	 void deleteOrderById(Integer id);
 	int findOrderCount();
+	List<OrderVO> findOrderByNotSendGoods();
+	List<OrderVO> findOrderByNotGetGoods();
+	OrderVO findOrderById(Integer orderId);
 }

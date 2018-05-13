@@ -11,8 +11,43 @@ public class OrderVO {
     private List<OrderitemVO> orderitemVOs=new ArrayList<OrderitemVO>();
     private String cropName;
     private String evaluateContent;
-    
-    public Order getOrder() {
+    private String clientName;
+    private String clientPhone;
+    private String cropPhone;
+    private Integer overdueDays ;
+    public String getClientName() {
+		return clientName;
+	}
+
+	public Integer getOverdueDays() {
+		return overdueDays;
+	}
+
+	public void setOverdueDays(Integer overdueDays) {
+		this.overdueDays = overdueDays;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public String getClientPhone() {
+		return clientPhone;
+	}
+
+	public void setClientPhone(String clientPhone) {
+		this.clientPhone = clientPhone;
+	}
+
+	public String getCropPhone() {
+		return cropPhone;
+	}
+
+	public void setCropPhone(String cropPhone) {
+		this.cropPhone = cropPhone;
+	}
+
+	public Order getOrder() {
         return order;
     }
 
