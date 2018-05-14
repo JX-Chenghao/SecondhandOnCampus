@@ -140,10 +140,14 @@ public class OrderServiceImpl implements OrderService {
 		ex.createCriteria().andOrderStateEqualTo(status);
 		Order order = new Order();
 		if(status==1){
+			order.setOverDate(new Date());
+			order.setOrderState(2);
+		}else if(status==0){
+			order.setOrderState(1);
 			order.setSendDate(new Date());
 		}
 		order.setId(orderId);
-		orderMapper.updateByExampleSelective(order, ex);
+		orderMapper.updateByPrimaryKeySelective(order);
 		return true;
 	}
 

@@ -14,7 +14,7 @@ public class Order {
     private Integer orderState;
 
     private Double totalPrice;
-
+    //1 校园自取  2送货上门
     private Integer getWay;
 
     private Integer payWay;

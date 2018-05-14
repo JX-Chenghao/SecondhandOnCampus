@@ -129,14 +129,14 @@ public class AdminController {
 	@RequestMapping("/updateOrderView")
 	public ModelAndView updateOrderView(HttpServletRequest request,Integer status) throws Exception {
 		ModelAndView modelAndview = new ModelAndView();
-		List<OrderVO> orders=null;
+		List<OrderVO> orderVos=null;
 		if(status.equals(0)){
-			orders=orderService.findOrderByNotSendGoods();
+			orderVos=orderService.findOrderByNotSendGoods();
 		}else if(status.equals(1)){
-			orders=orderService.findOrderByNotGetGoods();
+			orderVos=orderService.findOrderByNotGetGoods();
 		}
 		modelAndview.addObject("status", status);
-		modelAndview.addObject("orders", orders);
+		modelAndview.addObject("orderVos", orderVos);
 		modelAndview.setViewName("admin/updateOrderStatus");
 		
 		return modelAndview;

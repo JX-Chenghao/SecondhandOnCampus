@@ -380,56 +380,88 @@
 										<thead>
 										<c:if test="${status==0 }">
 											<tr>
-												<th>订单编号</th>
+												<th>编号</th>
 												<th>商家</th>
+												<th>商家联系</th>
 												<th>订单价格</th>
 												<th>订单状态</th>
 												<th>取货方式</th>
 												<th>客户</th>
+												<!-- <th>客户联系</th> -->
 												<th>更改状态</th>
 											</tr>
 										</c:if>
 										<c:if test="${status==1 }">
 											<tr>
-												<th>订单编号</th>
+												<th>编号</th>
 												<th>商家</th>
+												<th>商家联系</th>
 												<th>订单价格</th>
 												<th>订单状态</th>
 												<th>取货方式</th>
-												<th>客户</th>
+												<!-- <th>客户</th> -->
+												<!-- <th>客户联系</th> -->
 												<th>已超期</th>
 												<th>更改状态</th>
 											</tr>
 										</c:if>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="text-truncate">18041211112335</td>
+										<c:forEach items="${orderVos }" var="orderVo">
+											<tr class="tr${orderVo.order.id }">
+												<td class="text-truncate">${orderVo.order.orderNumber }</td>
 												<td class="text-truncate">
 													<!-- <span class="avatar avatar-xs"><img src="../../app-assets/images/portrait/small/avatar-s-4.png" alt="avatar"></span>  -->
-													<span>Sarah W.</span></td>
-												<td class="text-truncate">￥12</td>
-												<td class="text-truncate"><select id="projectinput5"
-													name="interested" class="form-control"
-													style="width:100px;height:25px;color:red">
-														<option value="none" selected="">待发货</option>
-														<option value="none">已发货</option>
-														<option value="design">已收货</option>
-												</select></td>
-												<td class="text-truncate">校园自取</td>
-												<td class="text-truncate">ChengHao</td>
+													<span>${orderVo.cropName }</span></td>
+													<td class="text-truncate">${orderVo.cropPhone }</td>
+												<td class="text-truncate">${orderVo.order.totalPrice }</td>
+												<td class="text-truncate">
+													<select id="projectinput5"
+													  name="interested" class="form-control"
+													  style="width:100px;height:25px;color:red">
+													  <c:if test="${status==0 }">
+													    <option value="0" selected="">待发货</option>
+													    <option value="1">已发货</option>
+													  </c:if>
+													  <c:if test="${status==1 }">
+													    <option value="1" selected="">已发货</option>
+														<option value="2">已收货</option>
+													  </c:if>
+													</select>
+												</td>
+												<c:if test="${orderVo.order.getWay==0 }">
+												   <td class="text-truncate">校园自取</td>
+												</c:if>
+												<c:if test="${orderVo.order.getWay==1 }">
+												   <td class="text-truncate">送货上门</td>
+												</c:if>
+												<c:if test="${status==0 }">
+												   <td class="text-truncate">${orderVo.clientName }</td>
+												</c:if>
+												
+												<%-- <td class="text-truncate">${orderVo.clientPhone }</td> --%>
 												<c:if test="${status==1 }">
-												 <td class="text-truncate">10-3天</td>
+												 <td class="text-truncate">${orderVo.overdueDays }</td>
 												</c:if>
 												<td style="height:20px">
 													<div class="btn-group btn-group-sm" role="group"
 														aria-label="Basic example">
-
-														<button type="button" class="btn btn-secondary"
-															disabled="">更改</button>
-
+                                                       <c:if test="${status==1 }">
+                                                           <c:if test="${orderVo.overdueDays>=10 }">
+														    <button type="button" class="btn btn-secondary"
+															 onclick="updateStatus('${orderVo.order.id}','${orderVo.order.orderNumber}','${status}')" disabled="">更改</button>
+														   </c:if>
+														   <c:if test="${orderVo.overdueDays<10 }">
+														                 未超期
+														   </c:if>
+														</c:if>
+														 <c:if test="${status==0 }">
+														   <button type="button" class="btn btn-secondary"
+															 onclick="updateStatus('${orderVo.order.id}','${orderVo.order.orderNumber}','${status}')" disabled="">更改</button>
+														 </c:if>
 													</div></td>
 											</tr>
+											</c:forEach>
 
 
 										</tbody>
@@ -440,113 +472,8 @@
 					</div>
 
 				</div>
-				<!-- ////////////////////////////////////////////////////////////////////////////-->
-				<div class="col-lg-4 col-md-6 col-sm-12">
-					<div class="form-group">
-						<!-- Modal -->
-						<div class="modal fade text-xs-left" id="iconModal" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-										<h4 class="modal-title" id="myModalLabel2">
-											<i class="icon-road2"></i> 商品审核
-										</h4>
-									</div>
-									<div class="modal-body">
-										<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-										<div class="card-body" style="width:200px;height:300px;">
-
-											<div id="carousel-example-generic" class="carousel slide"
-												data-ride="carousel" style="width:250px;height:300px;">
-												<ol class="carousel-indicators">
-													<li data-target="#carousel-example-generic"
-														data-slide-to="0" class=""></li>
-													<li data-target="#carousel-example-generic"
-														data-slide-to="1" class="active"></li>
-													<li data-target="#carousel-example-generic"
-														data-slide-to="2" class=""></li>
-													<li data-target="#carousel-example-generic"
-														data-slide-to="3" class=""></li>
-												</ol>
-												<div class="carousel-inner" role="listbox">
-													<div class="carousel-item">
-														<img src="../../app-assets/images/carousel/02.jpg"
-															id="slide1" style="width:250px;height:300px;">
-													</div>
-													<div class="carousel-item active">
-														<img src="../../app-assets/images/carousel/03.jpg"
-															id="slide2" style="width:250px;height:300px;">
-													</div>
-													<div class="carousel-item">
-														<img src="../../app-assets/images/carousel/01.jpg"
-															id="slide3" style="width:250px;height:300px;">
-													</div>
-													<div class="carousel-item">
-														<img src="../../app-assets/images/carousel/04.jpg"
-															id="slide4" style="width:250px;height:300px;">
-													</div>
-												</div>
-												<a class="left carousel-control"
-													href="#carousel-example-generic" role="button"
-													data-slide="prev"> <span class="icon-prev"
-													aria-hidden="true"></span> <span class="sr-only">Previous</span>
-												</a> <a class="right carousel-control"
-													href="#carousel-example-generic" role="button"
-													data-slide="next"> <span class="icon-next"
-													aria-hidden="true"></span> <span class="sr-only">Next</span>
-												</a>
-											</div>
-											<div class="card-block"
-												style="position:relative;top:-320px;left:250px;">
-												<p class="card-text" style="width:280px;">
-													介绍：<br />No introduction.
-												</p>
-												<form
-													action="${pageContext.request.contextPath}/admin/auditGoods.action">
-													<input type="hidden" id="goodsId" name="goodsId">
-													<div class="input-group">
-														<label
-															class="display-inline-block custom-control custom-radio ml-1">
-															<input type="radio" name="auditStatus"
-															class="custom-control-input radio1" value="1"> <span
-															class="custom-control-indicator"></span> <span
-															class="custom-control-description ml-0">审核通过</span> </label> <label
-															class="display-inline-block custom-control custom-radio">
-															<input type="radio" name="auditStatus" checked=""
-															class="custom-control-input radio2" value="2"> <span
-															class="custom-control-indicator"></span> <span
-															class="custom-control-description ml-0">审核不通过</span> </label>
-													</div>
-													<input class="submitFormInput" type="submit"
-														style="display:none" />
-													<p>请输入不通过原因：</p>
-
-													<textarea name="failureText" style="width:280px;"></textarea>
-												</form>
-											</div>
-
-											<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn grey btn-outline-secondary"
-												data-dismiss="modal">返回</button>
-											<button type="button"
-												class="btn btn-outline-primary submitFormBtn">确认</button>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- ////////////////////////////////////////////////////////////////////////////-->
-				</div>
+				
 			</div>
 		</div>
 
@@ -596,15 +523,43 @@
 
 		<script type="text/javascript">
 			 $(function(){
-             	$("button").click(function(){
-             		alert("订单18041211112335 已成功 发货！");
-             	});
+			   $("button").click(function(){
+			      $(this).attr("disabled","disabled");
+			   });
+			   
+			   
+             		
              	$("select").change(function(){
                                      $(this).attr("style" ,"width:100px;height:25px;color:green");
-                                     $("button").removeAttr("disabled");
+                                     $(this).parent().next().next().next().find("button").removeAttr("disabled");
              	});
              });
+             function updateStatus(orderId,orderNum,status){
+                 $.ajax({
+                   url:'${pageContext.request.contextPath}/admin/updateOrderStatus.action',
+                   type:'post',
+                   dataType:'json',
+                   data:{
+                     orderId :orderId,
+                     orderStatus:status
+                   },
+                   success:function(data){
+                       if(data.res=="success"){
+                         if(status==0){
+                           alert("订单"+orderNum+"已成功 发货！");
+                          }else if(status==1){
+                           alert("订单"+orderNum+"已成功 完成！");
+                           $('.tr'+orderId).remove();
+                          }
+                       }else if(data.res=="fail"){
+                          alert("订单"+orderNum+"修改状态失败！");
+                       }
+                   }
+                 });
+                 
+             }
 		</script>
+		
 		<!-- END ROBUST JS-->
 		<!-- BEGIN PAGE LEVEL JS-->
 		<!-- END PAGE LEVEL JS-->
