@@ -17,4 +17,5 @@ public interface OrderService {
 	List<OrderVO> findOrderByNotSendGoods();
 	List<OrderVO> findOrderByNotGetGoods();
 	OrderVO findOrderById(Integer orderId);
+	OrderVO findOrderByNum(String orderNumber);
 }

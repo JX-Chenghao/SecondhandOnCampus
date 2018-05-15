@@ -146,8 +146,10 @@ public class AdminController {
 	// 根据订单号找到订单
 	@RequestMapping("/findOrder")
 	@ResponseBody
-	public OrderVO findOrder(Integer orderId) throws Exception {
-		OrderVO orderVO = orderService.findOrderById(orderId);
+	public OrderVO findOrder(String orderNumber) throws Exception {
+		OrderVO orderVO = orderService.findOrderByNum(orderNumber);
+		/*if(orderVO==null)
+			orderVO=new OrderVO();*/
 		return orderVO;
 	}
 	

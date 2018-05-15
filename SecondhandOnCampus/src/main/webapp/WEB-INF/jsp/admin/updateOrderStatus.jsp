@@ -370,9 +370,8 @@
 									<p class="m-0">
 										更改订单 <span class="float-xs-right" style="margin-right:20px;">
 											<input type="text" placeholder="OrderNumber Search"
-											class="menu-search form-control round" /> </span><i
-											class="icon-arrow-right2"
-											style="position:relative;float:right;top:8px;right:-195px"></i>
+											class="menu-search form-control round searchOrderInput" /> </span>
+											<a><img class="searchOrderBtn" alt="搜索订单" style="position:relative;float:right;top:8px;right:-195px" src="${pageContext.request.contextPath}/resources/images/search.png"></a> 
 									</p>
 								</div>
 								<div class="table-responsive">
@@ -386,7 +385,7 @@
 												<th>订单价格</th>
 												<th>订单状态</th>
 												<th>取货方式</th>
-												<th>客户</th>
+												<th class="tihuan">客户</th>
 												<!-- <th>客户联系</th> -->
 												<th>更改状态</th>
 											</tr>
@@ -401,7 +400,7 @@
 												<th>取货方式</th>
 												<!-- <th>客户</th> -->
 												<!-- <th>客户联系</th> -->
-												<th>已超期</th>
+												<th class="tihuan">已超期</th>
 												<th>更改状态</th>
 											</tr>
 										</c:if>
@@ -526,13 +525,91 @@
 			   $("button").click(function(){
 			      $(this).attr("disabled","disabled");
 			   });
-			   
+			   $(".searchOrderBtn").click(function(){
+			      var orderNumber=$(".searchOrderInput").val();
+			      if(orderNumber==""){
+			         alert("请输入订单编号！");
+			         return;
+			      }
+			      $.ajax({
+			        url:'${pageContext.request.contextPath}/admin/findOrder.action',
+			        type:'get',
+			         dataType:'json',
+                   data:{
+                     orderNumber:orderNumber
+                   },
+                   success:function(data){
+                     if(!$.isEmptyObject(data)){
+                         $("tbody tr").remove();
+                         alert("展示订单");
+                         if(data.order.orderState==0){
+                            $('.tihuan').html("用户");
+                         }else{
+                            $('.tihuan').html("已超期");
+                         }
+                         var dataHTML="<tr class='tr"+data.order.id+"'>"+
+												"<td class='text-truncate'>"+data.order.orderNumber+"</td>"+
+												"<td class='text-truncate'>"+
+													"<span>"+data.cropName+"</span></td>"+
+													"<td class='text-truncate'>"+data.cropPhone+"</td>"+
+												"<td class='text-truncate'>"+data.order.totalPrice+"</td>"+
+												"<td class='text-truncate'>"+
+													"<select id='projectinput5'"+
+													 " name='interested' class='form-control'"+
+													  "style='width:100px;height:25px;color:red'>";
+						if(data.order.orderState==0){
+						     dataHTML+="<option value='0' selected=''>待发货</option><option value='1'>已发货</option>";
+						}else {
+						     dataHTML+="<option value='1' selected=''>已发货</option><option value='2'>已收货</option>";
+						}
+						dataHTML+="</select></td>";
+						if(data.order.getWay==0){
+						     dataHTML+=" <td class='text-truncate'>校园自取</td>";
+						}else{
+							 dataHTML+=" <td class='text-truncate'>送货上门</td>";
+						}
+						if(data.order.orderState==0){
+						     dataHTML+="<td class='text-truncate'>"+data.clientName+"</td>";
+						}else {
+						     dataHTML+="<td class='text-truncate'>"+data.overdueDays+"</td>";
+						}
+						 dataHTML+="<td style='height:20px'>"+
+													"<div class='btn-group btn-group-sm' role='group'"+
+														"aria-label='Basic example'>";
+						if(data.order.orderState==1 && data.overdueDays<10){
+						     dataHTML+="未超期";
+							
+						}else {
+						     dataHTML+="<button type='button' class='btn btn-secondary newBtn'"+
+															 "onclick='updateStatus("+data.order.id+","+data.order.orderNumber+","+data.order.orderState+")' disabled=''>更改</button>";
+						}
+						dataHTML+=	"</div></td></tr>";						
+                         $("tbody").append(dataHTML  );
+                         $("button").click(function(){
+			       				 $(this).attr("disabled","''");
+			  			 });
+                         $("select").change(function(){
+                                     $(this).attr("style" ,"width:100px;height:25px;color:green");
+                                     $(this).parent().next().next().next().find("button").removeAttr("disabled");
+             	         });
+                     }else{
+                         $("tbody tr").remove();
+                         alert("无此订单或者订单已完成");
+                     }
+                   },
+                   error:function(data){
+                       $("tbody tr").remove();
+                      alert("无此订单或者订单已完成");
+                   }
+			      });
+			   }); 
 			   
              		
              	$("select").change(function(){
                                      $(this).attr("style" ,"width:100px;height:25px;color:green");
                                      $(this).parent().next().next().next().find("button").removeAttr("disabled");
              	});
+             	
              });
              function updateStatus(orderId,orderNum,status){
                  $.ajax({

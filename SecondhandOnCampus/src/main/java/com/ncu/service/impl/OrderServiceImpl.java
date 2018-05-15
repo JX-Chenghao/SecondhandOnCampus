@@ -316,5 +316,33 @@ public class OrderServiceImpl implements OrderService {
         long between_days=(time2-time1)/(1000*3600*24);  
             
        return Integer.parseInt(String.valueOf(between_days));           
-    }    
+    }
+
+	@Override
+	public OrderVO findOrderByNum(String orderNumber) {
+		OrderVO orderVO=new OrderVO();
+		OrderExample ex = new OrderExample();
+		ex.createCriteria().andOrderNumberEqualTo(orderNumber).andOrderStateNotEqualTo(2);
+		List<Order> orders = orderMapper.selectByExample(ex);
+		if(orders.size() == 0){
+			return null;
+		}
+		Order order=orders.get(0);
+		orderVO.setOrder(order);
+		User crop = userMapper.selectByPrimaryKey(order.getCropId());
+		User client = userMapper.selectByPrimaryKey(order.getUserId());
+		orderVO.setCropName(crop.getAliasName());
+		orderVO.setCropPhone(crop.getPhoneNumber());
+		orderVO.setClientName(client.getAliasName());
+		orderVO.setClientPhone(client.getPhoneNumber());
+		if(order.getSendDate()!=null){
+			try {
+				orderVO.setOverdueDays(daysBetween(order.getSendDate(),new Date()));
+				System.out.println(orderVO.getOverdueDays()+"天");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return orderVO;
+	}    
 }
