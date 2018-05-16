@@ -12,6 +12,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.aliyuncs.exceptions.ClientException;
+import com.ncu.common.SmsSendMessage;
 import com.ncu.mapper.EvaluateMapper;
 import com.ncu.mapper.GoodsMapper;
 import com.ncu.mapper.OrderMapper;
@@ -139,15 +141,30 @@ public class OrderServiceImpl implements OrderService {
 		OrderExample ex = new OrderExample();
 		ex.createCriteria().andOrderStateEqualTo(status);
 		Order order = new Order();
+		
 		if(status==1){
 			order.setOverDate(new Date());
 			order.setOrderState(2);
 		}else if(status==0){
 			order.setOrderState(1);
 			order.setSendDate(new Date());
+		}else{
+			return false;
 		}
 		order.setId(orderId);
 		orderMapper.updateByPrimaryKeySelective(order);
+		
+		//发短信
+		Order o = orderMapper.selectByPrimaryKey(orderId);
+		User client = userMapper.selectByPrimaryKey(o.getUserId());
+		if(status==0){
+			try {
+				SmsSendMessage.sendSms(client.getPhoneNumber(), o.getOrderNumber(), null,o.getGetWay());
+			} catch (ClientException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return true;
 	}
 
