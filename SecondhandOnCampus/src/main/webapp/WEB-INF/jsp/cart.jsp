@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        if(data.res=="success"){
                            alert("移除成功");
                            $("#tr"+goodsId).remove();
+                           $("#cart_total").html(data.items+" 项 - ￥"+data.totalPrice);
                            if($("tr[id^='tr']").length==0){
                              $(".submitOrderBtn").hide();
                            }
@@ -111,9 +112,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<form action="#" method="post" id="basket">
 		<div class="cart-info">
+			    <c:if test="${fn:length(sessionScope.cart.items)==0}">
+				    <div style="margin-left:500px;margin-top:100px">
+				     <img src="${pageContext.request.contextPath}/resources/images/bg-none.png"/>
+				                 <span>购物车暂无物品，请去购物！</span> 
+				    </div>
+				</c:if>  
 			<table>
 				<thead>
-					<tr>
+
+				 <c:if test="${fn:length(sessionScope.cart.items)>0}">
+				    <tr>
 						
 						<td class="image">图片</td>
 						<td class="name">商品名</td>
@@ -123,6 +132,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td class="total">小计</td>
 						<td class="remove">移除</td>
 					</tr>
+				 </c:if>
+					
 				</thead>
 				<tbody>
 				<c:forEach items="${sessionScope.cart.items }" var="item">
@@ -151,9 +162,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</table>
 
 		</div>
-		<c:if test="${sessionScope.cart.items!=null }">
-			<div class="submitOrderBtn" style="float:right;margin-right:100px;"><a href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
+		<c:if test="${fn:length(sessionScope.cart.items)>0}">
+			<div class="submitOrderBtn" style="float:right;margin-right:110px;"><a style="color:blue;text-decoration: none" href="${pageContext.request.contextPath}/order/commitOrderInCart.action">提交订单</a></div>
 	    </c:if>
+
 	</form>
 	
   

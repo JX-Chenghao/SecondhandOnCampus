@@ -46,8 +46,11 @@ public class GoodsServiceImpl implements GoodsService {
 		pageBean.setPageSize(pageSize);
 		// 总记录数
 		if (categoryId != null) {
-			ex.createCriteria().andCategoryIdEqualTo(categoryId);
+			ex.createCriteria().andCategoryIdEqualTo(categoryId).andAuditStateEqualTo(1).andQuantityGreaterThan(0);
+		}else{
+			ex.createCriteria().andAuditStateEqualTo(1).andQuantityGreaterThan(0);
 		}
+		
 		final int totalCount = goodsMapper.countByExample(ex);
 		pageBean.setTotalCount(totalCount);
 		// 总页数
@@ -67,7 +70,7 @@ public class GoodsServiceImpl implements GoodsService {
 		ex.setStartRow(offset);
 		ex.setPageSize(pageSize);
 		ex.setOrderByClause("publish_date desc");
-		ex.createCriteria().andQuantityGreaterThan(0);
+		
 		final List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
 		pageBean.setList(goodsList);
 
@@ -265,6 +268,7 @@ public class GoodsServiceImpl implements GoodsService {
 		ex.setPageSize(pageSize);
 		ex.setOrderByClause("publish_date desc");
 		ex.createCriteria().andQuantityGreaterThan(0);
+		ex.createCriteria().andAuditStateEqualTo(1);
 		final List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(ex);
 		pageBean.setList(goodsList);
 

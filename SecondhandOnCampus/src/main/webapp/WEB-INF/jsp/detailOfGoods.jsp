@@ -20,12 +20,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    $(function(){
 	        //商家回复留言按钮，弹出对话框
 	        $(".replyMsg").click(function(){
-	            $(".replyInput").toggle();
+	            $(this).next().toggle();
 	        });
 	        //回复确认按钮
 	        $(".replyBtn").click(function(){
 	            var msgId=$(this).next().val();
 	            var replyContent=$(this).prev().val();
+	            if(replyContent==""){
+	               return false;
+	            }
 	            $.ajax({
                                 url:'${pageContext.request.contextPath}/user/message/reply.action',
 		                     	type:"post",
@@ -37,7 +40,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    success:function(data){
 			                      	 	if(data.res=="success"){
 			                         	 	 alert("<回复成功！>");
-			                         	 	 
+			                         	 	 $("#replyDIV"+msgId+" .lttwo").remove();
+			                         	 	 $("#replyDIV"+msgId).append("<div class='lineItem'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;商家回复："+replyContent+"<span class='dateTag'>"+getNowFormatDate() +"</span></div>");
 			                      		 }else {
 			                       		     alert("<异常>");
 			                      		 }
@@ -99,6 +103,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		function findEvaluate(userId){
 		   $("#messageBlock").remove();
+		   $("#evaluateBlock").remove();
+		    $("#goodsBlock").remove();
 		   $("#tab-info").removeClass("selected");
 		   $("#tab-related").removeClass("selected");
 		   $("#tab-evaluate").addClass("selected");
@@ -132,9 +138,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         d = d < 10 ? ('0' + d) : d;
         return y + '-' + m + '-' + d + ' ' ;
     } 
+ 
 		function findOtherGoods(cropId,excludeGoodsId){
 		   $("#messageBlock").remove();
 		   $("#evaluateBlock").remove();
+		    $("#goodsBlock").remove();
 		   $("#tab-info").removeClass("selected");
 		   $("#tab-evaluate").removeClass("selected");
 		   $("#tab-related").addClass("selected");
@@ -156,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                      	 	     goodsHTML+="<div class='goodsimg'><img src='${pageContext.request.contextPath}/resources/images/thumber.jpg'/></div>";
 			                      	 	    }
 			                      	 	    goodsHTML+="<div class='goodname'>"+data[i].name+"</div>";
-			                      	 	    goodsHTML+="<div class='goodprice'>"+data[i].price+"</div>";
+			                      	 	    goodsHTML+="<div class='goodprice'>￥"+data[i].price+"</div>";
 			                      	 	    var contentStr=data[i].introducedText+"";
 			                      	 	    if(contentStr.length >= 10){
 			                      	 	     goodsHTML+="<div class='goodcontent'>"+contentStr.substring(0,10)+"&nbsp;...</div>";
@@ -214,8 +222,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	 		 if (strDate >= 0 && strDate <= 9) {
        		 strDate = "0" + strDate;
     		 }
+    		
     		var currentdate = date.getFullYear() + "年" + month + "月" + strDate + "日"
-           		 + " " + date.getHours() + seperator + date.getMinutes();
+           		 + " " + date.getHours(); + seperator + date.getMinutes();
    		  return currentdate;
 	}     
 	
@@ -326,7 +335,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<span>&nbsp;&nbsp;- OR -&nbsp;&nbsp;</span>
 								</div>
 								<div>
-									<a onclick="sign(${goods.id},${sessionScope.user.id })" class="wishlist"><img src="${pageContext.request.contextPath}/resources/images/collect.png" style="margin-top:2px;" title="收藏"/></a>
+								    <a onclick="sign(${goods.id},${sessionScope.user.id })" class="button" onclick="addCart(${goods.id}) " href="#"><span>收藏</span></a>
+								<%-- 	<a onclick="sign(${goods.id},${sessionScope.user.id })" class="wishlist"><img src="${pageContext.request.contextPath}/resources/images/collect.png" style="margin-top:2px;" title="收藏"/></a> --%>
 								</div>
 							</div>
 							 <div id="goodsIntroduce">商品介绍：${goods.introducedText }<br/><br/><br/></div>
@@ -343,10 +353,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div >
 								
 									<c:forEach items="${ messagesVO}" var="messageVO">
-								  	 <div class="messageDiv">
+								  	 <div class="messageDiv" id="replyDIV${ messageVO.message.id}">
 								   	 	<div class="lineItem"><span>${messageVO.userAliasname } :</span>${ messageVO.message.content} <span class="dateTag"><f:formatDate value="${messageVO.message.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> </span></div>
 								    	<c:if test="${messageVO.replyStatus==0 && sessionScope.user.id==goods.userId }">
-								    		<div class="lineItem" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="replyMsg" >>>>&nbsp;&nbsp;回复它</a><div class="replyInput" style="display:none;" ><input  type="text" name="replyContent" />&nbsp;<a class="replyBtn">确认</a><input  type="hidden" name="messageId" value="${ messageVO.message.id}"/></div></div>
+								    		<div  class="lineItem lttwo" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a  class="replyMsg" >>>>&nbsp;&nbsp;回复它</a><div class="replyInput" style="display:none;" ><input  type="text" name="replyContent" />&nbsp;<a class="replyBtn">确认</a><input  type="hidden" name="messageId" value="${ messageVO.message.id}"/></div></div>
 								    	</c:if>
 								    	<c:if test="${messageVO.replyStatus==1 }">
 								    		<div class="lineItem">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;商家回复： ${messageVO.replyMessage.content} <span class="dateTag"><f:formatDate value="${messageVO.replyMessage.messageDate }" pattern="yyyy年MM月dd日 HH:mm"/> </span></div>

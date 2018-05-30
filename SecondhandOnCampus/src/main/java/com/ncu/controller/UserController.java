@@ -85,7 +85,7 @@ public class UserController {
     		  resMap.put("failInfo", "手机号已被注册 ");
     		}else if(res==5){
     		  resMap.put("res", "fail");
-    		  resMap.put("failInfo", "学号不存在");
+    		  resMap.put("failInfo", "学校不存在此学号");
     		}
     	}else{
     		resMap.put("res", "fail");

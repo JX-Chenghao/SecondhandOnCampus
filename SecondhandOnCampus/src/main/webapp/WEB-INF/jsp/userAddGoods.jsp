@@ -65,7 +65,18 @@
 	   	 	    $(this).parent().css("border-left","red solid 4px");
 	   	 	  }
 		 });
-
+        $(".catalog").mousemove(function(){
+  				$(this).css("background","#bbb2ac");
+  			 });
+             $(".catalog").mouseout(function(){
+  				$(this).css("background","#e1dfdf");
+  			 });
+  			 $(".selectOk").mousemove(function(){
+  				$(this).css("background","#bbb2ac");
+  			 });
+             $(".selectOk").mouseout(function(){
+  				$(this).css("background","#e8e8e8");
+  			 });
 	});
 	//提交表单
    	function sendForm(){
@@ -200,7 +211,7 @@
 						</dl> </a>
 					<a href="#"
 						style="text-decoration: none; color: #333;font-size:16px;">
-						<dl id="dt_6" >上架商品
+						<dl id="dt_6" class="selectOk">上架商品
 						</dl> </a>
 					<a
 						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=0"
@@ -221,7 +232,7 @@
 		</div>
 		<div class="addGoods">
 			<form name="addForm" action="${pageContext.request.contextPath}/goods/saveGoods.action" method="post" enctype="multipart/form-data">
-				<ul class="left-form">
+				<ul class="left-form" style="margin-top:35px;margin-left:20px">
 
 					<li><input type="text" name="name" placeholder="商品名" required />
 						<div class="clear"></div></li>
@@ -240,7 +251,7 @@
 
 						<div class="clear"></div></li>
 					<input type="button" onclick="sendForm()" value="确认上架"
-						style="margin-left:10px;width:350px;height:55px">
+						style="margin-left:10px;width:350px;height:55px;background:#e8e8e8">
 					<div class="right-form">
 
 						<a href="javascript:void(0);" class="btn_addPic"><span><em>+</em>添加图片</span><input
@@ -274,8 +285,8 @@
 
 
 				</ul>
-						 <div id="uboxstyle"  style="float:left; margin-right:30px;">
-							<select name="firstCategory" class="goodsTypeSelect1">
+						 <div id="uboxstyle"  style="float:left; ">
+							<select name="firstCategory" class="goodsTypeSelect1" style="margin-left:20px;">
 								<!--需要去数据库中读出来  -->
 								<option  value="0" selected="selected">商品类型</option>						 
 						 		<c:forEach items="${categories}" var="category">
@@ -284,7 +295,7 @@
 						   </select>
 						   
 						  <c:forEach items="${categories}" var="category">
-						   		 <select name="secondCategory" id="second${category.firstCategory.id}" class="goodsTypeSelect2" >
+						   		 <select name="secondCategory" id="second${category.firstCategory.id}" class="goodsTypeSelect2" style="margin-left:20px;" >
 						    		 <c:forEach items="${category.secondCategories}" var="secondCategory">
 						   					<option  value="${secondCategory.id}">${secondCategory.name }</option>
 						    		 </c:forEach>

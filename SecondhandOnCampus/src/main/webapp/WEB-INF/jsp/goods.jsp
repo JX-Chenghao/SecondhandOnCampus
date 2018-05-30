@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			             
 			      </div>
 			 </div>
-			<div class="categoryForGoods">
+			<div class="categoryForGoods" style="font-weight:normal ">
 				<ul >
 						
 						<c:forEach items="${categoryVOs }" var="categoryVO">
@@ -100,6 +100,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         			</div>
 		 	<div class="box-product" style="margin-left:50px">
+		 	  <c:if test="${fn:length(pageBeanForGoods.list)==0}">
+				    <div style="margin-left:450px;margin-top:100px">
+				     <img src="${pageContext.request.contextPath}/resources/images/bg-none.png"/>
+				              <b style="width:300px"> 非常抱歉，不存在该种物品！</b> 
+				    </div>
+				</c:if> 
 	           <c:forEach items="${pageBeanForGoods.list }" var="goods">
 				<div class="showhim">
 					<div class="image">
@@ -133,22 +139,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			</div>
 
-            <div class="pages">
+            <div class="pages" >
+                   <c:if test="${fn:length(pageBeanForGoods.list)>0}">
                     <div> 共显示 ${pageBeanForGoods.list.size()} 条数据  （第${pageBeanForGoods.currPage}/${pageBeanForGoods.totalPage}页）</div>
                     <div >
                     		<c:if test="${pageBeanForGoods.currPage==1 && pageBeanForGoods.currPage!=pageBeanForGoods.totalPage}">
-                      				 <a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
+                      				 <a style="color:black;" class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
                     		</c:if>
                     		<c:if test="${pageBeanForGoods.currPage!=1 && pageBeanForGoods.currPage!=pageBeanForGoods.totalPage}">
-                                 	<a  class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
-                      				 <a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
+                                 	<a  style="color:black;" class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
+                      				 <a style="color:black;" class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage+1}">  下一页</a>
                    		 	</c:if>
                    			 <c:if test="${pageBeanForGoods.currPage!=1 && pageBeanForGoods.currPage==pageBeanForGoods.totalPage }">
-                   			 		<a class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
+                   			 		<a  style="color:black;" class="selectPage" href="${pageContext.request.contextPath }/goods/showGoodsByPage.action?currentPage=${pageBeanForGoods.currPage-1}">上一页</a>
                    			 </c:if>
-                    
-                      
                      </div>
+                     </c:if> 
             </div>
 	</div>
 

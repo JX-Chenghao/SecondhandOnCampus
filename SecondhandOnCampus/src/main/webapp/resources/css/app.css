@@ -2,7 +2,8 @@ body {
 	
 	padding:0px;
 	margin:0px;
-            background: #edece8 url(../images/body_bg.gif); 
+     background: #edece8;  
+     font-family:"宋体"
 }
 
 .linktree {
@@ -73,7 +74,7 @@ body {
 	height: 100px;
 	background: url(../images/logo.png) no-repeat top center;
 	position: relative;
-	top: -25px;
+	top: 3px;
 	left: 20px;
 	float:left;
 }
@@ -174,7 +175,7 @@ body {
     box-shadow: 1px 1px 1px #FFFFFF inset;
     color: #444444;
     font-family: Arial,Helvetica,sans-serif;
-    font-size: 18px;
+/*     font-size: 18px; */
     font-weight: bold;
     line-height: 25px;
     padding: 12px 12px 5px;
@@ -538,28 +539,30 @@ body {
 /* order.html */
 
 
+
 .orderForUser .orderInfo {
-              width: 1100px;
-              margin-top: 20px;
+	     
+	      border: 1px solid #d0cecd;
+	      margin-top:20px
 }
 .orderForUser .orderInfo .first {
-			float: left; 
              width:  1000px;
              height: 50px;
              line-height: 50px;
+             margin-left:30px
 }
+.orderForUser .orderInfo .info{
+	         height: 150px;
+}
+
 .orderForUser .orderInfo .info >div{
 	 		height: 150px;
              float: left;             
              margin-bottom: 1px;
-             border-top: 1px solid black;
-              border-bottom: 1px solid black;
- 
  }
 .orderForUser .orderInfo .info .img{
              width: 300px;
              height: 150px;
-               border-left: 1px solid black;
 	 		/* background-color: green; */
 }
 .orderForUser .orderInfo .info .img img{
@@ -600,18 +603,19 @@ body {
              height: 150px;
 	 line-height: 150px;
 	 text-align: center;
-	     border-right: 1px solid black;
 }
 
 /* user.html */
 .user-info{
 	width: 650px;
+	font-size:15px;
 	/* margin:0 auto; */
 	margin-left: 350px
 }
 .user-info >a{
-   	text-decoration:none;
-	 color:lightblue
+	margin-left:15px;
+    text-decoration:none;
+    color:black
 }
 .user-info >div{
      width: 250px;
@@ -630,10 +634,11 @@ body {
 }
 .decorationBlock{
 	width: 650px;
-	font-size: 120%;
+	font-size: 103%;
 	background-color:#e1dfdf;
 	margin:10px auto;
-    margin-left: 300px
+    margin-left: 300px;
+    margin-bottom:20px
 }
 .setPosition{
 	  position: relative;
@@ -675,6 +680,7 @@ body {
     width: 200px;
     background: #ffffff;
 }
+
 .left_option dl {
     background: #e8e8e8;
     height: 40px;
@@ -687,8 +693,9 @@ body {
 }
 
 /*userSign.html  */
-
-
+.sign-info{
+	font-weight: normal;
+}
 .sign-info .image img{
 	width:80px;
 }
@@ -705,12 +712,12 @@ body {
 	box-shadow: 1px 1px 1px #FFFFFF inset;	
 	padding:3px;
 	padding: 7px;
+	
 }
 .sign-info td a{
 	color:#444;
 	line-height:19px;
 	text-decoration:none;
-	font-weight:bold;
 	text-shadow: 0 1px #fff;
 	padding:3px;
 } 
@@ -756,7 +763,7 @@ body {
 
 /* detailOfGoods.jsp */
 .replyMsg{
-	color:lightgreen;
+	color:lightblue;
 	text-decoration: none;
 	float:left;
 	cursor:pointer;
@@ -1133,7 +1140,9 @@ a.button span {
 
 /*userCropOrder.html  */
 
-
+.cropOrder{
+	font-weight: normal;
+}
 .cropOrder .image img{
 	width:80px;
 }
@@ -1209,6 +1218,9 @@ a.button span {
 	border-collapse: collapse;
 
 }
+.ownGoods-info{
+	font-weight: normal;
+}
 .ownGoods-info .image img{width:80px}
 .ownGoods-info td {    	
 	background-color: #F4F4F4;
@@ -1221,7 +1233,6 @@ a.button span {
 	color:#444;
 	line-height:19px;
 	text-decoration:none;
-	font-weight:bold;
 	text-shadow: 0 1px #fff;
 	padding:3px;
 } 

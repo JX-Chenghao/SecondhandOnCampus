@@ -52,7 +52,10 @@ public class UserServiceImpl implements UserService {
 		return 1;
 	}
 	private boolean isSnoExistSchoolDB(String sno){
-		return true;
+		if(sno.length()==10){
+			return true;
+		}
+		return false;
 	}
 	
 	//信息是否已被注册

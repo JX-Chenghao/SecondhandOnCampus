@@ -2,7 +2,9 @@ package com.ncu.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,10 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ncu.common.StringUtil;
 import com.ncu.pojo.Cart;
+import com.ncu.pojo.Evaluate;
 import com.ncu.pojo.Goods;
 import com.ncu.pojo.Orderitem;
 import com.ncu.pojo.User;
@@ -96,6 +100,20 @@ public class OrderController {
 		request.getSession().setAttribute("cart", null);
 		return "redirect:/order/showOrder.action";
 	}
+    //添加评价
+    @RequestMapping("/confirmOrder")
+    @ResponseBody
+    public Map<String,String> confirmOrder(Integer orderId) throws Exception {
+    	Map<String, String> resMap=new HashMap<String, String>();
+    	boolean res = orderService.updateOrderStatus(orderId,1);
+    	if (res) {
+          resMap.put("res", "success");
+    	}else{
+    	  resMap.put("res", "failure");
+    	}
+        return resMap;
+    }
+	
 	private List<OrderVO>  getOrderVOs(HttpServletRequest request) {
 		List<OrderVO> orderVOs =(List<OrderVO>) request.getSession().getAttribute("orderVOs");
 		if (orderVOs != null) {

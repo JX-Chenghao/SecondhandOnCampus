@@ -20,11 +20,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/modernizr.custom.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.cslider.js"></script>
+	<script>
+        (function(doc, win) {
+            // 基于 window.screen.width 实现自适应布局
+            var screenWidth = 0,
+                size = 'XL',
+                root = doc.documentElement;
+            if (window.screen && screen.width) {
+                screenWidth = screen.width;
+                if (screenWidth >= 1200) size = 'XL'; // 大屏 - 1200px
+                else if (screenWidth < 1200) size = 'XS'; // 小屏 - 1000px
+            }
+            root.className += " " + size; // 标记CSS
+            win.SIZE = size; // 标记JS
+        })(document, window);
+
+        window.OT2 = {}; // 全局命名空间
+        OT2.AboveIE9 = true; // 默认非iE或IE9及以上
+        OT2.ns = function(name) {
+            var container = OT2;
+            var parts = name.split('.');
+            var current = '';
+            if (parts[0] == 'OT2') parts.shift();
+            while (current = parts.shift()) {
+                if (!container[current]) container[current] = {};
+                container = container[current];
+            }
+            return container;
+        };
+
+    </script>
+	
+	
 	<script type="text/javascript">
     	$(function() {
 			$('#da-slider').cslider();
 			
 		});
+		
+		
 		function addCart(goodsId){
                $.ajax({
                    url :'${pageContext.request.contextPath}/cart/add.action?id='+goodsId,
@@ -44,8 +78,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            }
 	</script>
 </head>
-<body>
-	<div class="menu">
+<body >
+	<div class="menu" >
 	    <div class="logo"></div>
 		<ul>
 		<li class="active"><a href="${pageContext.request.contextPath}/goods/showMainGoods.action" class="home">首页</a></li>

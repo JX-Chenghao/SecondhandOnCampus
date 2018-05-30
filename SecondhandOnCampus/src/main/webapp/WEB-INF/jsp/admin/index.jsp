@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Login Page - Robust Free Bootstrap Admin Template</title>
+    <title>Login Page - Admin</title>
     <link rel="apple-touch-icon" sizes="60x60" href="${pageContext.request.contextPath}/resources/app-assets/images/ico/apple-icon-60.png">
     <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/app-assets/images/ico/apple-icon-76.png">
     <link rel="apple-touch-icon" sizes="120x120" href="${pageContext.request.contextPath}/resources/app-assets/images/ico/apple-icon-120.png">
@@ -73,10 +73,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <input type="password" class="form-control form-control-lg input-lg" id="user-password" name="pwd" placeholder="Enter Password" required>
                             <div class="form-control-position">
                                 <i class="icon-key3"></i>
-                            </div>
-                        </fieldset>
+                            </div> 
+                         <span style="color:Red;margin-left:150px"> ${failureInfo }</span>
+                        </fieldset>  
 
                         <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="icon-unlock2"></i> 登录</button>
+                       
                     </form>
                 </div>
             </div>

@@ -291,7 +291,6 @@ public class OrderServiceImpl implements OrderService {
 			if(o.getSendDate()!=null){
 				try {
 					orderVo.setOverdueDays(daysBetween(o.getSendDate(),new Date()));
-					System.out.println(orderVo.getOverdueDays());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -315,7 +314,6 @@ public class OrderServiceImpl implements OrderService {
 		if(order.getSendDate()!=null){
 			try {
 				orderVO.setOverdueDays(daysBetween(order.getSendDate(),new Date()));
-				System.out.println(orderVO.getOverdueDays()+"天");
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

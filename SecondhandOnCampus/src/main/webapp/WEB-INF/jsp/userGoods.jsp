@@ -34,6 +34,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                
            		
            }
+           
+           $(function(){
+             $(".catalog").mousemove(function(){
+  				$(this).css("background","#bbb2ac");
+  			 });
+             $(".catalog").mouseout(function(){
+  				$(this).css("background","#e1dfdf");
+  			 });
+  			 $(".selectOk").mousemove(function(){
+  				$(this).css("background","#bbb2ac");
+  			 });
+             $(".selectOk").mouseout(function(){
+  				$(this).css("background","#e8e8e8");
+  			 });
+           });
 	             
 	</script>
 </head>
@@ -74,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="container" style="width:83%;margin-left:100px">
   
   
-       <div class="left_option">
+       <div class="left_option" >
             <ul>
                  <a style="text-decoration: none; color: #333;font-size:16px;">
                         <dl id="dt_1" class="catalog"> 首页</dl>
@@ -88,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   
                 <c:if test="${statusType==0 }">
                    <a  href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=0"  style="text-decoration: none; color: #333;font-size:16px;">
-                      <dl id="dt_4" > 正审核商品</dl>
+                      <dl id="dt_4" class="selectOk" > 正审核商品</dl>
                       </a>
                    <a  href="${pageContext.request.contextPath}/goods/showOwnerGoods.action?userId=${sessionScope.user.id}&auditState=1"  style="text-decoration: none; color: #333;font-size:16px;">
                         <dl id="dt_5" class="catalog"> 已通过商品</dl>
@@ -149,60 +164,85 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <thead>
           <tr>
             
-            <td class="image">图片</td>
-            <td class="name">商品名</td>
-            <td class="model">介绍</td>
-            <td class="quantity">数量</td>
-            <td class="price">单价</td>
+            <td style="text-align:center;vertical-align:middle" class="image">图片</td>
+            <td style="text-align:center;vertical-align:middle" class="name">商品名</td>
+            <td style="text-align:center;vertical-align:middle" class="model">介绍</td>
+            <td style="text-align:center;vertical-align:middle" class="quantity">数量</td>
+            <td style="text-align:center;vertical-align:middle" class="price">单价</td>
             <c:if test="${statusType!=2 }">
-                <td class="status">审核状态</td>
+                <td style="text-align:center;vertical-align:middle" class="status">审核状态</td>
             </c:if>
             <c:if test="${statusType==1 }">
-                <td>留言</td>
+                <td style="text-align:center;vertical-align:middle" >留言</td>
             </c:if>
             <c:if test="${statusType==2 }">
-                <td class="status">未通过原因</td>
+                <td  style="text-align:center;vertical-align:middle" class="status">未通过原因</td>
             </c:if>
-            <td class="remove">下架商品</td>
+            <c:if test="${statusType==0 }">
+                <td style="text-align:center;vertical-align:middle" class="remove">移除商品</td>
+            </c:if>
+            <c:if test="${statusType==2 }">
+                <td style="text-align:center;vertical-align:middle" class="remove">移除商品</td>
+            </c:if>
+            <c:if test="${statusType==1 }">
+                <td style="text-align:center;vertical-align:middle" class="remove">下架商品</td>
+            </c:if>
+            
           </tr>
         </thead>
-        <tbody>
+        <tbody >
         <c:forEach items="${ownGoodsList}" var="ownGoods">
           <tr id="tr${ownGoods.goods.id}">
            <c:if test="${ownGoods.goods.picturePath==''}">
-				<td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
+				<td class="image" style="text-align:center"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}"><img src="${pageContext.request.contextPath}/resources/images/thumber.jpg"  /></a></td>
 			</c:if>
 			<c:if test="${ownGoods.goods.picturePath!=''}">
-                <td class="image"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}"><img src="/picForBS/goods/${ownGoods.goods.picturePath}/thumbnail/thumb_${ownGoods.goods.coverPic}"  /></a></td>
+                <td class="image" style="text-align:center"><a href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}"><img src="/picForBS/goods/${ownGoods.goods.picturePath}/thumbnail/thumb_${ownGoods.goods.coverPic}"  /></a></td>
            </c:if>
             
-            <td class="name"><a href="#">${ownGoods.goods.name}</a>
+            <td class="name" style="width:100px;text-align:center;vertical-align:middle"><a href="#">${ownGoods.goods.name}</a>
               <div>
               </div>
             </td>
-            <td class="introduce">${ownGoods.goods.introducedText}</td>
-            <td class="quantity">${ownGoods.goods.quantity}</td>
-            <td class="price">￥${ownGoods.goods.price}</td>
+            <td class="introduce" style="width:200px;text-align:center;vertical-align:middle">${ownGoods.goods.introducedText}</td>
+            <td class="quantity" style="width:100px;text-align:center;vertical-align:middle">${ownGoods.goods.quantity}</td>
+            <td class="price" style="text-align:center;vertical-align:middle">￥${ownGoods.goods.price}</td>
             <c:if test="${statusType==0 }">
-                <td >正在审核中</td>
+                <td style="text-align:center;vertical-align:middle">正在审核中</td>
             </c:if>
             <c:if test="${statusType==1 }">
-                <td >成功上架</td>
+                <td style="text-align:center;vertical-align:middle">成功上架</td>
             </c:if>
             <c:if test="${statusType==2 }">
-                <td class="failureText">${ownGoods.goods.failureText}</td>
+                <td class="failureText" style="text-align:center;vertical-align:middle">${ownGoods.goods.failureText}</td>
             </c:if>
             <c:if test="${statusType==1 }">
-            <td >
+            <td style="text-align:center;vertical-align:middle">
                 <c:if test="${ownGoods.newMsg==false }">暂无新消息</c:if>
             	<c:if test="${ownGoods.newMsg==true }"><${ownGoods.msgNum}>新消息<br/><a  style="font-size:12px;color:gray;" href="${pageContext.request.contextPath}/goods/detailOfGoods.action?id=${ownGoods.goods.id}">>>>去回复</a></c:if>
 			</td>
 			</c:if>
-            <td class="remove"><a onclick="removeGoods(${ownGoods.goods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
+            <td class="remove" style="text-align:center;vertical-align:middle"><a onclick="removeGoods(${ownGoods.goods.id})"><img src="${pageContext.request.contextPath}/resources/images/remove_collection.png"> </a></td>
           </tr> 
          </c:forEach>  
         </tbody>
       </table>
+            	<c:if test="${fn:length(ownGoodsList)==0}">
+				    <div style="margin-left:450px;margin-top:40px">
+				     <img src="${pageContext.request.contextPath}/resources/images/bg-none.png"/>
+				              <b style="width:300px">不好意思，没有任何商品
+				                <c:if test="${statusType==0 }">
+                                                                                                  正在审核中
+            					</c:if>
+            					<c:if test="${statusType==1 }">
+                				  成功上架
+                				 </c:if>
+                				 <c:if test="${statusType==2 }">
+            					   上架失败	
+            					</c:if>！
+            					</b> 
+				    </div>
+				</c:if> 
     </div>
 </body>
 </html>

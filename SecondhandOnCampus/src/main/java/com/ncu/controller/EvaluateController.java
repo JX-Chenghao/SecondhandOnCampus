@@ -18,6 +18,7 @@ import com.ncu.pojo.Message;
 import com.ncu.pojo.User;
 import com.ncu.service.EvaluateService;
 import com.ncu.service.MessageService;
+import com.ncu.service.OrderService;
 
 @Controller 
 @RequestMapping("/user/evaluate")  
@@ -34,7 +35,6 @@ public class EvaluateController {
     	evaluate.setUserId(getUserID(request));
     	evaluate.setEvaluateDate(new Date());
         evaluateService.saveEvaluate(evaluate);  
-        System.out.println("sss2");
         resMap.put("res", "success");
         return resMap;
     }

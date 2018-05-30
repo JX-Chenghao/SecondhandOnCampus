@@ -64,7 +64,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          $('.three input').removeAttr("disabled");
                           $('#threeSave').show();
                     });
-                    
+                     $(".catalog").mousemove(function(){
+  						$(this).css("background","#bbb2ac");
+  						 });
+            		 $(".catalog").mouseout(function(){
+  						$(this).css("background","#e1dfdf");
+  						 });
+  			 		$(".selectOk").mousemove(function(){
+  						$(this).css("background","#bbb2ac");
+  						 });
+             		$(".selectOk").mouseout(function(){
+  						$(this).css("background","#e8e8e8");
+  			 			});
 		});
 		
 	       /* 函数：修改用户信息 */
@@ -206,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
 		 </div>  
 	</div>  
-  <div class="container" style="width:83%;margin-left:100px">
+  <div class="container" style="width:83%;margin-left:100px;height:500px">
   
   
        <div class="left_option">
@@ -215,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <dl id="dt_1" class="catalog"> 首页</dl>
                  </a>
                  <a href="#" style="text-decoration: none; color: #333;font-size:16px;">
-                       <dl id="dt_2" >我的信息</dl>
+                       <dl id="dt_2" class="selectOk">我的信息</dl>
                   </a>
                  <a href="${pageContext.request.contextPath}/goods/showCollection.action?userId=${sessionScope.user.id}"  style="text-decoration: none; color: #333;font-size:16px;">
                        <dl id="dt_3" class="catalog">  我的收藏</dl>
@@ -254,11 +265,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
           		 <div class="decorationBlock">个人信息：</div>
            			<div class="user-info">
-                      <div>用户名:</div><input type="text" Name="Userame" placeholder="用户名/学号" required="" disabled="disabled" value="${sessionScope.user.aliasName }"><br/>
-                      <div>学号:</div><input type="text" Name="sno" placeholder="学号" required="" disabled="disabled" value="${sessionScope.user.sno }"><br/>
-                      <div>手机号:</div><input type="text" Name="phoneNumber" placeholder="手机号" required="" disabled="disabled" value="${sessionScope.user.phoneNumber }"><br/>
-                      <div>真实姓名:</div><input class="one" type="text" Name="realName" placeholder="真实姓名" required="" disabled="disabled" value="${sessionScope.user.realName }"><br/>
-                      <div>性别:</div>
+                      <div>用户名:&nbsp;&nbsp;&nbsp;</div><input type="text" Name="Userame" placeholder="用户名/学号" required="" disabled="disabled" value="${sessionScope.user.aliasName }"><br/>
+                      <div>学号:&nbsp;&nbsp;&nbsp;</div><input type="text" Name="sno" placeholder="学号" required="" disabled="disabled" value="${sessionScope.user.sno }"><br/>
+                      <div>手机号:&nbsp;&nbsp;&nbsp;</div><input type="text" Name="phoneNumber" placeholder="手机号" required="" disabled="disabled" value="${sessionScope.user.phoneNumber }"><br/>
+                      <div>真实姓名:&nbsp;&nbsp;&nbsp;</div><input class="one" type="text" Name="realName" placeholder="真实姓名" required="" disabled="disabled" value="${sessionScope.user.realName }"><br/>
+                      <div>性别:&nbsp;&nbsp;&nbsp;</div>
                       <c:if test="${sessionScope.user.sex=='男'}">           
                       		 <label style="font-size:small"> <input class="one" type="radio" style="width:25px;height:20px;" name="sex" id="optionsRadios1" disabled="disabled" value="男" checked> 男 </label>
                      		 <label style="font-size:small"> <input class="one" type="radio" style="width:25px;height:20px;" name="sex" id="optionsRadios2" disabled="disabled" value="女">女 </label><br/>
@@ -271,23 +282,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       		 <label style="font-size:small"> <input class="one" type="radio" style="width:25px;height:20px;" name="sex" id="optionsRadios1" disabled="disabled" value="男" > 男 </label>
                      		 <label style="font-size:small"> <input class="one" type="radio" style="width:25px;height:20px;" name="sex" id="optionsRadios2" disabled="disabled" value="女" >女 </label><br/>
                       </c:if>
-                      <div>邮箱地址:</div><input class="one" type="text" Name="email" placeholder="邮箱地址" required="" disabled="disabled" value="${sessionScope.user.email }">
+                      <div>邮箱地址:&nbsp;&nbsp;&nbsp;</div><input class="one" type="text" Name="email" placeholder="邮箱地址" required="" disabled="disabled" value="${sessionScope.user.email }">
                       <a id="oneSet" href="#" >修改</a> <a id="oneSave" href="javascript:void(0);" onclick="updateUserInfo()">保存</a>
                      
          		 </div>
      
-                 <div class="decorationBlock">交易信息：</div>
+                 <div class="decorationBlock">交易信息：&nbsp;&nbsp;</div>
                  <div class="user-info two">
-                            <div>支付宝账户:</div><input type="text" Name="alipayNumber" placeholder="支付宝账户" required="" disabled="disabled" value="${sessionScope.user.alipayNumber }" ><br/>
-                            <div>收货地址:</div><input type="text" Name="shippingAddress" placeholder="收货地址" required="" disabled="disabled" value="${sessionScope.user.shippingAddress }">
+                            <div>支付宝账户:&nbsp;&nbsp;&nbsp;</div><input type="text" Name="alipayNumber" placeholder="支付宝账户" required="" disabled="disabled" value="${sessionScope.user.alipayNumber }" ><br/>
+                            <div>收货地址:&nbsp;&nbsp;&nbsp;</div><input type="text" Name="shippingAddress" placeholder="收货地址" required="" disabled="disabled" value="${sessionScope.user.shippingAddress }">
                               <a href="#" id="twoSet">修改</a> <a id="twoSave" href="javascript:void(0);" onclick="updateTradeInfo()" >保存</a>
                  </div>
 
                   <div class="decorationBlock">修改密码：</div>
                   <div class="user-info three">
-                        <div>旧密码:</div><input type="password" Name="pwd_old" placeholder="旧密码" required="" disabled="disabled"><br/>
-                        <div>新密码:</div><input type="password" Name="pwd_new" placeholder="新密码" required="" disabled="disabled"><br/>
-                         <div>再次确认密码:</div><input type="password" Name="pwd_confirm" placeholder="再次确认密码" required="" disabled="disabled">
+                        <div>旧密码:&nbsp;&nbsp;&nbsp;</div><input type="password" Name="pwd_old" placeholder="旧密码" required="" disabled="disabled"><br/>
+                        <div>新密码:&nbsp;&nbsp;&nbsp;</div><input type="password" Name="pwd_new" placeholder="新密码" required="" disabled="disabled"><br/>
+                         <div>再次确认密码:&nbsp;&nbsp;&nbsp;</div><input type="password" Name="pwd_confirm" placeholder="再次确认密码" required="" disabled="disabled">
                          <a href="#" id="threeSet">修改</a><a id="threeSave" href="javascript:void(0);" onclick="updatePWDInfo()" >保存</a>
                  </div>
            		 

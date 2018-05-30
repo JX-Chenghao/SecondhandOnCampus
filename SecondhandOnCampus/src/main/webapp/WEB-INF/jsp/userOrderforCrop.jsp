@@ -24,7 +24,20 @@
 	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 <script type="text/javascript">
-	
+	         $(function(){
+             $(".catalog").mousemove(function(){
+  				$(this).css("background","#bbb2ac");
+  			 });
+             $(".catalog").mouseout(function(){
+  				$(this).css("background","#e1dfdf");
+  			 });
+  			 $(".selectOk").mousemove(function(){
+  				$(this).css("background","#bbb2ac");
+  			 });
+             $(".selectOk").mouseout(function(){
+  				$(this).css("background","#e8e8e8");
+  			 });
+           });
 </script>
 </head>
 <body>
@@ -110,7 +123,7 @@
 					<a
 						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=0"
 						style="text-decoration: none; color: #333;font-size:16px;">
-						<dl id="dt_6"  >商店未发货订单
+						<dl id="dt_6" class="selectOk" >商店未发货订单
 						</dl> </a>
 					<a
 						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=1"
@@ -132,7 +145,7 @@
 					<a
 						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=1"
 						style="text-decoration: none; color: #333;font-size:16px;">
-						<dl id="dt_6" >商店已发货订单
+						<dl id="dt_6" class="selectOk">商店已发货订单
 						</dl> </a>
 					<a
 						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=2"
@@ -154,7 +167,7 @@
 					<a
 						href="${pageContext.request.contextPath}/order/showOrderForCrop.action?orderStatus=2"
 						style="text-decoration: none; color: #333;font-size:16px;">
-						<dl id="dt_6" >商店已完成订单
+						<dl id="dt_6" class="selectOk">商店已完成订单
 						</dl> </a>
 				</c:if>
 			</dt>
@@ -216,7 +229,22 @@
 
 				</tbody>
 			</table>
-
+            	 <c:if test="${fn:length(orderVOs)==0}">
+				    <div style="margin-left:450px;margin-top:40px">
+				     <img src="${pageContext.request.contextPath}/resources/images/bg-none.png"/>
+				              <b style="width:300px">不好意思，不存在
+				                <c:if test="${orderStatus==0 }">
+                                                                                                  未发货
+            					</c:if>
+            					<c:if test="${orderStatus==1 }">
+                				   已发货
+                				 </c:if>
+                				 <c:if test="${orderStatus==2 }">
+            					  交易完成	
+            					</c:if>订单！
+            					</b> 
+				    </div>
+				</c:if> 
 		</div>
 	</div>
 </body>

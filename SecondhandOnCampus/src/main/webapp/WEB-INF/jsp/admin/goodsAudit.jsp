@@ -114,7 +114,7 @@
 							<div class="dropdown-menu dropdown-menu-right">
 								
 								<!-- <div class="dropdown-divider"></div> -->
-								<a href="#" class="dropdown-item"><i class="icon-power3"></i>
+								<a href="${pageContext.request.contextPath}/admin/loginout.action" class="dropdown-item"><i class="icon-power3"></i>
 									Logout</a>
 							</div>
 						</li>
@@ -132,8 +132,8 @@
 		class="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
 		<!-- main menu header-->
 		<div class="main-menu-header">
-			<input type="text" placeholder="Search"
-				class="menu-search form-control round" />
+			<!-- <input type="text" placeholder="Search"
+				class="menu-search form-control round" /> -->
 		</div>
 		<!-- / main menu header-->
 		<!-- main menu content-->
@@ -142,12 +142,12 @@
 				class="navigation navigation-main">
 				<li class=" nav-item"><a href="#"><i
 						class="icon-briefcase4"></i><span data-i18n="nav.project.main"
-						class="menu-title">Pages</span> </a>
+						class="menu-title">用户管理</span> </a>
 					<ul class="menu-content">
 
-						<li><a href="unlock-user.html"
+						<li><a href="${pageContext.request.contextPath}/admin/main.action"
 							data-i18n="nav.login_register_pages.unlock_user"
-							class="menu-item">Unlock User</a>
+							class="menu-item">查询</a>
 						</li>
 					</ul>
 				</li>
@@ -244,9 +244,9 @@
                                   	 ${goodsVo.goods.introducedText }
                                 	</c:if>
 													</td>
-													<td class="valign-middle"><span
-														class="avatar avatar-xs"><img class="auditImgBtn"
-															src="${pageContext.request.contextPath}/resources/app-assets/images/icons/thumbs-up.jpg"
+													<td class="valign-middle" ><span
+														class="avatar avatar-xs" ><img class="auditImgBtn"
+															src="${pageContext.request.contextPath}/resources/app-assets/images/icons/confirm.png"  
 															data-toggle="modal" data-target="#iconModal" /><input
 															type="hidden" value="${goodsVo.goods.id }" /><input
 															type="hidden" value="${goodsVo.goods.picturePath }" /><input

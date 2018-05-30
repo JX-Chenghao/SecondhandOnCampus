@@ -64,8 +64,13 @@
 
 	});
 	function addOrderBtn() {
-		$("form[name='addForm']").submit();
-
+	    if($("#saddr").html() == ""){
+	        alert("请输入收货地址！");
+	        return ;
+	    }else{
+	       $("form[name='addForm']").submit();
+	    }
+		
 	}
 	function countAllFee() {
 		var allFee = 0;
@@ -207,7 +212,7 @@
 					value="1" />在线付款 </label><br />
 	
     请确认你的收货地址：<br/>
-    <textarea  name="shippingAddr" style="width:450px;margin-left:50px;">${sessionScope.user.shippingAddress}</textarea>
+    <textarea id="saddr" name="shippingAddr" style="width:450px;margin-left:50px;">${sessionScope.user.shippingAddress}</textarea>
     </form>
 	<div id="payWayInfo0" class="alert alert-info" contenteditable="true">
 		
