@@ -6,9 +6,7 @@
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>SecondhandOnCampus</display-name>
 	<welcome-file-list>
-
 		<welcome-file>index.jsp</welcome-file>
-        
 	</welcome-file-list>
 	
    <!-- spring 应用上下文-->
