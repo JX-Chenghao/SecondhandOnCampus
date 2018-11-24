@@ -166,7 +166,7 @@ public class UserController {
         HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
        // 图片路径
-     		String store_path = "D:\\upfilesForBS\\user\\headImg\\";
+     		String store_path = "/Data/upfilesForBS/user/headImg/";
         String img_name = userService.saveHeadImg(headImgFile,store_path,request.getParameter("id"));
         user.setHeadImg(img_name);
         
