@@ -37,8 +37,8 @@ public class SmsSendMessage {
     static final String domain = "dysmsapi.aliyuncs.com";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId = "LTAI3KMKSIdR1jUi";
-    static final String accessKeySecret = "03SGwyjYuhekISDpuk6GGG9rzCXapr";
+    static final String accessKeyId = "abc123";
+    static final String accessKeySecret = "1234567891234567";
 
     public static SendSmsResponse sendSms(String user_phone,String orderNumber,String addr, Integer getWay) throws ClientException {
         //可自助调整超时时间
